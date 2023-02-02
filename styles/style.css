@@ -2,4 +2,88 @@
     margin: 0;
     padding: 0%;
     box-sizing: border-box;
+    /* font-family: 'Cookie', cursive; */
+    font-family: 'Poppins', sans-serif;
+        /* font-family: 'Raleway', sans-serif;
+        font-family: 'Roboto', sans-serif; */
 }
+/* Color Theme Swatches in Hex */
+.The-Black-and-Red-1-hex {
+    background-color: #2A8C82;
+}
+
+.The-Black-and-Red-2-hex {
+    background-color: #41BFB3;
+}
+
+.The-Black-and-Red-3-hex {
+    background-color: #9BF2EA;
+}
+
+.The-Black-and-Red-4-hex {
+    background-color: #275950;
+}
+
+.The-Black-and-Red-5-hex {
+    background-color: #260101;
+}
+/* header   */
+   /*  navbar  */ 
+      nav{
+        background: linear-gradient(45deg, #275950 ,#260101 ) ;
+        min-width: 100vw;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      nav ul{
+        /* background-color: #9BF2EA; */
+        width: 65%;
+        padding: 0px 1rem ;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+      }
+      nav div{
+        width: 10%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      nav ul li{
+        list-style: none;
+        padding: 5px 1vw;
+        margin: 0px 2px;
+      }
+      nav ul li a{
+        text-decoration: none;
+        color: #e954dc;
+      } 
+      nav div a{
+        padding: 5px 10px;
+        margin: 0px 1px;
+        border-radius: 2px;
+        color: #260101;
+        text-decoration: none;
+        background: linear-gradient(45deg , #41BFB3 , #e954dc);
+      }
+      .logoContainer{
+        color: #9BF2EA;
+        font-size: 25px;
+      }
+      .toggleIconContainer{
+        display: none;
+      }
+
+      
+/*  media query---- */
+      @media only screen and (max-width : 750px) {
+         .toggleIconContainer{
+          display: none;
+          color: #41BFB3;
+         }
+      } 
+/*  media query ends---- */

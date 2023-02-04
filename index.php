@@ -10,6 +10,10 @@ include "./config/conn.php";
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
 
+  <!-- fontawesome icons -->
+  <script src="https://kit.fontawesome.com/8dc03a4776.js" crossorigin="anonymous"></script>
+  <!-- fontawesome icons -->
+
   <!--  google fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,6 +26,7 @@ include "./config/conn.php";
 <body>
   <!--  header  -->
   <?php include "./Components/Header.php"; ?>
+  <?php include "./Components/Welcome.php" ?>
   <!--  header ends -->
 </body>
 

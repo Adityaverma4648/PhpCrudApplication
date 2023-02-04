@@ -7,13 +7,27 @@
         </div>
         <ul>
             <li>
-                <a href="./../index.php">
+                <a href="../../PhpCrudApplication/index.php">
+                    <i class="fa fa-home"></i>
                     Home
                 </a>
             </li>
             <li>
                 <a href="#">
                     About
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    AvailableBloodGroups
+                    <i class="fa fa-caret-down"></i>
+
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-phone"></i>
+                    call
                 </a>
             </li>
         </ul>

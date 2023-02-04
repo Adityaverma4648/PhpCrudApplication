@@ -78,6 +78,38 @@
         display: none;
       }
 
+
+/*  welcome.php */
+    .welcomeCont {
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .welcomeCont h3,span{
+        padding: 1vh 0px;
+    }
+    .welcomeCont div{
+      width: 50vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .bodyCont{
+      justify-content: right;
+    }
+    .illustrationCont{
+            justify-content: right;
+  }
+    .button-group{
+      width: 100%;
+      display: flex;
+      margin: 0px 5px;
+    }
+
+
+/*  block ends */
       
 /*  media query---- */
       @media only screen and (max-width : 750px) {

@@ -14,13 +14,61 @@
     <!--  fonts imports ends here -->
 
     <link rel="stylesheet" href="./styles/style.css">
+
+    <style>
+        #formContLogin {
+            height: 90vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #formContLogin form {
+            padding: 10px 5px;
+            height: 60vh;
+            width: 35vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #012340;
+        }
+
+        #formContLogin input {
+            width: 98%;
+            margin: 3px 0px;
+            padding: 0.5rem 8px;
+            border-radius: 2px;
+        }
+
+        .text-white {
+            color: #fff;
+        }
+
+        .bg-success {
+            background-color: green;
+        }
+    </style>
 </head>
 
 <body>
     <?php include "./Components/Header.php" ?>
-    <div>
-        Login
+    <div id="formContLogin">
+        <form method="POST" id="loginForm">
+            <center>
+                <h4 class="text-white">
+                    LOGIN
+                </h4>
+            </center>
+            <input type="text" name="userName" id="userName" placeholder="Enter userName" required>
+            <input type="text" name="email" id="email" placeholder="Enter your email" required>
+            <input type="password" name="password" id="password" placeholder="Enter password" required>
+            <input type="checkbox" id="showPasswordCheckbox">
+            <input type="submit" name="submit" value="Login" id="submit" class="bg-success border-0 text-white">
+        </form>
     </div>
+    <script src="./scripts/index.js"></script>
 </body>
 
 </html>

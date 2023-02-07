@@ -95,6 +95,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      /* background-color: #2A8C82; */
     }
     .bodyCont{
       justify-content: right;
@@ -103,11 +104,21 @@
             justify-content: right;
   }
     .button-group{
-      width: 100%;
+      /* background-color: red; */
+      min-width: 100%;
       display: flex;
       margin: 0px 5px;
     }
+/*  Login Page */
 
+.pageContainer{
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 /*  block ends */
       

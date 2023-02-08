@@ -9,7 +9,13 @@ include "./config/conn.php";
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
+  <!--  bootstrap 5 -->
+  <!-- Latest compiled and minified CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+  <!-- Latest compiled JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- ---------------------------------------------------------- -->
   <!-- fontawesome icons -->
   <script src="https://kit.fontawesome.com/8dc03a4776.js" crossorigin="anonymous"></script>
   <!-- fontawesome icons -->

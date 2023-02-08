@@ -89,7 +89,7 @@
     .welcomeCont h3,span{
         padding: 1vh 0px;
     }
-    .welcomeCont div{
+    .bodyCont,.illustrationCont{
       width: 50vw;
       display: flex;
       flex-direction: column;
@@ -104,10 +104,12 @@
             justify-content: right;
   }
     .button-group{
-      /* background-color: red; */
       min-width: 100%;
       display: flex;
       margin: 0px 5px;
+    }
+    .button-group button{
+      padding: 10px 5px;
     }
 /*  Login Page */
 

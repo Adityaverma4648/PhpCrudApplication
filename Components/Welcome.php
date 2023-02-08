@@ -6,12 +6,12 @@
         <span>
             Please help the people in need with blood donations!
         </span>
-        <div class="button-group">
-            <button type="button">
+        <div class="container d-flex justify-content-center align-items-center">
+            <button type="button" class="btn btn-outline-primary px-2">
                 <i class="fa fa-plus-square"></i>
                 Request Blood
             </button>
-            <button type="button">
+            <button type="button" class="btn btn-outline-primary px-2">
                 <i class="fa fa-phone"></i>
                 Make a call
             </button>

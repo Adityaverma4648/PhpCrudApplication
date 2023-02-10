@@ -12,7 +12,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cookie&family=Poppins:wght@500;600&family=Raleway&family=Roboto&display=swap" rel="stylesheet">
     <!--  fonts imports ends here -->
-
+    <!-- fontawesome icons -->
+    <script src="https://kit.fontawesome.com/8dc03a4776.js" crossorigin="anonymous"></script>
+    <!-- fontawesome icons -->
     <link rel="stylesheet" href="./styles/style.css">
 
     <style>

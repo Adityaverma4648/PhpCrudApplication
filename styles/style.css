@@ -38,9 +38,7 @@
         align-items: center;
       }
       nav ul{
-        /* background-color: #9BF2EA; */
         width: 65%;
-        padding: 0px 1rem ;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -59,9 +57,11 @@
         margin: 0px 2px;
       }
       nav ul li a{
-        text-decoration: none;
         color: #e954dc;
       } 
+      nav ul li a:hover{
+        color: #9BF2EA;
+      }
       nav div a{
         padding: 5px 10px;
         margin: 0px 1px;
@@ -87,7 +87,7 @@
       align-items: center;
     }
     .welcomeCont h3,span{
-        padding: 1vh 0px;
+        padding: 0.8rem 0px;
     }
     .bodyCont,.illustrationCont{
       width: 50vw;

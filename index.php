@@ -34,6 +34,13 @@ include "./config/conn.php";
   <?php include "./Components/Header.php"; ?>
   <?php include "./Components/Welcome.php" ?>
   <!--  header ends -->
+  <!--   body starts -->
+
+  <?php
+  include "./Components/BloodCount.php";
+  ?>
+
+  <!-- body block ends -->
 </body>
 
 </html>

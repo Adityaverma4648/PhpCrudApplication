@@ -1,3 +1,28 @@
+<?php
+include "./config/conn.php";
+include "./config/session.php";
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $userName = mysqli_real_escape_string($conn, $_POST["userName"]);
+    $email = mysqli_real_escape_string($conn, $_POST["email"]);
+    $password = mysqli_real_escape_string($conn, $_POST["password"]);
+
+
+    $query = "SELECT * FROM `user` WHERE usernameReg = '$userName' AND passwordReg = '" . md5($password) . "'";
+    $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+
+    $rows = mysqli_num_rows($result);
+    if ($rows == 1) {
+        $_SESSION['loggedInStatus'] = true;
+        $_SESSION['userName'] = $userName;
+        $loginDate = date("Y-m-d H:i:s");
+        $query = "INSERT into `login` (userName,email,loginDate) VALUES ($userName,$email,$loginDate)";
+        header("Location:index.php");
+    } else {
+        echo "errors";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -63,8 +88,8 @@
                     LOGIN
                 </h4>
             </center>
-            <input type="text" name="userName" id="userName" placeholder="Enter userName" required>
-            <input type="text" name="email" id="email" placeholder="Enter your email" required>
+            <input type="text" name="userName" id="userName" placeholder="Enter userName | organization name" required>
+            <input type="text" name="email" id="email" placeholder="Enter your email | organizational email" required>
             <input type="password" name="password" id="password" placeholder="Enter password" required>
             <input type="checkbox" id="showPasswordCheckbox">
             <input type="submit" name="submit" value="Login" id="submit" class="bg-success border-0 text-white">

@@ -26,15 +26,30 @@
             </li>
             <li>
                 <a href="#" class="text-decoration-none">
+                    <i class="fa fa-blood-drop"></i>
+                    DonateBlood
+                </a>
+            </li>
+            <li>
+                <a href="#" class="text-decoration-none">
                     <i class="fa fa-phone"></i>
                     call
                 </a>
             </li>
         </ul>
-        <div>
+        <?php
+        if (!$userName) {
+            echo '<div>
             <a href="./Login.php">Login</a>
             <a href="./Register.php">Register</a>
-        </div>
+            </div>';
+        } else {
+            echo '<a href="./config/logout.php" class="text-decoration-none text-white px-1">
+            <i class="fa fa-sign-out"></i>LogOut
+            </a>';
+        }
+
+        ?>
         <div class="toggleIconContainer">
             B
         </div>

@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($userNameReg == isset($row['userNameReg']))
             echo "<small class='text-danger text-center'>Username Already exits*<small>";
     } else {
-        $query = "INSERT into `userregisteration`(userNameReg,ageReg,emailReg,passwordReg,reg_date) VALUES('$userNameReg','$ageReg','$emailReg','" . md5($passwordReg) . "','$reg_date')";
+        $query = "INSERT into `user`(userNameReg,ageReg,emailReg,passwordReg,reg_date) VALUES('$userNameReg','$ageReg','$emailReg','" . md5($passwordReg) . "','$reg_date')";
         //   checking result
         $result = mysqli_query($conn, $query);
         if ($result) {
@@ -104,9 +104,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <h2 class="text-white text-center">
                 REGISTER
             </h2>
-            <input type="text" name="userNameReg" id="userNameReg" placeholder="Enter userName" required="">
-            <input type="number" name="ageReg" id="ageReg" placeholder="Enter Age" required="">
-            <input type="email" name="emailReg" id="emailReg" placeholder="Enter your email" required="">
+            <input type="text" name="userNameReg" id="userNameReg" placeholder="Enter userName | organizational name" required="">
+            <input type="number" name="ageReg" id="ageReg" placeholder="Enter Age | if individual">
+            <input type="email" name="emailReg" id="emailReg" placeholder="Enter your email | organizational email" required="">
             <input type="password" name="passwordReg" id="passwordReg" placeholder="Enter password" required="">
             <span class="d-flex justify-content-between align-items-center container py-2">
                 <input type="checkbox" name="showPassword" id="showPassword" class="showPassword bg-success" style="width:10%">
@@ -114,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     Show password
                 </small>
             </span>
-            <hr style="background-color: white;color:white;">
+            <!-- <hr style="background-color: white;color:white;"> -->
             <small class="text-light">
                 Please Provide some Additional Info..
             </small>

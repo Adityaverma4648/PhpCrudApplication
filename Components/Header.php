@@ -1,11 +1,11 @@
 <!-- <link rel="stylesheet" href="../styles/style.css"> -->
-<header class="header The-Black-and-Red-5-hex" id="header">
+<header class="header The-Black-and-Red-5-hex d-flex flex-column" id="header">
     <!--  navbar  -->
     <nav class="d-flex justify-content-center align-items-center">
         <div class="logoContainer">
             LOGO
         </div>
-        <ul style="height:40px">
+        <ul class="d-flex justify-content-center align-items-center" style="height:60px">
             <li>
                 <a href="../../PhpCrudApplication/index.php" class="text-decoration-none">
                     <i class="fa fa-home"></i>
@@ -36,23 +36,43 @@
                     call
                 </a>
             </li>
+
         </ul>
         <?php
-        if (!$userName) {
+        if (isset($_SESSION['userName'])) {
+            echo '<div class="text-white dropdown">
+                      <button type="button" class="btn btn-primary dropdown-toggle rounded-0" data-bs-toggle="dropdown">
+                            Account
+                       </button>
+                       <ul class="dropdown-menu">
+                          <li><a class="dropdown-item text-white" href="additionalData.php">
+                            <i class="fa fa-edit"></i>
+                            Add Info
+                          </a></li>
+                          <li><a class="dropdown-item" href="#">Link 2</a></li>
+                          <li><a class="dropdown-item" href="#">Link 3</a></li>
+                        </ul>
+                  </div>';
+            echo '<div>
+                   <a href="./logout.php" class="text-decoration-none text-white p-1">
+                   <i class="fa fa-sign-out fa-1x p-2"></i>
+                   </a>
+                  </div>';
+        } else {
             echo '<div>
             <a href="./Login.php">Login</a>
             <a href="./Register.php">Register</a>
             </div>';
-        } else {
-            echo '<a href="./config/logout.php" class="text-decoration-none text-white px-1">
-            <i class="fa fa-sign-out"></i>LogOut
-            </a>';
         }
 
         ?>
-        <div class="toggleIconContainer">
+        <div class="toggleIconContainer text-white">
+            <i class="fa fa-menu "></i>
             B
         </div>
     </nav>
+    <div class="position-absolute right-0" id="dropdown">
+
+    </div>
     <!--  navbar ends -->
 </header>

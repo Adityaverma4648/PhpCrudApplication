@@ -39,10 +39,6 @@
       }
       nav ul{
         width: 65%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
       }
       nav div{
         width: 10%;

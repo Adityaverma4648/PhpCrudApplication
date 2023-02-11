@@ -1,5 +1,6 @@
 <?php
 include "./config/conn.php";
+include "./config/session.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +39,12 @@ include "./config/conn.php";
 
   <?php
   include "./Components/BloodCount.php";
+  if (isset($_SESSION['loggedInStatus'])) {
+    echo $_SESSION['userName'];
+    echo $_SESSION['loggedInStatus'];
+  }
   ?>
+
 
   <!-- body block ends -->
 </body>

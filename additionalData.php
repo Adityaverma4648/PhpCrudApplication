@@ -32,7 +32,54 @@ include "./Components/Header.php";
 </head>
 
 <body>
+    <section class="container bg-light d-flex flex-column justify-content-center align-items-center">
+        <form class="d-flex flex-column justify-content-center align-items-center">
+            <label for="phoneNumber">
+                <span class="px-1">
+                    +91
+                </span>
+                <input type="number" placeholder="Enter your phone Number" name="phoneNumber">
+            </label>
+            <label for="address">
+                <textarea type="text" placeholder="Enter your address" name="address"></textarea>
+            </label>
+            <label for="">
+                <input type="text" placeholder="Enter your phone Number">
+            </label>
+            <small>
+                Available Blood groups
+            </small>
+            <label for="A+">
+                <input type="checkbox" value="A+"> A+ </input>
+            </label>
+            <label for="A-">
+                <input type="checkbox" value="A+"> A+ </input>
+            </label>
+            <label for="A+">
+                <input type="checkbox" value="A+"> A+ </input>
+            </label>
+            <label for="A+">
+                <input type="checkbox" value="A+"> A+ </input>
+            </label>
+            <label for="A+">
+                <input type="checkbox" value="A+"> A+ </input>
+            </label>
+            <label for="A+">
+                <input type="checkbox" value="A+"> A+ </input>
+            </label>
+            <label for="A+">
+                <input type="checkbox" value="A+"> A+ </input>
+            </label>
+            <input type="checkbox" value="A+"> A- </input>
+            <input type="checkbox" value="A+"> B+ </input>
+            <input type="checkbox" value="A+"> B- </input>
+            <input type="checkbox" value="A+">A B+ </input>
+            <input type="checkbox" value="A+">A B- </input>
+            <input type="checkbox" value="A+"> O+ </input>
+            <input type="checkbox" value="A+"> O- </input>
 
+        </form>
+    </section>
 </body>
 
 </html>

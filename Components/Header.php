@@ -44,13 +44,19 @@
                       <button type="button" class="btn btn-primary dropdown-toggle rounded-0" data-bs-toggle="dropdown">
                             Account
                        </button>
-                       <ul class="dropdown-menu">
+                       <ul class="dropdown-menu bg-dark">
                           <li><a class="dropdown-item text-white" href="additionalData.php">
                             <i class="fa fa-edit"></i>
                             Add Info
                           </a></li>
-                          <li><a class="dropdown-item" href="#">Link 2</a></li>
-                          <li><a class="dropdown-item" href="#">Link 3</a></li>
+                          <li><a class="dropdown-item text-white" href="#">
+                           <i class="fa fa-bell"></i>
+                           Notification
+                          </a></li>
+                          <li><a class="dropdown-item text-white" href="#">
+                          <i class="fa fa-envelope"></i>
+                          Mails
+                          </a></li>
                         </ul>
                   </div>';
             echo '<div>
@@ -71,8 +77,5 @@
             B
         </div>
     </nav>
-    <div class="position-absolute right-0" id="dropdown">
-
-    </div>
     <!--  navbar ends -->
 </header>

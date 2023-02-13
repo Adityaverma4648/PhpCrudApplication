@@ -1,8 +1,8 @@
 <?php
+session_start();
+
 session_unset();
-unset($_SESSION['userName']);
-// Destroy session
 session_destroy();
-// Redirecting To Home Page
-header("Location:Login.php");
+
+header("location: Login.php");
 exit;

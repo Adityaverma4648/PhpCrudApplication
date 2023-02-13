@@ -39,14 +39,10 @@ include "./config/session.php";
 
   <?php
   include "./Components/BloodCount.php";
-  if (isset($_SESSION['loggedInStatus'])) {
-    echo $_SESSION['userName'];
-    echo $_SESSION['loggedInStatus'];
-  }
   ?>
-
-
   <!-- body block ends -->
+  <script type="module" src="./scripts/index.js">
+  </script>
 </body>
 
 </html>

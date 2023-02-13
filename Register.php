@@ -43,6 +43,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!--  google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -105,7 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 REGISTER
             </h2>
             <input type="text" name="userNameReg" id="userNameReg" placeholder="Enter userName | organizational name" required="">
-            <input type="number" name="ageReg" id="ageReg" placeholder="Enter Age | if individual">
+
             <input type="email" name="emailReg" id="emailReg" placeholder="Enter your email | organizational email" required="">
             <input type="password" name="passwordReg" id="passwordReg" placeholder="Enter password" required="">
             <span class="d-flex justify-content-between align-items-center container py-2">
@@ -119,7 +123,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 Please Provide some Additional Info..
             </small>
             <input type="number" name="pinCodeReg" id="pinCodeReg" placeholder="Enter your pin code" required="">
-            <input type="text" name="addressReg" id="addressReg" placeholder="Enter address" required="">
+            <div class=".col-sm-12">
+                <label for="city" class="col-sm-4">
+                    <input type="text" name="city" placeholder="Enter city">
+                </label>
+                <label for="district" class="col-sm-4">
+                    <input type="text" name="district" placeholder="Enter district">
+                </label>
+                <label for="state" class="col-sm-4">
+                    <input type="text" name="state" placeholder="Enter state">
+                </label>
+            </div>
             <input type="submit" name="submitReg" value="Register" id="submitReg" class="bg-success border-0 text-white">
         </form>
     </div>

@@ -29,31 +29,32 @@
                         Top contributing banks
                     </th>
                     <th>
-                        Location
+                        <select name="state" id="state">
+                        </select>
+                    </th>
+                    <th>
+                        Category
                     </th>
                     <th>
                         Contacts
                     </th>
                     <th>
-                        Contributions
+                        Blood component Availability
                     </th>
                 </tr>
             </thead>
-            <tr>
-                <td>
-                    Org Name
-                </td>
-                <td>
-                    Location
-                </td>
-                <td>
-                    Dummy
-                </td>
-                <td>
-                    Number
-                </td>
-            </tr>
+            <tbody>
+                <?php
+                $sql = "SELECT id, userNameReg, emailReg FROM user";
 
+                $res = $conn->query($sql);
+                if ($res) {
+                    while ($row = $res->fetch_assoc()) {
+                        echo '<tr id="' . $row["id"] . '"><td>' . $row["userNameReg"] . '</td><td>' . $row["emailReg"] . '</td></tr><br>';
+                    }
+                }
+                ?>
+            </tbody>
         </table>
     </div>
 </div>

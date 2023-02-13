@@ -1,4 +1,4 @@
-[
+const bloodBank = [
     {
         "Sr No": "1",
         " Blood Bank Name": "G.B. Pant Hospital Blood bank",
@@ -614,7 +614,7 @@
         " State": "Andhra Pradesh",
         " District": "CHITTOOR",
         " City": "Tirupati",
-        " Address": "Tirumala Tirupati Devastanam (TTD), Kapil Teertham Road, Tirupati\n",
+        " Address": "Tirumala Tirupati Devastanam (TTD), Kapil Teertham Road, Tirupati",
         "Pincode": "517501",
         " Contact No": "0877 2264622",
         " Mobile": "9849099750",
@@ -81867,3 +81867,5 @@
         " Longitude": "88.132494"
     }
 ]
+
+export default bloodBank;

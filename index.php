@@ -39,6 +39,7 @@ include "./config/session.php";
 
   <?php
   include "./Components/BloodCount.php";
+  include "./config/DataInjection.php";
   ?>
   <!-- body block ends -->
   <script type="module" src="./scripts/index.js">

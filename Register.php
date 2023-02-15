@@ -4,10 +4,15 @@ include "./config/conn.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // username
     $userNameReg = mysqli_real_escape_string($conn, $_POST["userNameReg"]);
-    $ageReg = mysqli_real_escape_string($conn, $_POST["ageReg"]);
-
     $emailReg = mysqli_real_escape_string($conn, $_POST["emailReg"]);
     $passwordReg = mysqli_real_escape_string($conn, $_POST["passwordReg"]);
+    $addressReg = mysqli_real_escape_string($conn, $_POST["addressReg"]);
+    $state = mysqli_real_escape_string($conn, $_POST['state']);
+    $city = mysqli_real_escape_string($conn, $_POST['city']);
+    $district = mysqli_real_escape_string($conn, $_POST['district']);
+    $phoneNumber = mysqli_real_escape_string($conn, $_POST['phoneNumber']);
+    $category = mysqli_real_escape_string($conn, $_POST['category']);
+
     $reg_date = date("Y-m-d H:i:s");
 
     // checking uniqueness of username
@@ -23,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($userNameReg == isset($row['userNameReg']))
             echo "<small class='text-danger text-center'>Username Already exits*<small>";
     } else {
-        $query = "INSERT into `user`(userNameReg,ageReg,emailReg,passwordReg,reg_date) VALUES('$userNameReg','$ageReg','$emailReg','" . md5($passwordReg) . "','$reg_date')";
+        $query = "INSERT into `user`(userNameReg,emailReg,passwordReg,addressReg,city,district,state,phoneNumber,category,reg_date) VALUES('$userNameReg','$emailReg','" . md5($passwordReg) . "','$addressReg','$city','$district','$state','$phoneNumber','$category','$reg_date')";
         //   checking result
         $result = mysqli_query($conn, $query);
         if ($result) {
@@ -111,29 +116,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="text" name="userNameReg" id="userNameReg" placeholder="Enter userName | organizational name" required="">
 
             <input type="email" name="emailReg" id="emailReg" placeholder="Enter your email | organizational email" required="">
-            <input type="password" name="passwordReg" id="passwordReg" placeholder="Enter password" required="">
-            <span class="d-flex justify-content-between align-items-center container py-2">
-                <input type="checkbox" name="showPassword" id="showPassword" class="showPassword bg-success" style="width:10%">
-                <small class="text-start text-light" style="width: 90%;">
-                    Show password
-                </small>
-            </span>
+            <div class="col-sm-12 d-flex px-1">
+                <div class="col-sm-11">
+                    <input type="password" name="passwordReg" id="passwordReg" placeholder="Enter password" required="">
+                </div>
+                <div class="col-sm-1 text-white d-flex justify-content-center align-items-center px-1">
+                    <i class="fa fa-eye"></i>
+                </div>
+            </div>
+
             <!-- <hr style="background-color: white;color:white;"> -->
             <small class="text-light">
                 Please Provide some Additional Info..
             </small>
             <input type="number" name="pinCodeReg" id="pinCodeReg" placeholder="Enter your pin code" required="">
-            <div class=".col-sm-12">
-                <label for="city" class="col-sm-4">
-                    <input type="text" name="city" placeholder="Enter city">
+            <div class=".col-sm-12 d-flex">
+                <label for="city" class="col-sm-4 px-1">
+                    <input type="text" name="city" placeholder="city" required>
                 </label>
-                <label for="district" class="col-sm-4">
-                    <input type="text" name="district" placeholder="Enter district">
+                <label for="district" class="col-sm-4 px-1">
+                    <input type="text" name="district" placeholder="district" required>
                 </label>
-                <label for="state" class="col-sm-4">
-                    <input type="text" name="state" placeholder="Enter state">
+                <label for="state" class="col-sm-4 px-1">
+                    <input type="text" name="state" placeholder="state" required>
                 </label>
             </div>
+            <div class="col-sm-12 py-1 d-flex justify-content-center align-items-center">
+                <label for="category" class="col-sm-5 px-1 d-flex flex-column justify-content-center align-items-center text-white border-end border-white ">
+                    <small>
+                        Select the category of your category
+                    </small>
+                    <select type="category" name="category" placeholder="Enter category" class="container py-2">
+                        <option value="Government">Government</option>
+                        <option value="Private">Private</option>
+                        <option value="Charity">Charity</option>
+                    </select>
+                </label>
+                <label for="phoneNumber" class="col-sm-5 d-flex flex-column justify-content-center align-items-center">
+                    <small class="text-white">
+                        Enter Phone Number
+                    </small>
+                    <input type="number" placeholder="Enter your phone Number" name="phoneNumber" class="container">
+                </label>
+            </div>
+            <input type="text" name="addressReg" placeholder="Enter Address" required>
+
             <input type="submit" name="submitReg" value="Register" id="submitReg" class="bg-success border-0 text-white">
         </form>
     </div>

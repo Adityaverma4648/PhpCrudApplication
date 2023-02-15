@@ -2,6 +2,26 @@
 include "./config/conn.php";
 include "./config/session.php";
 include "./Components/Header.php";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $licenseNumber = mysqli_real_escape_string($conn, $_POST['licenseNumber']);
+    $phoneNumber = mysqli_real_escape_string($conn, $_POST['phoneNumber']);
+    $category = mysqli_real_escape_string($conn, $_POST['category']);
+    $availableBloodGroup = $_POST['availableBloodGroup'];
+    $xyz = implode(",", $availableBloodGroup);
+    echo $xyz;
+
+    $sql = "INSERT INTO `additionalInfo` (licenseNumber,phoneNumber,category,availableBloodGroup) VALUES ('$licenseNumber','$phoneNumber','$category','$availableBloodGroup')";
+
+    $res = mysqli_query($conn, $sql);
+    if ($res) {
+        echo "Data Updated :)";
+    } else {
+        echo "Couldn't Update Data :(";
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -28,56 +48,83 @@ include "./Components/Header.php";
     <script src="https://kit.fontawesome.com/8dc03a4776.js" crossorigin="anonymous"></script>
     <!-- fontawesome icons -->
     <link rel="stylesheet" href="./styles/style.css">
+    <style>
+        .AddInfo {
+            height: 93vh;
+            width: 100vw;
+            background-color: #17695b;
+        }
 
+        .AddInfo form {
+            height: 60vh;
+            width: 45vw;
+            padding: 1rem;
+            background-color: grey;
+            box-shadow: 5px 8px 15px rgba(0, 0, 0, 0.4);
+        }
+    </style>
 </head>
 
 <body>
-    <section class="container bg-light d-flex flex-column justify-content-center align-items-center">
+    <section class="AddInfo container bg-light d-flex flex-column justify-content-center align-items-center">
+        <h5 class="container text-center">
+            Add Additional Information
+        </h5>
         <form class="d-flex flex-column justify-content-center align-items-center">
-            <label for="phoneNumber">
-                <span class="px-1">
-                    +91
-                </span>
-                <input type="number" placeholder="Enter your phone Number" name="phoneNumber">
+            <label for="licenseNumber" class="container-fluid d-flex flex-column justify-content-center align-items-center">
+                <small>
+                    Enter license Number
+                </small>
+                <input type="text" name="liceneNumber" placeholder="Enter your License Number" class="container">
             </label>
-            <label for="address">
-                <textarea type="text" placeholder="Enter your address" name="address"></textarea>
-            </label>
-            <label for="">
-                <input type="text" placeholder="Enter your phone Number">
-            </label>
+
+
             <small>
                 Available Blood groups
             </small>
-            <label for="A+">
-                <input type="checkbox" value="A+"> A+ </input>
-            </label>
-            <label for="A-">
-                <input type="checkbox" value="A+"> A+ </input>
-            </label>
-            <label for="A+">
-                <input type="checkbox" value="A+"> A+ </input>
-            </label>
-            <label for="A+">
-                <input type="checkbox" value="A+"> A+ </input>
-            </label>
-            <label for="A+">
-                <input type="checkbox" value="A+"> A+ </input>
-            </label>
-            <label for="A+">
-                <input type="checkbox" value="A+"> A+ </input>
-            </label>
-            <label for="A+">
-                <input type="checkbox" value="A+"> A+ </input>
-            </label>
-            <input type="checkbox" value="A+"> A- </input>
-            <input type="checkbox" value="A+"> B+ </input>
-            <input type="checkbox" value="A+"> B- </input>
-            <input type="checkbox" value="A+">A B+ </input>
-            <input type="checkbox" value="A+">A B- </input>
-            <input type="checkbox" value="A+"> O+ </input>
-            <input type="checkbox" value="A+"> O- </input>
-
+            <div class="col-sm-8">
+                <label for="availableBLoodGroup" class="container-fluid d-flex flex-column justify-content-center align-items-center">
+                    <table class="table table-striped container">
+                        <tbody>
+                            <tr>
+                                <td>A+</td>
+                                <td>
+                                    <input type="checkbox" name="availableBloodGroup" value="A+" class="container"></input>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>A-</td>
+                                <td><input type="checkbox" name="availableBloodGroup" value="A-" class="container"></input></td>
+                            </tr>
+                            <tr>
+                                <td>O+</td>
+                                <td><input type="checkbox" name="availableBloodGroup" value="O+" class="container"></input></td>
+                            </tr>
+                            <tr>
+                                <td>O-</td>
+                                <td><input type="checkbox" name="availableBloodGroup" value="O-" class="container"></input></td>
+                            </tr>
+                            <tr>
+                                <td>AB+</td>
+                                <td><input type="checkbox" name="availableBloodGroup" value="AB+" class="container"></input></td>
+                            </tr>
+                            <tr>
+                                <td>AB-</td>
+                                <td><input type="checkbox" name="availableBloodGroup" value="AB-" class="container"></input></td>
+                            </tr>
+                            <tr>
+                                <td>B+</td>
+                                <td><input type="checkbox" name="availableBloodGroup" value="B+" class="container"></input></td>
+                            </tr>
+                            <tr>
+                                <td>B-</td>
+                                <td><input type="checkbox" name="availableBloodGroup" value="B-" class="container"></input></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </label>
+            </div>
+            <input type="submit" value="Save Changes" name="submitAddInfo" id="submitAddInfo">
         </form>
     </section>
 </body>

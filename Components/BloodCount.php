@@ -33,6 +33,9 @@
                         </select>
                     </th>
                     <th>
+                        Email
+                    </th>
+                    <th>
                         Category
                     </th>
                     <th>
@@ -41,16 +44,20 @@
                     <th>
                         Blood component Availability
                     </th>
+                    <th>
+                        Request | Book urgent samples
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                $sql = "SELECT id, userNameReg, emailReg FROM user";
+                $sql = "SELECT id, userNameReg, state, emailReg,category,phoneNumber FROM user";
 
                 $res = $conn->query($sql);
                 if ($res) {
                     while ($row = $res->fetch_assoc()) {
-                        echo '<tr id="' . $row["id"] . '"><td>' . $row["userNameReg"] . '</td><td>' . $row["emailReg"] . '</td></tr><br>';
+                        echo '<tr id="' . $row["id"] . '"><td>' . $row["userNameReg"] . '</td><td>' . $row["state"] . '</td><td>' . $row["emailReg"] . '</td><td>' . $row['category'] . '</td><td>' . $row["phoneNumber"] . '</td>
+                        <td class="button-group"><button type="button" class="btn btn-primary"><small>Req Sample</small></button><button type="button"class="btn btn-warning"></button><button type="button" class="btn btn-danger">Cancel Req</button></td></tr><br>';
                     }
                 }
                 ?>

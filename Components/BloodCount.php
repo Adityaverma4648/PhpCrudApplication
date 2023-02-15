@@ -42,9 +42,6 @@
                         Contacts
                     </th>
                     <th>
-                        Blood component Availability
-                    </th>
-                    <th>
                         Request | Book urgent samples
                     </th>
                 </tr>
@@ -58,6 +55,15 @@
                     while ($row = $res->fetch_assoc()) {
                         echo '<tr id="' . $row["id"] . '"><td>' . $row["userNameReg"] . '</td><td>' . $row["state"] . '</td><td>' . $row["emailReg"] . '</td><td>' . $row['category'] . '</td><td>' . $row["phoneNumber"] . '</td>
                         <td class="button-group"><button type="button" class="btn btn-primary"><small>Req Sample</small></button><button type="button"class="btn btn-warning"></button><button type="button" class="btn btn-danger">Cancel Req</button></td></tr><br>';
+                    }
+                }
+                ?>
+                <?php
+                $sql1 = "SELECT Name,State,phoneNumber,Email,Category FROM `blood_banks` LIMIT 20";
+                $res1 = mysqli_query($conn, $sql1);
+                if ($res1) {
+                    while ($row = $res1->fetch_assoc()) {
+                        echo "<tr><td>" . $row["Name"] . "</td><td>" . $row["State"] . "</td><td>" . $row["Email"] . "</td><td>" . $row["Category"] . "</td><td>" . $row["phoneNumber"] . "</td></tr>";
                     }
                 }
                 ?>

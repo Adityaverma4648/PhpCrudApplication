@@ -27,53 +27,14 @@
 .The-Black-and-Red-5-hex {
     background-color: #260101;
 }
-/* header   */
-   /*  navbar  */ 
-      nav{
-        background: linear-gradient(45deg, #275950 ,#260101 ) ;
-        min-width: 100vw;
-        height: 60px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      nav ul{
-        width: 65%;
-      }
-      nav div{
-        width: 10%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
 
-      nav ul li{
-        list-style: none;
-        padding: 5px 1vw;
-        margin: 0px 2px;
-      }
-      nav ul li a{
-        color: #e954dc;
-      } 
-      nav ul li a:hover{
-        color: #9BF2EA;
-      }
-      nav div a{
-        padding: 5px 10px;
-        margin: 0px 1px;
-        border-radius: 2px;
-        color: #260101;
-        text-decoration: none;
-        background: linear-gradient(45deg , #41BFB3 , #e954dc);
-      }
-      .logoContainer{
-        color: #9BF2EA;
-        font-size: 25px;
-      }
-      .toggleIconContainer{
-        display: none;
-      }
+ body::-webkit-scrollbar{
+    display: none;
+ }
 
+  li{
+    list-style: none;
+  }
 
 /*  welcome.php */
     .welcomeCont {
@@ -117,6 +78,7 @@
   justify-content: center;
   align-items: center;
 }
+
 
 /*  block ends */
       

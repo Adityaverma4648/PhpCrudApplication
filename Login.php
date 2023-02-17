@@ -46,12 +46,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <link rel="stylesheet" href="./styles/style.css">
 
     <style>
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
         #formContLogin {
-            height: 90vh;
+            height: 94vh;
             width: 100vw;
             display: flex;
             justify-content: center;
             align-items: center;
+            background-image: url('https://img.freepik.com/free-vector/abstract-colorful-shapes-background_23-2148769631.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
         }
 
         #formContLogin form {

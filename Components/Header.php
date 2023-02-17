@@ -1,80 +1,76 @@
 <!-- <link rel="stylesheet" href="../styles/style.css"> -->
-<header class="header The-Black-and-Red-5-hex d-flex flex-column" id="header">
+<header class="bg-dark header d-flex flex-column py-2" id="header">
     <!--  navbar  -->
-    <nav class="d-flex justify-content-center align-items-center">
-        <div class="logoContainer">
+    <nav class="container d-flex justify-content-center align-items-center">
+        <div class="col-lg-1 col-sm-1 h3 text-white d-flex justify-content-center align-items-center">
             LOGO
         </div>
-        <ul class="d-flex justify-content-center align-items-center" style="height:60px">
-            <li>
-                <a href="../../PhpCrudApplication/index.php" class="text-decoration-none">
-                    <i class="fa fa-home"></i>
+        <div class="col-lg-8 col-sm-8 d-flex justify-content-end align-items-center px-1">
+            <li class="px-2 py-1 mx-1" style="list-style: none;">
+                <a href="../../PhpCrudApplication/index.php" class=" bg-transparent text-decoration-none d-flex text-warning">
+                    <i class="fa fa-home px-1 mb-2"></i>
                     Home
                 </a>
             </li>
-            <li>
-                <a href="#" class="text-decoration-none">
+            <li class="px-2 py-1 mx-1" style="list-style: none;">
+                <a href="../../PhpCrudApplication/index.php" class=" bg-transparent text-decoration-none d-flex text-warning">
+                    <i class="fa fa-compass px-1 mb-2"></i>
                     About
                 </a>
             </li>
-            <li>
-                <a href="#" class="text-decoration-none">
-                    AvailableBloodGroups
-                    <i class="fa fa-caret-down"></i>
-
+            <li class="px-2 py-1 mx-1" style="list-style: none;">
+                <a href="../../PhpCrudApplication/index.php" class=" bg-transparent text-decoration-none d-flex text-warning">
+                    <i class="fa fa-home px-1 mb-2"></i>
+                    MyRequests
                 </a>
             </li>
-            <li>
-                <a href="#" class="text-decoration-none">
-                    <i class="fa fa-blood-drop"></i>
-                    DonateBlood
-                </a>
-            </li>
-            <li>
-                <a href="#" class="text-decoration-none">
-                    <i class="fa fa-phone"></i>
-                    call
+            <li class="px-2 py-1 mx-1" style="list-style: none;">
+                <a href="../../PhpCrudApplication/index.php" class=" bg-transparent text-decoration-none d-flex text-warning">
+                    <i class="fa fa-bell px-1 mb-2"></i>
+                    Notifications
                 </a>
             </li>
 
-        </ul>
+        </div>
         <?php
         if (isset($_SESSION['userName'])) {
-            echo '<div class="text-white dropdown">
-                      <button type="button" class="btn btn-primary dropdown-toggle rounded-0" data-bs-toggle="dropdown">
-                            Account
+            $name = $_SESSION['userName'];
+            $firstLetter = $name[0];
+            echo '<div class="col-sm-2 d-flex justify-content-center align-items-center><div class="dropdown">
+                      <button type="button" class="btn btn-info dropdown-toggle rounded-5" data-bs-toggle="dropdown">
+                           ' . $firstLetter . '
                        </button>
                        <ul class="dropdown-menu bg-dark">
-                          <li><a class="dropdown-item text-white" href="additionalData.php">
+                            <li><a class="dropdown-item text-info border-bottom border-info" href="additionalData.php">
+                            <i class="fa fa-user"></i>
+                            Profile
+                          </a></li>
+                          <li><a class="dropdown-item text-info border-bottom border-info" href="additionalData.php">
                             <i class="fa fa-edit"></i>
                             Add Info
                           </a></li>
-                          <li><a class="dropdown-item text-white" href="#">
-                           <i class="fa fa-bell"></i>
-                           Notification
-                          </a></li>
-                          <li><a class="dropdown-item text-white" href="#">
+                          <li><a class="dropdown-item text-info border-bottom border-info" href="#">
                           <i class="fa fa-envelope"></i>
                           Mails
                           </a></li>
+                          <li> 
+                            <a href="./logout.php" class="dropdown-item text-decoration-none text-info">
+                              <i class="fa fa-sign-out"></i>
+                              Sign Out
+                            </a>
+                          </li>
                         </ul>
-                  </div>';
-            echo '<div>
-                   <a href="./logout.php" class="text-decoration-none text-white p-1">
-                   <i class="fa fa-sign-out fa-1x p-2"></i>
-                   </a>
-                  </div>';
+                  </div></div>';
         } else {
-            echo '<div>
-            <a href="./Login.php">Login</a>
-            <a href="./Register.php">Register</a>
+            echo '<div class="col-lg-2 col-sm-2 d-flex ">
+            <a href="./Login.php" class="text-decoration-none text-white px-4 py-2 mx-1 bg-primary">Login</a>
+            <a href="./Register.php" class="text-decoration-none text-white px-4 py-2 mx-1 bg-danger">Register</a>
             </div>';
         }
 
         ?>
-        <div class="toggleIconContainer text-white">
-            <i class="fa fa-menu "></i>
-            B
+        <div class="col-sm-1 toggleMenu text-success d-flex justify-content-center align-items-center">
+            <i class="fa fa-bars fa-2x"></i>
         </div>
     </nav>
     <!--  navbar ends -->

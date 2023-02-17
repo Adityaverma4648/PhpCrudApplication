@@ -71,11 +71,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         #formContRegistration {
-            height: 90vh;
+            height: 94vh;
             width: 100vw;
             display: flex;
             justify-content: center;
             align-items: center;
+            background-image: url('https://cdn.wallpapersafari.com/6/89/vWyE2K.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
         }
 
         #formContRegistration form {
@@ -109,9 +113,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <?php include "./Components/Header.php" ?>
     <div id="formContRegistration">
+
+
         <form method="POST" id="registraionForm" class="d-flex flex-column py-1 my-1">
             <h2 class="text-white text-center">
-                REGISTER
+                REGISTER ORG
             </h2>
             <input type="text" name="userNameReg" id="userNameReg" placeholder="Enter userName | organizational name" required="">
 

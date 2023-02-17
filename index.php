@@ -33,13 +33,15 @@ include "./config/session.php";
 <body>
   <!--  header  -->
   <?php include "./Components/Header.php"; ?>
-  <?php include "./Components/Welcome.php" ?>
+  <?php
+  include "./Components/Welcome.php";
+  include "./Components/Information.php";
+  ?>
   <!--  header ends -->
   <!--   body starts -->
 
   <?php
   include "./Components/BloodCount.php";
-  include "./config/DataInjection.php";
   ?>
   <!-- body block ends -->
   <script type="module" src="./scripts/index.js">

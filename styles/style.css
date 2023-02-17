@@ -84,9 +84,8 @@
       
 /*  media query---- */
       @media only screen and (max-width : 750px) {
-         .toggleIconContainer{
-          display: none;
-          color: #41BFB3;
+         .toggleMenu{
+          display: block;
          }
       } 
 /*  media query ends---- */

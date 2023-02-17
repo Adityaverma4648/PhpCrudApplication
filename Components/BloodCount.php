@@ -57,6 +57,7 @@
                 <?php
 
 
+
                 $sql = "SELECT id, userNameReg, state, emailReg,category,phoneNumber FROM user";
 
                 $res = $conn->query($sql);
@@ -66,6 +67,7 @@
                         <td class="button-group"><button type="button" class="py-1 px-1  border-0 bg-primary mx-1"><small>Request</small></button><button type="button" class="py-1 px-1 border-0 bg-danger mx-1"><small>Cancel</small></button><button type="button"  class="btn btn-dark text-light rounded-0 mx-1"><small>Message</small></button></td></tr><br>';
                     }
                 }
+
                 ?>
                 <?php
                 $sql1 = "SELECT Name,State,phoneNumber,Email,Category FROM `blood_banks` LIMIT 20";

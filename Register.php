@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($userNameReg == isset($row['userNameReg']))
             echo "<small class='text-danger text-center'>Username Already exits*<small>";
     } else {
-        $uniqueId = uniqid($userNameReg);
+        $uniqueId = uniqid();
         $query = "INSERT into `user`(uniqueId,userNameReg,emailReg,passwordReg,addressReg,city,district,state,phoneNumber,category,reg_date) VALUES('$uniqueId','$userNameReg','$emailReg','" . md5($passwordReg) . "','$addressReg','$city','$district','$state','$phoneNumber','$category','$reg_date')";
         //   checking result
         $result = mysqli_query($conn, $query);

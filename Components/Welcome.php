@@ -1,5 +1,5 @@
-<div class="welcomeCont">
-    <div class="bodyCont">
+<div class="container welcomeCont border-bottom border-secondary border-1 border-opacity-50 py-5">
+    <div class="bodyCont" style="z-index:50">
         <h3>
             Welcome to the Blood Bank!
         </h3>

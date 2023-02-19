@@ -29,16 +29,54 @@ include "./config/session.php";
     <?php
     include "./Components/Header.php";
     ?>
-    <section class="container-fluid d-flex">
-        <div class="col-sm-2 px-1 bg-danger d-flex flex-column" style="height:100vh;">
-            <div>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ex voluptas nam esse quos quam corporis ullam non beatae placeat, quia aspernatur, totam quae.
-            </div>
+    <section class="row d-flex mt-5">
+        <div class="col-sm-2 px-1 bg-warning d-flex flex-column justify-content-between align-items-center border-end border-secondary" style="height:94vh;">
+            <ul class="container-fluid d-flex flex-column justify-content-between align-items-center py-2">
+                <li class="container-fluid border-bottom border-dark py-4">
+                    <button type="button" class="bg-transparent border-0" onclick="fetchProfileBlocks('editProfile')">
+                        Edit Profile</button>
+                </li>
+                <li class="container-fluid border-bottom border-dark py-4">
+                    <button type="button" class="bg-transparent border-0" onclick="fetchProfileBlocks('changePassword')">
+                        Change Password</button>
+                </li>
+                <li class="container-fluid border-bottom border-dark py-4">
+                    <button type="button" class="bg-transparent border-0" onclick="fetchProfileBlocks('emailNotification')">
+                        Email Notifications</button>
+                </li>
+                <li class="container-fluid border-bottom border-dark py-4">
+                    <button type="button" class="bg-transparent border-0" onclick="fetchProfileBlocks('profileSecurity')">
+                        Privacy and Security</button>
+                </li>
+                <li class="container-fluid border-bottom border-dark py-4">
+                    <button type="button" class="bg-transparent border-0" onclick="fetchProfileBlocks('loginActivity')">
+                        Login Activity</button>
+                </li>
+                <li class="container-fluid border-bottom border-dark py-4">
+                    <button type="button" class="bg-transparent border-0" onclick="fetchProfileBlocks('help')">
+                        Help
+                    </button>
+                </li>
+
+            </ul>
+            <span class="text-danger py-2 ">
+                LOGO
+            </span>
         </div>
-        <div class="col-sm-10 bg-warning d-flex flex-column">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat sunt aut tempora aliquam exercitationem. Quo cumque perferendis facere suscipit libero similique amet atque. Ad beatae debitis aperiam quisquam architecto dicta animi, distinctio dolore a pariatur sapiente illo corrupti alias eum dignissimos nam saepe assumenda aliquid veritatis ducimus odit! Necessitatibus assumenda ratione magni culpa, voluptas ipsa cupiditate cum, ullam praesentium accusantium sed dignissimos obcaecati expedita excepturi eligendi soluta et quidem enim nemo amet perspiciatis quas nihil, dolores ducimus! Velit quod, cupiditate, non laborum dolorum molestias, aut laudantium minus voluptas harum iusto aliquid neque nihil repellendus modi rerum ipsam sint id! Iusto, quos? Dolorum suscipit voluptatibus reiciendis maiores incidunt quod molestiae, facere aliquid placeat, expedita et? Unde nemo optio adipisci natus quia illum sapiente perferendis quis beatae, sed tempora! Mollitia, minima iure amet nesciunt incidunt sapiente doloribus adipisci ex delectus reiciendis minus, ullam earum? Dignissimos, molestiae sint? Consequuntur voluptates, libero adipisci quas aperiam deserunt quo? Recusandae, ex. Libero reprehenderit quasi aperiam veritatis dolores commodi. Impedit illum hic dolorum sequi ipsa ipsum eum facere, a in nostrum, accusantium nesciunt neque suscipit nemo blanditiis aut necessitatibus? Harum, laboriosam ea eveniet eius maxime a aliquid pariatur assumenda vel, saepe, voluptates vero ipsam dolorem! Distinctio, tenetur totam. Perspiciatis, minima esse ipsa corporis repellendus, quasi ab earum nemo facilis optio suscipit eligendi libero debitis amet autem cumque dignissimos assumenda. Harum labore eum quis dolorum illum alias pariatur optio unde nihil dolor, officia explicabo aliquid voluptatem. Obcaecati minima animi voluptate at culpa et explicabo dolor vel harum sunt.
+        <div class="col-sm-10 d-flex flex-column" id="fetchBlockHere">
         </div>
     </section>
+    <script>
+        // function fetchProfileBlocks(myId) {
+        //     var fetchBlockHere = document.getElementById('fetchBlockHere');
+        //     var changePassword = document.createElement("div");
+        //     changePassword.setAttribute("id", "changePasssword")
+        //     changePassword.append("hello from chnageePassword")
+
+        //     fetchBlockHere.innerHTML = myId;
+        // }
+    </script>
+
 </body>
 
 </html>

@@ -1,28 +1,41 @@
-<!-- <div class="container-fluid position-absolute top-0 d-flex justify-content-center align-items-center" style="height
-:60vh;z-index:99">
-    <div class="bg-danger container d-flex justify-content-center align-items-center mt-5 " id="myRequestFormContainer">
-    </div>
+<!-- <div class="container-fluid top-0 position-absolute d-flex justify-content-center align-items-center" style="height:100vh;z-index:98"> -->
+<!-- <div class="bg-danger container d-flex justify-content-center align-items-center mt-2" id="myRequestFormContainer" style="height:30vh;width:30vw;">
 </div> -->
+<!-- </div> -->
 
+<!--  formPopUpabove  -->
 <div class="container bg-light d-flex flex-column">
-    <div class="bg-danger container d-flex justify-content-center align-items-center mt-2" id="myRequestFormContainer">
-    </div>
+
     <div class="bg-dark py-1 d-flex justify-content-between align-items-center">
-        <select name="limit" id="limit" class="px-2 ms-2" onchange="(event)=>{var limit = event.target.value;alert(limit)}">
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-            <option value="200">200</option>
-            <option value="500">500</option>
-        </select>
+        <form method="get" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+            <select name=" limitInp" id="limitSetter" class="px-2 ms-2">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="200">200</option>
+                <option value="500">500</option>
+            </select>
+            <input type="submit" name="setLimitBtn" value="SetLimit">
+        </form>
+        <?php
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            if (isset($_GET["setLimitBtn"])) {
+                $myLimit = $_GET["limitInp"];
+            }
+        }
+        ?>
         <div class="text-light me-2 d-flex">
-            <div>
-                <span class="rounded-5 p-1 bg-primary text-primary">
-                    AB,
-                </span>
+            <div class="me-2 text-primary">
+                <i class="fa fa-circle"></i>
+                Member
             </div>
-            Set vision limit
+
+            <div class="ms-2 text-danger">
+                <i class="fa fa-circle"></i>
+                Not Registered
+            </div>
+
         </div>
     </div>
     <div class="bg-secondary text-light px-2">
@@ -31,7 +44,6 @@
                 Select State
             </span>
             <select name="state" id="state"></select>
-
         </div>
     </div>
     <div>
@@ -39,11 +51,10 @@
             <thead>
                 <tr>
                     <th>
-                        Top contributing banks
+                        Available Blood Banks
                     </th>
                     <th>
                         State
-
                     </th>
                     <th>
                         Email
@@ -61,71 +72,77 @@
             </thead>
             <tbody>
                 <?php
-
-
-
-                $sql = "SELECT id,uniqueId, userNameReg, state, emailReg,category,phoneNumber FROM user";
+                $sql = "SELECT id,uniqueId, userNameReg, state, emailReg,category,phoneNumber FROM `user`";
 
                 $res = $conn->query($sql);
                 if ($res) {
                     while ($row = $res->fetch_assoc()) {
-
                         echo '<tr class="table-primary" id="' . $row["id"] . '">
                                    <td>' . $row["userNameReg"] . '</td>
                                    <td>' . $row["state"] . '</td>
                                    <td>' . $row["emailReg"] . '</td>
                                    <td>' . $row['category'] . '</td>
-                                   <td>' . $row["phoneNumber"] . '</td>
-                                   <td class="button-group">
-                                       <button type="button" class="py-1 px-1  border-0 bg-primary mx-1" onclick="requestBlood(' . $row['id'] . ')" style="cursor:pointer;">
-                                       <small>
-                                          Request
-                                       </small>
-                                       </button>
-                                       <button type="button" class="py-1 px-1 border-0 bg-danger mx-1" style="cursor:pointer;">
-                                       <small>
-                                         Cancel
-                                       </small>
-                                       </button>
-                                       <button type="button"  class="btn btn-dark text-light rounded-0 mx-1" style="cursor:pointer;">
-                                       <small>
-                                         Message
-                                       </small>
-                                       </button>
+                                   <td>' . $row["phoneNumber"] . '
+                                   </td>
+                                   ';
+                        if ($row["userNameReg"] == $_SESSION['userName'] && $_SESSION['loggedInStatus']) {
+                            echo '<td class="text-success text-center">Already Our Member And LoggedIn</td>';
+                        } else {
+                            echo '<td class="button-group">
+                                   <form method="get">
+                                       <a href="Requests.php?id=' . $row["id"] . '" class="text-decoration-none text-white py-1 px-1  border-0 bg-primary mx-1" style="cursor:pointer;" value="Request" >Request</a>
+                                       <input type="button" class="py-1 px-1 border-0 bg-danger mx-1" style="cursor:pointer;" value="Cancel" ></input>
+                                       <input type="submit"  class="btn btn-dark text-light rounded-0 mx-1" style="cursor:pointer;" name="messagesHandler"
+                                       value="Message" ></input>
+                                       </form>
                                     </td>
                                 </tr>';
+                        }
                     }
                 }
-
                 ?>
                 <?php
-                $sql1 = "SELECT Name,State,phoneNumber,Email,Category FROM `blood_banks` LIMIT 20";
-                $res1 = mysqli_query($conn, $sql1);
-                if ($res1) {
-                    while ($row = $res1->fetch_assoc()) {
-                        echo "<tr>
+                if (isset($myLimit)) {
+                    $sql1 = "SELECT Name,State,phoneNumber,Email,Category FROM `blood_banks` LIMIT $myLimit ";
+                    $res1 = mysqli_query($conn, $sql1);
+                    if ($res1) {
+                        while ($row = $res1->fetch_assoc()) {
+                            echo "<tr class='table-danger'>
                         <td>" . $row["Name"] . "</td>
                         <td>" . $row["State"] . "</td>
                         <td>" . $row["Email"] . "</td>
                         <td>" . $row["Category"] . "</td>
                         <td>" . $row["phoneNumber"] . "</td>
                         <td class='button-group'>
-                        <button type='button' class='py-1 px-1  border-0 bg-primary mx-1 disabled' style='cursor:pointer'>
-                        <small>
-                         Request
-                        </small>
-                        </button>
-                        <button type='button' class='py-1 px-1 border-0 bg-danger mx-1 disabled' style='cursor:pointer'>
-                        <small>
-                         Cancel
-                        </small>
-                        </button><button type='button' class='btn btn-dark text-light rounded-0 mx-1 disabled' style='cursor:pointer'>
-                        <small>
-                          Message
-                        </small>
-                        </button>
+                        <input type='button' class='py-1 px-1  border-0 bg-primary mx-1 disabled' style='cursor:pointer' value='Request'>
+                        </input>
+                        <input type='button' class='py-1 px-1 border-0 bg-danger mx-1 disabled' style='cursor:pointer' value='Cancel'>
+                        </input><input type='button' class='btn btn-dark text-light rounded-0 mx-1 disabled' style='cursor:pointer' value='Message'>
+                        </input>
                         </td>
                         </tr>";
+                        }
+                    }
+                } else {
+                    $sql1 = "SELECT Name,State,phoneNumber,Email,Category FROM `blood_banks` LIMIT 10 ";
+                    $res1 = mysqli_query($conn, $sql1);
+                    if ($res1) {
+                        while ($row = $res1->fetch_assoc()) {
+                            echo "<tr class='table-danger'>
+                        <td>" . $row["Name"] . "</td>
+                        <td>" . $row["State"] . "</td>
+                        <td>" . $row["Email"] . "</td>
+                        <td>" . $row["Category"] . "</td>
+                        <td>" . $row["phoneNumber"] . "</td>
+                        <td class='button-group'>
+                        <input type='button' class='py-1 px-1  border-0 bg-primary mx-1 disabled' style='cursor:pointer' value='Request'>
+                        </input>
+                        <input type='button' class='py-1 px-1 border-0 bg-danger mx-1 disabled' style='cursor:pointer' value='Cancel'>
+                        </input><input type='button' class='btn btn-dark text-light rounded-0 mx-1 disabled' style='cursor:pointer' value='Message'>
+                        </input>
+                        </td>
+                        </tr>";
+                        }
                     }
                 }
                 ?>
@@ -133,50 +150,20 @@
         </table>
     </div>
 </div>
-
-<script>
-    function requestBlood(id) {
-        var user_id = id;
-        var myRequestFormContainer = document.getElementById('myRequestFormContainer');
-        myRequestFormContainer.innerHTML = "";
-        var formElem = document.createElement("form");
-        formElem.setAttribute("method", "POST")
-        var content = `<label for="reqBlood">
-                            <small class="text-danger">
-                                Enter the Blood Group You Require
-                            </small>
-                            <select name="reqBlood">
-                                <option value="A+">A+<option>
-                                <option value="A+">A-</option>
-                                <option value="B+">B+</option>
-                                <option value="B-">B-</option>
-                                <option value="AB+">AB+</option>
-                                <option value="AB+">AB-</option>
-                                <option value="O+">O+</option>
-                                <option value="O-">O-</option>
-                            </section>
-                        <label>
-                         <label for="description">
-                           <input class="border-0 py-2 px-1" name"description" placeholder="Enter your description"></input>
-                         </label>
-                          <input type="submit" value="Make Requests" name="makeRequestBtn"></input>
-                         `;
-        formElem.innerHTML = content;
-        myRequestFormContainer.append(formElem);
-    }
-</script>
-
 <?php
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $reqBlood = $_POST["reqBlood"];
-    // $description = $_POST["description"];
-    $user_from = $_SESSION["userName"];
-    $user_to = "<script>document.writeln(user_id);</script>";
+    if (isset($_SESSION['loggedInStatus'])) {
+        $reqBlood = $_POST["reqBlood"];
+        // $description = $_POST["description"];
+        $user_from = $_SESSION["userName"];
+        $user_to = "";
 
-    if (isset($_POST['makeRequestBtn'])) {
-        // $sql = "INSERT into `messages` (user_from,user_to,reqBlood,description) VALUES ($user_from,$user_to,$reqBlood,$description)";
-        echo "<div class='text-danger h1'>" . $user_to . "</div>";
+        if (isset($_POST['makeRequestBtn'])) {
+            // $sql = "INSERT into `messages` (user_from,user_to,reqBlood,description) VALUES ($user_from,$user_to,$reqBlood,$description)";
+            echo "entered Block";
+            echo "<div class='text-primiary h1'>" . $user_to . "</div>";
+        }
     }
 }
 ?>

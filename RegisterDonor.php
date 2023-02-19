@@ -31,9 +31,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //   checking result
         $result = mysqli_query($conn, $query);
         if ($result) {
-            header("Location:login.php");
+            header("Location:LoginDonor.php");
             die();
-            echo "<small class='text-danger'>Please Login To completely authorize urself</small>";
+            echo "<center class='text-danger'>
+            <small>
+               Please Login To completely authorize urself
+            </small>
+            </center>";
         }
     }
 }

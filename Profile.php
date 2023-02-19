@@ -33,27 +33,27 @@ include "./config/session.php";
         <div class="col-sm-2 px-1 bg-warning d-flex flex-column justify-content-between align-items-center border-end border-secondary" style="height:94vh;">
             <ul class="container-fluid d-flex flex-column justify-content-between align-items-center py-2">
                 <li class="container-fluid border-bottom border-dark py-4">
-                    <button type="button" class="bg-transparent border-0" onclick="fetchProfileBlocks('editProfile')">
+                    <button type="button" class="bg-transparent border-0 py-2" onclick="fetchProfileBlocks('editProfile')">
                         Edit Profile</button>
                 </li>
                 <li class="container-fluid border-bottom border-dark py-4">
-                    <button type="button" class="bg-transparent border-0" onclick="fetchProfileBlocks('changePassword')">
+                    <button type="button" class="bg-transparent border-0 py-2" onclick="fetchProfileBlocks('changePassword')">
                         Change Password</button>
                 </li>
                 <li class="container-fluid border-bottom border-dark py-4">
-                    <button type="button" class="bg-transparent border-0" onclick="fetchProfileBlocks('emailNotification')">
+                    <button type="button" class="bg-transparent border-0 py-2" onclick="fetchProfileBlocks('emailNotification')">
                         Email Notifications</button>
                 </li>
                 <li class="container-fluid border-bottom border-dark py-4">
-                    <button type="button" class="bg-transparent border-0" onclick="fetchProfileBlocks('profileSecurity')">
+                    <button type="button" class="bg-transparent border-0 py-2" onclick="fetchProfileBlocks('profileSecurity')">
                         Privacy and Security</button>
                 </li>
                 <li class="container-fluid border-bottom border-dark py-4">
-                    <button type="button" class="bg-transparent border-0" onclick="fetchProfileBlocks('loginActivity')">
+                    <button type="button" class="bg-transparent border-0 py-2" onclick="fetchProfileBlocks('loginActivity')">
                         Login Activity</button>
                 </li>
                 <li class="container-fluid border-bottom border-dark py-4">
-                    <button type="button" class="bg-transparent border-0" onclick="fetchProfileBlocks('help')">
+                    <button type="button" class="bg-transparent border-0 py-2" onclick="fetchProfileBlocks('help')">
                         Help
                     </button>
                 </li>
@@ -67,14 +67,10 @@ include "./config/session.php";
         </div>
     </section>
     <script>
-        // function fetchProfileBlocks(myId) {
-        //     var fetchBlockHere = document.getElementById('fetchBlockHere');
-        //     var changePassword = document.createElement("div");
-        //     changePassword.setAttribute("id", "changePasssword")
-        //     changePassword.append("hello from chnageePassword")
-
-        //     fetchBlockHere.innerHTML = myId;
-        // }
+        function fetchProfileBlocks(myId) {
+            var fetchBlockHere = document.getElementById('fetchBlockHere');
+            fetchBlockHere.innerHTML = myId;
+        }
     </script>
 
 </body>

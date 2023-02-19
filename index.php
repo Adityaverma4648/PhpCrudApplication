@@ -36,12 +36,14 @@ include "./config/session.php";
   <?php
   include "./Components/Welcome.php";
   include "./Components/Information.php";
+
   ?>
   <!--  header ends -->
   <!--   body starts -->
 
   <?php
   include "./Components/BloodCount.php";
+
   ?>
   <!-- body block ends -->
   <script type="module" src="./scripts/index.js">

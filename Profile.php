@@ -1,7 +1,18 @@
 <?php
 include "./config/conn.php";
 include "./config/session.php";
+$userName = $_SESSION['userName'];
+$sql = "SELECT userNameReg,emailReg FROM `user`";
+$res = mysqli_query($conn, $sql);
+if ($res) {
+    while ($row = $res->fetch_assoc()) {
+        if ($row['userNameReg'] == $userName)
+            $userEmail =  $row['emailReg'];
+    }
+}
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,54 +34,112 @@ include "./config/session.php";
     <script src="https://kit.fontawesome.com/8dc03a4776.js" crossorigin="anonymous"></script>
     <!-- fontawesome icons -->
     <link rel="stylesheet" href="./styles/style.css">
+    <style>
+        li button:hover {
+            color: rgba(255, 255, 255, 0.7);
+        }
+    </style>
 </head>
 
-<body>
+<body class="bg-black d-flex justify-content-center align-items-center" style="height:100vh;">
     <?php
     include "./Components/Header.php";
     ?>
-    <section class="row d-flex mt-5">
-        <div class="col-sm-2 px-1 bg-warning d-flex flex-column justify-content-between align-items-center border-end border-secondary" style="height:94vh;">
+    <section class="mt-5 container d-flex justify-content-center align-items-center bg-dark border border-secondary">
+        <div class="col-sm-2 d-flex flex-column justify-content-between align-items-center border-end border-secondary" style="height:80vh;">
             <ul class="container-fluid d-flex flex-column justify-content-between align-items-center py-2">
-                <li class="container-fluid border-bottom border-dark py-4">
-                    <button type="button" class="bg-transparent border-0 py-2" onclick="fetchProfileBlocks('editProfile')">
+                <li class="container-fluid border-bottom border-secondary py-4">
+                    <button type="button" class="bg-transparent border-0 py-2 text-light" onclick="fetchProfileBlocks('editProfile')">
                         Edit Profile</button>
                 </li>
-                <li class="container-fluid border-bottom border-dark py-4">
-                    <button type="button" class="bg-transparent border-0 py-2" onclick="fetchProfileBlocks('changePassword')">
+                <li class="container-fluid border-bottom border-secondary py-4">
+                    <button type="button" class="bg-transparent border-0 py-2 text-light" onclick="fetchProfileBlocks('changePassword')">
                         Change Password</button>
                 </li>
-                <li class="container-fluid border-bottom border-dark py-4">
-                    <button type="button" class="bg-transparent border-0 py-2" onclick="fetchProfileBlocks('emailNotification')">
+                <li class="container-fluid border-bottom border-secondary py-4">
+                    <button type="button" class="bg-transparent border-0 py-2 text-light" onclick="fetchProfileBlocks('emailNotification')">
                         Email Notifications</button>
                 </li>
-                <li class="container-fluid border-bottom border-dark py-4">
-                    <button type="button" class="bg-transparent border-0 py-2" onclick="fetchProfileBlocks('profileSecurity')">
+                <li class="container-fluid border-bottom border-secondary py-4">
+                    <button type="button" class="bg-transparent border-0 py-2 text-light" onclick="fetchProfileBlocks('profileSecurity')">
                         Privacy and Security</button>
                 </li>
-                <li class="container-fluid border-bottom border-dark py-4">
-                    <button type="button" class="bg-transparent border-0 py-2" onclick="fetchProfileBlocks('loginActivity')">
+                <li class="container-fluid border-bottom border-secondary py-4">
+                    <button type="button" class="bg-transparent border-0 py-2 text-light" onclick="fetchProfileBlocks('loginActivity')">
                         Login Activity</button>
                 </li>
-                <li class="container-fluid border-bottom border-dark py-4">
-                    <button type="button" class="bg-transparent border-0 py-2" onclick="fetchProfileBlocks('help')">
+                <li class="container-fluid border-bottom border-secondary py-4">
+                    <button type="button" class="bg-transparent border-0 py-2 text-light" onclick="fetchProfileBlocks('help')">
                         Help
                     </button>
                 </li>
 
             </ul>
-            <span class="text-danger py-2 ">
+            <div class="text-danger py-2 d-flex flex-column">
                 LOGO
-            </span>
+                <span class="border-top border-secondary" style="font-size:10px">
+                    Control settings for connected experiences across Instagram, the Facebook app and Messenger, including story and post sharing and logging in.
+                </span>
+            </div>
         </div>
-        <div class="col-sm-10 d-flex flex-column" id="fetchBlockHere">
+        <div class=" col-sm-10 d-flex flex-column justify-content-end" id="fetchBlockHere">
         </div>
     </section>
     <script>
+        function editProfile() {
+            var content = `<div class="container text-white">
+                            <form method = "POST" >
+                                 <div>
+                                     <?php
+                                        echo $_SESSION["userName"];
+                                        ?>
+                                 </div>
+                                 <div class="d-flex flex-column">
+                                      <h5 class="text-danger">
+                                         Name
+                                      </h5>
+                                     <input class="py-2 px-1" name="userName" placeholder="<?php echo $userEmail ?>"></input>
+                                     <small>
+                                          Help people discover your account by using the name you're known by: either your full name, nickname, or business name.
+                                          <br>
+                                          You can only change your name twice within 14 days.
+                                     </small>
+
+                                 </div>
+                                  <div class="d-flex flex-column">
+                                      <h5 class="text-danger">
+                                         Email
+                                      </h5>
+                                     <input class="py-2 px-1" name="userName" placeholder="<?php echo $_SESSION["userName"]; ?>"></input>
+                                     <small>
+                                          Help people discover your account by using the name you're known by: either your full name, nickname, or business name.
+                                          <br>
+                                          You can only change your name twice within 14 days.
+                                     </small>
+
+                                 </div>
+                                 <input class="my-1 bg-success px-1 py-2 border-0 text-white" type="submit" value="Save Changes"></input>
+                            </form>     
+                           </div>`;
+            return content;
+        }
+
         function fetchProfileBlocks(myId) {
             var fetchBlockHere = document.getElementById('fetchBlockHere');
-            fetchBlockHere.innerHTML = myId;
+            var mybody = "";
+            if (myId == "editProfile") {
+                mybody = editProfile();
+            } else if (myId === undefined) {
+                mybody = editProfile();
+            } else if (myId === "") {
+                mybody = editProfile();
+            } else if (myId === undefined) {
+                mybody = editProfile();
+            }
+
+            fetchBlockHere.innerHTML = mybody;
         }
+        fetchProfileBlocks("");
     </script>
 
 </body>

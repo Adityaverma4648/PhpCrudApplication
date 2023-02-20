@@ -1,8 +1,3 @@
-<!-- <div class="container-fluid top-0 position-absolute d-flex justify-content-center align-items-center" style="height:100vh;z-index:98"> -->
-<!-- <div class="bg-danger container d-flex justify-content-center align-items-center mt-2" id="myRequestFormContainer" style="height:30vh;width:30vw;">
-</div> -->
-<!-- </div> -->
-
 <!--  formPopUpabove  -->
 <div class="container bg-light d-flex flex-column">
 
@@ -43,7 +38,134 @@
             <span>
                 Select State
             </span>
-            <select name="state" id="state"></select>
+            <form method="get" class="d-flex">
+                <select name="stateSelected" id="state">
+                    <option value="Andaman And Nicobar Islands">
+                        Andaman And Nicobar Islands
+                    </option>
+                    <option value="Andhra Pradesh">
+                        Andhra Pradesh
+                    </option>
+                    <option value="Arunachal">
+                        Arunachal
+                    </option>
+                    <option value="Arunchal Pradesh">
+                        Arunchal Pradesh
+                    </option>
+                    <option value="Assam">
+                        Assam
+                    </option>
+                    <option value="Bihar">
+                        Bihar
+                    </option>
+                    <option value="Chandigarh">
+                        Chandigarh
+                    </option>
+                    <option value="Chhattisgarh">
+                        Chhattisgarh
+                    </option>
+                    <option value="Dadra And Nagar Haveli">
+                        Dadra And Nagar Haveli
+                    </option>
+                    <option value="Daman And Diu">
+                        Daman And Diu
+                    </option>
+                    <option value="Delhi">
+                        Delhi
+                    </option>
+                    <option value="Goa">
+                        Goa
+                    </option>
+                    <option value="Gujarat">
+                        Gujarat
+                    </option>
+                    <option value="Harayana">
+                        Harayana
+                    </option>
+                    <option value="Himachal Pradesh">
+                        Himachal Pradesh
+                    </option>
+                    <option value="Jammu And Kashmir">
+                        Jammu And Kashmir
+                    </option>
+                    <option value="Jharkhand">
+                        Jharkhand
+                    </option>
+                    <option value="Karnataka">
+                        Karnataka
+                    </option>
+                    <option value="Kerala">
+                        Kerala
+                    </option>
+                    <option value="Ladakh">
+                        Ladakh
+                    </option>
+                    <option value="Lakshadweep">
+                        Lakshadweep
+                    </option>
+                    <option value="Madhya pradesh">
+                        Madhya pradesh
+                    </option>
+                    <option value="Maharashtra">
+                        Maharashtra
+                    </option>
+                    <option value="Manipur">
+                        Manipur
+                    </option>
+                    <option value="Meghalaya">
+                        Meghalaya
+                    </option>
+                    <option value="Mizoram">
+                        Mizoram
+                    </option>
+                    <option value="Nagaland">
+                        Nagaland
+                    </option>
+                    <option value="Odisha">
+                        Odisha
+                    </option>
+                    <option value="Puducherry">
+                        Puducherry
+                    </option>
+                    <option value="Punjab">
+                        Punjab
+                    </option>
+                    <option value="Rajasthan">
+                        Rajasthan
+                    </option>
+                    <option value="Sikkim">
+                        Sikkim
+                    </option>
+                    <option value="Tamil Nadu">
+                        Tamil Nadu
+                    </option>
+
+                    <option value="Telangana">
+                        Telangana
+                    </option>
+                    <option value="Tripura">
+                        Tripura
+                    </option>
+                    <option value="Uttarakhand">
+                        Uttarakhand
+                    </option>
+                    <option value="Uttar Pradesh">
+                        Uttar Pradesh
+                    </option>
+                    <option value="West Bengal">
+                        West Bengal
+                    </option>
+                </select>
+                <input type="submit" name="searchState" value="Search">
+            </form>
+            <?php
+            if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+                if (isset($_GET['searchState'])) {
+                    $stateSelected = $_GET['stateSelected'];
+                    echo $stateSelected;
+                }
+            }
+            ?>
         </div>
     </div>
     <div>
@@ -72,6 +194,7 @@
             </thead>
             <tbody>
                 <?php
+
                 $sql = "SELECT id,uniqueId, userNameReg, state, emailReg,category,phoneNumber FROM `user`";
 
                 $res = $conn->query($sql);
@@ -100,14 +223,17 @@
                         }
                     }
                 }
+
+
                 ?>
                 <?php
                 if (isset($myLimit)) {
-                    $sql1 = "SELECT Name,State,phoneNumber,Email,Category FROM `blood_banks` LIMIT $myLimit ";
-                    $res1 = mysqli_query($conn, $sql1);
-                    if ($res1) {
-                        while ($row = $res1->fetch_assoc()) {
-                            echo "<tr class='table-danger'>
+                    if (isset($stateSelected)) {
+                        $sql1 = "SELECT Name,State,phoneNumber,Email,Category FROM `blood_banks` WHERE State = $stateSelected LIMIT $myLimit ";
+                        $res1 = mysqli_query($conn, $sql1);
+                        if ($res1) {
+                            while ($row = $res1->fetch_assoc()) {
+                                echo "<tr class='table-danger'>
                         <td>" . $row["Name"] . "</td>
                         <td>" . $row["State"] . "</td>
                         <td>" . $row["Email"] . "</td>
@@ -121,14 +247,60 @@
                         </input>
                         </td>
                         </tr>";
+                            }
+                        }
+                    } else {
+                        $sql1 = "SELECT Name,State,phoneNumber,Email,Category FROM `blood_banks` LIMIT $myLimit ";
+                        $res1 = mysqli_query($conn, $sql1);
+                        if ($res1) {
+                            while ($row = $res1->fetch_assoc()) {
+                                echo "<tr class='table-danger'>
+                        <td>" . $row["Name"] . "</td>
+                        <td>" . $row["State"] . "</td>
+                        <td>" . $row["Email"] . "</td>
+                        <td>" . $row["Category"] . "</td>
+                        <td>" . $row["phoneNumber"] . "</td>
+                        <td class='button-group'>
+                        <input type='button' class='py-1 px-1  border-0 bg-primary mx-1 disabled' style='cursor:pointer' value='Request'>
+                        </input>
+                        <input type='button' class='py-1 px-1 border-0 bg-danger mx-1 disabled' style='cursor:pointer' value='Cancel'>
+                        </input><input type='button' class='btn btn-dark text-light rounded-0 mx-1 disabled' style='cursor:pointer' value='Message'>
+                        </input>
+                        </td>
+                        </tr>";
+                            }
                         }
                     }
                 } else {
-                    $sql1 = "SELECT Name,State,phoneNumber,Email,Category FROM `blood_banks` LIMIT 10 ";
-                    $res1 = mysqli_query($conn, $sql1);
-                    if ($res1) {
-                        while ($row = $res1->fetch_assoc()) {
-                            echo "<tr class='table-danger'>
+                    if (isset($_GET['stateSelected'])) {
+                        $sql1 = "SELECT Name,State,phoneNumber,Email,Category FROM `blood_banks` LIMIT 10 ";
+                        $res1 = mysqli_query($conn, $sql1);
+                        if ($res1) {
+                            while ($row = $res1->fetch_assoc()) {
+                                echo strtolower($row['State']), strtolower($stateSelected);
+                                if (strtolower($row['State']) == strtolower($stateSelected)) {
+                                    echo "<tr class='table-danger'>
+                                             <td>" . $row["Name"] . "</td>
+                                             <td>" . $row["State"] . "</td>
+                                             <td>" . $row["Email"] . "</td>
+                                             <td>" . $row["Category"] . "</td>
+                                             <td>" . $row["phoneNumber"] . "</td>
+                                             <td class='button-group'>
+                        
+                                            <input type='button' class='py-1 px-1  border-0 bg-primary mx-1 disabled' style='cursor:pointer' value='Request'></input>
+                                            <input type='button' class='py-1 px-1 border-0 bg-danger mx-1 disabled' style='cursor:pointer' value='Cancel'></input>
+                                            <input type='button' class='btn btn-dark text-light rounded-0 mx-1 disabled' style='cursor:pointer' value='Message'></input>
+                                            </td>
+                                          </tr>";
+                                }
+                            }
+                        }
+                    } else {
+                        $sql1 = "SELECT Name,State,phoneNumber,Email,Category FROM `blood_banks` LIMIT 10 ";
+                        $res1 = mysqli_query($conn, $sql1);
+                        if ($res1) {
+                            while ($row = $res1->fetch_assoc()) {
+                                echo "<tr class='table-danger'>
                         <td>" . $row["Name"] . "</td>
                         <td>" . $row["State"] . "</td>
                         <td>" . $row["Email"] . "</td>
@@ -142,6 +314,7 @@
                         </input>
                         </td>
                         </tr>";
+                            }
                         }
                     }
                 }
@@ -150,20 +323,3 @@
         </table>
     </div>
 </div>
-<?php
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_SESSION['loggedInStatus'])) {
-        $reqBlood = $_POST["reqBlood"];
-        // $description = $_POST["description"];
-        $user_from = $_SESSION["userName"];
-        $user_to = "";
-
-        if (isset($_POST['makeRequestBtn'])) {
-            // $sql = "INSERT into `messages` (user_from,user_to,reqBlood,description) VALUES ($user_from,$user_to,$reqBlood,$description)";
-            echo "entered Block";
-            echo "<div class='text-primiary h1'>" . $user_to . "</div>";
-        }
-    }
-}
-?>

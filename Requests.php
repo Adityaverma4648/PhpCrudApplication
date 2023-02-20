@@ -79,12 +79,14 @@ $url .= $_SERVER['REQUEST_URI'];
                 <tbody>
                     <?php
                     $curr_user = $_SESSION['userName'];
-                    $sql = "SELECT 	user_to,reqBlood,description,req_date FROM `requests`";
+                    $sql = "SELECT 	user_to,user_from,reqBlood,description,req_date FROM `requests`";
                     $res = mysqli_query($conn, $sql);
                     if ($res) {
                         while ($row = $res->fetch_assoc()) {
-                            echo "<tr>
+                            if ($row["user_from"] == $_SESSION["userName"]) {
+                                echo "<tr>
                             <td>" . $row['user_to'] . "</td><td>" . $row['reqBlood'] . "</td><td>" . $row['description'] . "</td><td>" . $row['req_date'] . "</td></tr>";
+                            }
                         }
                     }
                     ?>

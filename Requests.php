@@ -8,9 +8,6 @@ if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
 }
 $url .= $_SERVER['HTTP_HOST'];
 $url .= $_SERVER['REQUEST_URI'];
-// if ($url == 'http://localhost/PhpCrudApplication/Requests.php'){
-
-// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +27,7 @@ $url .= $_SERVER['REQUEST_URI'];
     <link href="https://fonts.googleapis.com/css2?family=Cookie&family=Poppins:wght@500;600&family=Raleway&family=Roboto&display=swap" rel="stylesheet">
     <!--  fonts imports ends here -->
     <!-- fontawesome icons -->
-    <script src="https://kit.fontawesome.com/8dc03a4776.js" crossorigin="anonymous"></script>
+    < src="https://kit.fontawesome.com/8dc03a4776.js" crossorigin="anonymous"></>
     <!-- fontawesome icons -->
     <link rel="stylesheet" href="./styles/style.css">
 </head>
@@ -135,11 +132,12 @@ $url .= $_SERVER['REQUEST_URI'];
             if (isset($_POST["requestBtn"])) {
                 $user_from = $_SESSION['userName'];
                 $user_id = (int) filter_var($url, FILTER_SANITIZE_NUMBER_INT);
-                $getName = "SELECT userNameReg FROM `user` WHERE id = $user_id";
+                $getName = "SELECT userNameReg FROM `user`";
                 $res1 = mysqli_query($conn, $getName);
                 if ($res1) {
                     while ($row = $res1->fetch_assoc()) {
-                        $user_to = $row['userNameReg'];
+                        if ($row['id'] = $user_id)
+                            $user_to = $row['userNameReg'];
                     }
                 }
 
@@ -153,9 +151,9 @@ $url .= $_SERVER['REQUEST_URI'];
                     $row = mysqli_fetch_assoc($res);
                     if ($user_from == isset($row['user_from']) && $user_to == isset($row['user_to'])) {
                         echo "<center>
-                                 <small class='text-danger text-center'>
-                                   Already Requested *
-                                 </small>
+                                 <script>
+                                   alert('Already Requested *')
+                                 </script>
                               </center>";
                         $conn->close();
                     }

@@ -273,12 +273,11 @@
                     }
                 } else {
                     if (isset($_GET['stateSelected'])) {
-                        $sql1 = "SELECT Name,State,phoneNumber,Email,Category FROM `blood_banks` LIMIT 10 ";
+                        $sql1 = "SELECT Name,State,phoneNumber,Email,Category FROM `blood_banks`";
                         $res1 = mysqli_query($conn, $sql1);
                         if ($res1) {
                             while ($row = $res1->fetch_assoc()) {
-                                echo strtolower($row['State']), strtolower($stateSelected);
-                                if (strtolower($row['State']) == strtolower($stateSelected)) {
+                                if ($row['State'] == $_GET['stateSelected']) {
                                     echo "<tr class='table-danger'>
                                              <td>" . $row["Name"] . "</td>
                                              <td>" . $row["State"] . "</td>

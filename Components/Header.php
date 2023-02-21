@@ -181,10 +181,6 @@
                             <i class="fa fa-user"></i>
                             Profile
                           </a></li>
-                          <li><a class="dropdown-item text-info border-bottom border-info" href="additionalData.php">
-                            <i class="fa fa-edit"></i>
-                            Add Info
-                          </a></li>
                           <li><a class="dropdown-item text-info border-bottom border-info" href="#">
                           <i class="fa fa-envelope"></i>
                           Mails

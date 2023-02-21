@@ -2,12 +2,14 @@
 include "./config/conn.php";
 include "./config/session.php";
 $userName = $_SESSION['userName'];
-$sql = "SELECT userNameReg,emailReg FROM `user`";
+$sql = "SELECT userNameReg,emailReg,passwordReg FROM `user`";
 $res = mysqli_query($conn, $sql);
 if ($res) {
     while ($row = $res->fetch_assoc()) {
-        if ($row['userNameReg'] == $userName)
+        if ($row['userNameReg'] == $userName) {
             $userEmail =  $row['emailReg'];
+            $passwordReg = $row['passwordReg'];
+        }
     }
 }
 
@@ -38,6 +40,10 @@ if ($res) {
         li button:hover {
             color: rgba(255, 255, 255, 0.7);
         }
+
+        .fetchedBlock {
+            height: 60vh;
+        }
     </style>
 </head>
 
@@ -50,23 +56,28 @@ if ($res) {
             <ul class="container-fluid d-flex flex-column justify-content-between align-items-center py-2">
                 <li class="container-fluid border-bottom border-secondary py-4">
                     <button type="button" class="bg-transparent border-0 py-2 text-light" onclick="fetchProfileBlocks('editProfile')">
-                        Edit Profile</button>
+                        Edit Profile
+                    </button>
                 </li>
                 <li class="container-fluid border-bottom border-secondary py-4">
                     <button type="button" class="bg-transparent border-0 py-2 text-light" onclick="fetchProfileBlocks('changePassword')">
-                        Change Password</button>
+                        Change Password
+                    </button>
                 </li>
                 <li class="container-fluid border-bottom border-secondary py-4">
                     <button type="button" class="bg-transparent border-0 py-2 text-light" onclick="fetchProfileBlocks('emailNotification')">
-                        Email Notifications</button>
+                        Email Notifications
+                    </button>
                 </li>
                 <li class="container-fluid border-bottom border-secondary py-4">
                     <button type="button" class="bg-transparent border-0 py-2 text-light" onclick="fetchProfileBlocks('profileSecurity')">
-                        Privacy and Security</button>
+                        Privacy and Security
+                    </button>
                 </li>
                 <li class="container-fluid border-bottom border-secondary py-4">
                     <button type="button" class="bg-transparent border-0 py-2 text-light" onclick="fetchProfileBlocks('loginActivity')">
-                        Login Activity</button>
+                        Login Activity
+                    </button>
                 </li>
                 <li class="container-fluid border-bottom border-secondary py-4">
                     <button type="button" class="bg-transparent border-0 py-2 text-light" onclick="fetchProfileBlocks('help')">
@@ -87,7 +98,7 @@ if ($res) {
     </section>
     <script>
         function editProfile() {
-            var content = `<div class="container text-white">
+            var content = `<div class="fetchedBlock container text-white">
                             <form method = "POST" >
                                  <div>
                                      <?php
@@ -98,7 +109,7 @@ if ($res) {
                                       <h5 class="text-danger">
                                          Name
                                       </h5>
-                                     <input class="py-2 px-1" name="userName" placeholder="<?php echo $userEmail ?>"></input>
+                                     <input class="py-2 px-1" name="userNameUpdation" placeholder="<?php echo $userName ?>"></input>
                                      <small>
                                           Help people discover your account by using the name you're known by: either your full name, nickname, or business name.
                                           <br>
@@ -110,7 +121,7 @@ if ($res) {
                                       <h5 class="text-danger">
                                          Email
                                       </h5>
-                                     <input class="py-2 px-1" name="userName" placeholder="<?php echo $_SESSION["userName"]; ?>"></input>
+                                     <input class="py-2 px-1" name="userEmailUpdation" placeholder="<?php echo $userEmail ?>"></input>
                                      <small>
                                           Help people discover your account by using the name you're known by: either your full name, nickname, or business name.
                                           <br>
@@ -118,7 +129,60 @@ if ($res) {
                                      </small>
 
                                  </div>
-                                 <input class="my-1 bg-success px-1 py-2 border-0 text-white" type="submit" value="Save Changes"></input>
+                                 <input class="my-1 bg-success px-1 py-2 border-0 text-white" type="submit" value="Save Changes" name="savingUpdation"></input>
+                            </form>     
+                           </div>`;
+            return content;
+        }
+
+        function changePassword() {
+            var content = `<div class="fetchedBlock container text-white">
+                            <form method = "POST" >
+                                 <div>
+                                     <?php
+                                        echo $_SESSION["userName"];
+                                        ?>
+                                 </div>
+                                 
+                                 <div class="d-flex flex-column">
+                                      <h5 class="text-danger">
+                                         Old Password
+                                      </h5>
+                                      <div class="container-fluid">
+                                         <input class="py-2 px-1 col-sm-11" name="userNameUpdation" placeholder="<?php echo "Previous Password : ";
+                                                                                                                    echo md5($passwordReg); ?>"></input>
+                                         <button type="button" class="border-0 px-2 py-2">
+                                             <i class="fa fa-eye"></i>
+                                         </button>
+
+                                      </div>
+                                 </div>
+                                  <div class="d-flex flex-column">
+                                      <h5 class="text-danger">
+                                         New Password
+                                      </h5>
+                                     <div class="container-fluid">
+                                         <input class="py-2 px-1 col-sm-11" name="userNameUpdation" placeholder="<?php echo "New Password : "; ?>"></input>
+                                         <button type="button" class="border-0 px-2 py-2">
+                                             <i class="fa fa-eye"></i>
+                                         </button>
+                                      </div>
+                                       <div class="d-flex flex-column">
+                                      <h5 class="text-danger">
+                                         Confirm New Password
+                                      </h5>
+                                     <div class="container-fluid">
+                                         <input class="py-2 px-1 col-sm-11" name="userNameUpdation" placeholder="<?php echo "Confirm New Password :"; ?>"></input>
+                                         <button type="button" class="border-0 px-2 py-2">
+                                             <i class="fa fa-eye"></i>
+                                         </button>
+
+                                      </div>
+                                 </div>
+                                 <div class="py-2 col-sm-2 d-flex justify-content-center align-items-center">
+                                 <input class="my-1 bg-success px-1 py-2 border-0 text-white" type="submit" value="Save Changes" name="changePasswordBtn"></input>                                 
+                                 </div>
+
                             </form>     
                            </div>`;
             return content;
@@ -135,12 +199,36 @@ if ($res) {
                 mybody = editProfile();
             } else if (myId === undefined) {
                 mybody = editProfile();
+            } else if (myId === "changePassword") {
+                mybody = changePassword();
             }
 
             fetchBlockHere.innerHTML = mybody;
         }
         fetchProfileBlocks("");
     </script>
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $userNameUpdation = $_POST['userNameUpdation'];
+        $userEmailUpdation = $_POST['userEmailUpdation'];
+        if (isset($savingUpdationEditProfile)) {
+            if ($userNameUpdation && $userEmailUpdation) {
+
+                $sql = "UPDATE `user` SET userNameReg = $userNameUpdation,$userEmailUpdation";
+                $res = mysqli_query($conn, $sql);
+                if ($res)
+                    echo "<script>alert('Updated')</script>";
+                else
+                    echo "CouldNot Update !";
+            }
+        }
+        if (isset($changePasswordBtn)) {
+            $previousPassword = $passwordReg;
+        }
+    }
+
+
+    ?>
 
 </body>
 

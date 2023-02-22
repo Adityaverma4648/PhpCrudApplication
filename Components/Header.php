@@ -1,11 +1,11 @@
 <!-- <link rel="stylesheet" href="../styles/style.css"> -->
 <header class="container-fluid bg-dark header d-flex flex-column py-2 position-fixed top-0" style="z-index:999999" id="header">
   <!--  navbar  -->
-  <nav class="container d-flex justify-content-center align-items-center">
+  <nav class="NAVBAR container d-flex justify-content-center align-items-center">
     <div class="col-lg-1 col-sm-1 h3 text-white d-flex justify-content-center align-items-center">
       LOGO
     </div>
-    <div class="col-lg-8 col-sm-8 d-flex justify-content-end align-items-center px-1">
+    <div class="col-lg-8 col-sm-10 col-5 d-flex justify-content-end align-items-center px-1" id="navLinksContainer">
       <li class="px-2 py-1 mx-1" style="list-style: none;">
         <a href="../../PhpCrudApplication/index.php" class=" bg-transparent text-decoration-none d-flex text-warning">
           <!-- Home icon  -->
@@ -17,9 +17,9 @@
             <path d="M890.092308 602.781538c-9.058462-9.452308-221.735385-230.006154-255.606154-259.741538-15.163077-13.193846-30.916923-19.101538-46.867692-17.329231-19.495385 1.969231-31.507692 14.769231-35.052308 19.101539L290.067692 607.901538v314.289231H895.212308V608.098462l-5.12-5.316924z m-184.32 132.135385c0-0.590769 0-5.907692-1.378462-13.587692-0.590769-5.12-4.923077-34.658462-30.326154-55.729231-0.393846-0.393846-0.984615-0.787692-1.378461-0.984615-20.283077-16.541538-47.458462-23.236923-80.935385-19.692308-12.209231-1.575385-50.609231-3.938462-79.556923 18.904615-0.590769 0.590769-1.378462 1.181538-1.969231 1.575385-0.393846 0.196923-0.590769 0.590769-0.984615 0.787692-0.590769 0.393846-0.984615 0.984615-1.575385 1.378462-0.590769 0.590769-1.378462 1.181538-1.96923 1.969231l-0.787693 0.787692c-0.787692 0.787692-1.575385 1.772308-2.363077 2.56-0.196923 0.196923-0.393846 0.393846-0.393846 0.590769-0.787692 0.984615-1.575385 1.772308-2.363077 2.756923-0.196923 0.393846-0.590769 0.590769-0.787692 0.984616l-1.772308 2.363076c-1.772308 2.56-3.544615 5.316923-5.12 8.073847-3.544615 4.332308-7.089231 11.421538-9.452307 27.963077-0.787692 4.332308-1.378462 9.058462-1.772308 13.784615 0 0.590769 0 1.378462-0.196923 1.969231-0.787692 9.058462-1.378462 20.086154-1.772308 33.28-1.969231 48.049231-1.969231 94.72-1.575385 119.532307h-149.464615V623.655385l252.061539-253.046154 1.575384-1.772308s4.332308-5.12 10.043077-5.710769c5.12-0.590769 11.224615 2.363077 18.116923 8.270769 29.735385 25.993846 218.584615 221.735385 247.926154 252.061539v261.12h-149.070769l-2.756923-149.661539z m-189.243077 31.310769c0.393846-9.846154 0.984615-19.889231 1.575384-29.735384 0.590769-6.695385 1.181538-11.815385 1.772308-15.556923 1.575385-7.483077 4.332308-13.981538 8.073846-19.298462 17.723077-24.024615 59.076923-19.298462 60.652308-18.904615l2.363077 0.393846 2.56-0.393846c24.221538-2.56 42.929231 1.181538 55.532308 11.224615 0.196923 0.196923 0.590769 0.393846 0.787692 0.590769 10.830769 9.452308 15.163077 22.449231 17.132308 31.31077l3.938461 158.523076h-155.569231c-0.196923-24.418462 0.196923-74.24 1.181539-118.153846z" fill="#493B4E" />
           </svg>
           <!--  icon block ends -->
-          <div class="px-1 py-1">
+          <small class="px-1 py-1">
             Home
-          </div>
+          </small>
         </a>
       </li>
       <li class="px-2 py-1 mx-1" style="list-style: none;">
@@ -42,9 +42,9 @@
             <path d="M235.9 544l-23-56.1-23 56.1h-2.3l-25.7-65.3h4.9l21.9 56.7 23-56.7h2.3l23 56.7 21.9-56.7h4.9L238.1 544h-2.2z" fill="#0F53A8" />
             <path d="M241.2 548.5h-8.4l-20-48.8-20 48.8h-8.4l-29.2-74.3h14.5l19 49 19.9-49h8.4l19.9 49 18.9-49h14.5z" fill="#0F53A8" />
           </svg>
-          <div class="p-1">
+          <small class="p-1">
             About
-          </div>
+          </small>
         </a>
       </li>
       <li class="px-2 py-1 mx-1" style="list-style: none;">
@@ -74,9 +74,9 @@
               </g>
             </g>
           </svg>
-          <div class="p-1">
+          <small class="p-1">
             MyRequests
-          </div>
+          </small>
         </a>
       </li>
       <li class="px-2 py-1 mx-1" style="list-style: none;">
@@ -84,8 +84,7 @@
 
           <svg height="23px" width="23px" version="1.1" id="_x36_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve">
             <g>
-              <path style="fill:#E5D8A1;" d="M474.842,376.558l-3.269,47.547c-71.436,0-122.251,1.089-157.814,2.49 c-59.297,2.256-76.339,5.292-76.339,5.292s-17.042-3.036-76.339-5.292c-32.995-1.323-78.985-2.335-142.406-2.49H3.268 l-1.167-16.576L0,376.558c0,0,0.156-0.156,0.389-0.467c2.646-3.501,20.855-26.924,46.224-51.203
-		c3.268-3.192,6.692-6.382,10.272-9.572c0-2.49,0-5.058,0.078-7.704c1.479-74.705,25.524-200.536,123.185-235.786
+              <path style="fill:#E5D8A1;" d="M474.842,376.558l-3.269,47.547c-71.436,0-122.251,1.089-157.814,2.49 c-59.297,2.256-76.339,5.292-76.339,5.292s-17.042-3.036-76.339-5.292c-32.995-1.323-78.985-2.335-142.406-2.49H3.268 l-1.167-16.576L0,376.558c0,0,0.156-0.156,0.389-0.467c2.646-3.501,20.855-26.924,46.224-51.203 c3.268-3.192,6.692-6.382,10.272-9.572c0-2.49,0-5.058,0.078-7.704c1.479-74.705,25.524-200.536,123.185-235.786
 		c3.579-1.323,7.392-2.491,11.205-3.58c3.736-1.012,7.471-1.946,11.439-2.723c10.739-2.101,22.256-3.191,34.629-3.191
 		c3.112,0,6.147,0.078,9.104,0.234c1.945,0.078,3.969,0.156,5.836,0.388c1.167,0,2.257,0.156,3.346,0.234
 		c5.603,0.545,11.05,1.323,16.342,2.335c3.968,0.778,7.704,1.712,11.439,2.723c3.813,1.09,7.626,2.257,11.206,3.58
@@ -161,20 +160,20 @@
               </g>
             </g>
           </svg>
-          <div class="p-1">
+          <small class="p-1">
             Notifications
-          </div>
+          </small>
         </a>
       </li>
 
     </div>
+
     <?php
+
     if (isset($_SESSION['userName'])) {
-      $name = $_SESSION['userName'];
-      $firstLetter = strtoupper($name[0]);
       echo '<div class="col-sm-2 d-flex justify-content-center align-items-center><div class="dropdown">
                       <button type="button" class="btn btn-info dropdown-toggle rounded-5" data-bs-toggle="dropdown">
-                           ' . $firstLetter . '
+                            ' . $_SESSION['userName'] . '
                        </button>
                        <ul class="dropdown-menu bg-dark">
                             <li><a class="dropdown-item text-info border-bottom border-info" href="Profile.php">
@@ -196,50 +195,25 @@
     } else {
       echo '<div class="col-lg-2 col-sm-2 d-flex ">
             <div class="text-decoration-none text-white px-4 py-2 mx-1 bg-primary dropdown">
-              <button type="button" class="dropdown-toggle bg-transparent border-0 text-white" data-bs-toggle="dropdown">
+              <a href="./Login.php" class="text-decoration-none bg-transparent border-0 text-white">
                 Login
-              </button> 
-              <ul class="dropdown-menu bg-primary p-2">
-                <li class="border-bottom border-white text-white">
-                <a class="dropdown-item" href="./Login.php" class="text-white">
-                   Login Org
-                </a></li>
-                <li class="border-bottom border-white text-white">
-                <a class="dropdown-item" href="./LoginDonor.php" class="text-white">
-                  Login Donor
-                </a></li>
-                <li class="text-white">
-                <a class="dropdown-item" href="#" class="text-white">
-                   Login Individual
-                </a></li>
-              </ul>
+              </a> 
             </div>
              <div class="text-decoration-none text-white px-4 py-2 mx-1 bg-danger dropdown">
-              <button type="button" class="dropdown-toggle bg-transparent border-0 text-white" data-bs-toggle="dropdown">
+              <a href="./Register.php" class="text-decoration-none bg-transparent border-0 text-white">
                 Register
-              </button> 
-              <ul class="dropdown-menu bg-danger p-2">
-                <li class="border-bottom border-white text-white">
-                <a class="dropdown-item" href="./Register.php" class="text-white">
-                   Register Org
-                </a></li>
-                <li class="border-bottom border-white text-white">
-                <a class="dropdown-item" href="./RegisterDonor.php" class="text-white">
-                  Register Donor
-                </a></li>
-                <li class="text-white">
-                <a class="dropdown-item" href="#" class="text-white">
-                   Register as individual
-                </a></li>
-              </ul>
+              </a> 
             </div>
+          
             </div>';
     }
 
     ?>
-    <div class="col-sm-1 toggleMenu text-success d-flex justify-content-center align-items-center d-none">
-      <i class="fa fa-bars fa-2x"></i>
-    </div>
+
   </nav>
+  <div class="col-sm-1 toggleMenu text-success d-flex justify-content-center align-items-center d-none">
+    <i class="fa fa-bars fa-2x"></i>
+  </div>
   <!--  navbar ends -->
+
 </header>

@@ -47,7 +47,7 @@ if ($res) {
     </style>
 </head>
 
-<body class="bg-black d-flex justify-content-center align-items-center" style="height:100vh;">
+<body class="bg-light d-flex justify-content-center align-items-center" style="height:100vh;">
     <?php
     include "./Components/Header.php";
     ?>
@@ -86,7 +86,7 @@ if ($res) {
                 </li>
 
             </ul>
-            <div class="text-danger py-2 d-flex flex-column">
+            <div class="container text-center text-danger py-2 d-flex flex-column" style="overflow:hidden">
                 LOGO
                 <span class="border-top border-secondary" style="font-size:10px">
                     Control settings for connected experiences across Instagram, the Facebook app and Messenger, including story and post sharing and logging in.

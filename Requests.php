@@ -8,7 +8,68 @@ if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
 }
 $url .= $_SERVER['HTTP_HOST'];
 $url .= $_SERVER['REQUEST_URI'];
+
+if (!isset($_SESSION['userName'])) {
+    echo '<div class="Warning end-0 position-absolute col-sm-3 px-2 py-3 text-danger bg-light d-flex justify-content-evenly align-items-center" style="z-index:9999999999999;margin-top :10vh " id="Warning"><small>No Data To Show,You Are Not Logged In!<small> <button type="button" class="border-2 border-dark bg-transparent p-2" onClick="fadeToForget()"><i class="fa fa-close"></i></button> </div>';
+}
+
+
+if (isset($_SESSION['userName'])) {
+    $curr_user = $_SESSION['userName'];
+    $sql = "SELECT 	user_to,user_from,reqBlood,description,req_date FROM `requests`";
+    $res = mysqli_query($conn, $sql);
+    if ($res) {
+        while ($row = $res->fetch_assoc()) {
+            if ($row["user_from"] == $_SESSION["userName"]) {
+                echo "<tr>
+                            <td>" . $row['user_to'] . "</td><td>" . $row['reqBlood'] . "</td><td>" . $row['description'] . "</td><td>" . $row['req_date'] . "</td></tr>";
+            }
+        }
+    }
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (isset($_POST["requestBtn"])) {
+            $user_from = $_SESSION['userName'];
+            $user_id = (int) filter_var($url, FILTER_SANITIZE_NUMBER_INT);
+            $getName = "SELECT userNameReg FROM `user`";
+            $res1 = mysqli_query($conn, $getName);
+            if ($res1) {
+                while ($row = $res1->fetch_assoc()) {
+                    if ($row['id'] = $user_id)
+                        $user_to = $row['userNameReg'];
+                }
+            }
+
+            $reqBlood = $_POST['reqBlood'];
+            $description = $_POST['description'];
+            $req_date = date("Y-m-d H:i:s");
+            // // checking uniqueness of username
+            $sql = "SELECT * FROM requests where (user_from = '$user_from' or user_to = '$user_to');";
+            $res = mysqli_query($conn, $sql);
+            if (mysqli_num_rows($res) > 0) {
+                $row = mysqli_fetch_assoc($res);
+                if ($user_from == isset($row['user_from']) && $user_to == isset($row['user_to'])) {
+                    echo '<div class="Warning end-0 position-absolute col-sm-3 px-2 py-3 text-danger bg-light d-flex justify-content-evenly align-items-center" style="z-index:9999999999999;margin-top :10vh" id="Warning"><small>Already Requested!<small> <button type="button" class="border-2 border-dark bg-transparent p-2" onClick="fadeToForget()"><i class="fa fa-close"></i></button> </div>';
+                    $conn->close();
+                }
+            } else {
+
+                $sql = "INSERT into `requests`(user_from,user_to,reqBlood,description,req_date) VALUES ('$user_from','$user_to','$reqBlood','$description','$req_date')";
+                $res = mysqli_query($conn, $sql);
+                if ($res) {
+                    $_SESSION['reqId'] = $user_id;
+                    $_SESSION['alreadyRequested'] = true;
+                    header('Location : index.php');
+                } else {
+                    echo "error";
+                }
+            }
+        }
+    }
+}
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,15 +113,22 @@ $url .= $_SERVER['REQUEST_URI'];
 
 <body>
     <?php
-    include './Components/Header.php';
-    ?>
+    include './Components/Header.php'; ?>
     <section class="d-flex flex-column justify-content-center align-items-center">
+
         <div class="container">
-            <table class="table table-light table-bordered table-striped">
+            <div class="container bg-info py-4">
+                The Following is the list of requests made by
+                <?php
+                if (isset($_SESSION['userName']))
+                    echo $_SESSION['userName'];
+                ?>
+            </div>
+            <table class="table table-light border-dark table-bordered table-striped">
                 <thead>
                     <tr class="text-primary">
                         <td>
-                            USER REQUESTED
+                            REQUESTED USER
                         </td>
                         <td>
                             DESCRIPTION
@@ -71,42 +139,46 @@ $url .= $_SERVER['REQUEST_URI'];
                         <td>
                             REQUESTED DATE
                         </td>
+                        <!-- edit Requests -->
+                        <td>
+                            EDIT REQUEST
+                        </td>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                    $curr_user = $_SESSION['userName'];
-                    $sql = "SELECT 	user_to,user_from,reqBlood,description,req_date FROM `requests`";
-                    $res = mysqli_query($conn, $sql);
-                    if ($res) {
-                        while ($row = $res->fetch_assoc()) {
-                            if ($row["user_from"] == $_SESSION["userName"]) {
-                                echo "<tr>
-                            <td>" . $row['user_to'] . "</td><td>" . $row['reqBlood'] . "</td><td>" . $row['description'] . "</td><td>" . $row['req_date'] . "</td></tr>";
+                    <tr>
+                        <td>
+                            <?php
+                            $user_id = (int) filter_var($url, FILTER_SANITIZE_NUMBER_INT);
+                            $sql1 = "SELECT userNameReg from `user` WHERE id= $user_id";
+                            $res1 = mysqli_query($conn, $sql1);
+                            if ($res1) {
+                                while ($row = $res1->fetch_assoc()) {
+                                    echo '<div class="text-dark">' . $row['userNameReg'] . '</div>';
+                                }
                             }
-                        }
-                    }
-                    ?>
-
+                            ?>
+                        </td>
+                        <td>
+                            N/A
+                        </td>
+                        <td>
+                            N/A
+                        </td>
+                        <td>
+                            N/A
+                        </td>
+                        <td class="d-flex justify-content-center align-items-center">
+                            <button type="button" id="getForm" class="border-0 bg-warning px-1 py-2">
+                                <i class="fa fa-edit"></i>
+                                Edit Request
+                            </button>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
-        <form action="" method="POST" class="container formCont d-flex flex-column">
-            <div class="container-fluid">
-                Request
-                <strong>
-                    <?php
-                    $user_id = (int) filter_var($url, FILTER_SANITIZE_NUMBER_INT);
-                    $sql = "SELECT userNameReg from `user` WHERE id= $user_id";
-                    $res = mysqli_query($conn, $sql);
-                    if ($res) {
-                        while ($row = $res->fetch_assoc())
-                            echo $row['userNameReg'];
-                    }
-                    ?>
-                </strong>
-
-            </div>
+        <!-- <form action="" method="POST" class="container formCont d-flex flex-column">
             <small class="text-center">
                 Enter the required
             </small>
@@ -126,53 +198,18 @@ $url .= $_SERVER['REQUEST_URI'];
                 <input type="text" placeholder="Enter description" name="description">
             </label>
             <input type="submit" name="requestBtn" value="Request">
-        </form>
-        <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            if (isset($_POST["requestBtn"])) {
-                $user_from = $_SESSION['userName'];
-                $user_id = (int) filter_var($url, FILTER_SANITIZE_NUMBER_INT);
-                $getName = "SELECT userNameReg FROM `user`";
-                $res1 = mysqli_query($conn, $getName);
-                if ($res1) {
-                    while ($row = $res1->fetch_assoc()) {
-                        if ($row['id'] = $user_id)
-                            $user_to = $row['userNameReg'];
-                    }
-                }
+        </form> -->
 
-                $reqBlood = $_POST['reqBlood'];
-                $description = $_POST['description'];
-                $req_date = date("Y-m-d H:i:s");
-                // // checking uniqueness of username
-                $sql = "SELECT * FROM requests where (user_from = '$user_from' or user_to = '$user_to');";
-                $res = mysqli_query($conn, $sql);
-                if (mysqli_num_rows($res) > 0) {
-                    $row = mysqli_fetch_assoc($res);
-                    if ($user_from == isset($row['user_from']) && $user_to == isset($row['user_to'])) {
-                        echo "<center>
-                                 <script>
-                                   alert('Already Requested *')
-                                 </script>
-                              </center>";
-                        $conn->close();
-                    }
-                } else {
-
-                    $sql = "INSERT into `requests`(user_from,user_to,reqBlood,description,req_date) VALUES ('$user_from','$user_to','$reqBlood','$description','$req_date')";
-                    $res = mysqli_query($conn, $sql);
-                    if ($res) {
-                        $_SESSION['reqId'] = $user_id;
-                        $_SESSION['alreadyRequested'] = true;
-                        header('Location : index.php');
-                    } else {
-                        echo "error";
-                    }
-                }
-            }
-        }
-        ?>
     </section>
+    <script>
+        function fadeToForget() {
+            var warning = document.getElementById('Warning');
+            warning.classList.add('fade');
+            warning.setTimeout(() => {
+                warning.classList.add('d-none');
+            }, 1000);
+        }
+    </script>
 </body>
 
 </html>

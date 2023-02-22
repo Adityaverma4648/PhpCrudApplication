@@ -2,23 +2,30 @@
 include "./config/conn.php";
 include "./config/session.php";
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $userName = mysqli_real_escape_string($conn, $_POST["userName"]);
-    $email = mysqli_real_escape_string($conn, $_POST["email"]);
-    $password = mysqli_real_escape_string($conn, $_POST["password"]);
 
+    $userName = mysqli_real_escape_string($conn, $_POST["userName"]);
+    $password = mysqli_real_escape_string($conn, $_POST["password"]);
 
     $query = "SELECT * FROM `user` WHERE usernameReg = '$userName' AND passwordReg = '" . md5($password) . "'";
     $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 
     $rows = mysqli_num_rows($result);
     if ($rows == 1) {
-        $_SESSION['loggedInStatus'] = true;
-        $_SESSION['userName'] = $userName;
+
         $loginDate = date("Y-m-d H:i:s");
-        $query = "INSERT into `login` (userName,email,loginDate) VALUES ($userName,$email,$loginDate)";
-        header("Location:index.php");
+        $loginTime = time();
+        $sql = "INSERT into `login` (userName,loginDate,loginTime) VALUES ('$userName','$loginDate','$loginTime')";
+        $res = mysqli_query($conn, $sql);
+        if ($res) {
+            $_SESSION['loggedInStatus'] = true;
+            $_SESSION['userName'] = $userName;
+            $_SESSION['sessionCreated'] = $loginTime;
+            header("Location:index.php");
+        } else {
+            echo '<div class="Warning end-0 position-absolute col-sm-3 px-2 py-3 text-danger bg-light d-flex justify-content-evenly align-items-center" style="z-index:9999999999999;margin-top :10vh" id="Warning"><small>Faced Some Error!<small> <button type="button" class="border-2 border-dark bg-transparent p-2" onClick="fadeToForget()"><i class="fa fa-close"></i></button> </div>';
+        }
     } else {
-        echo "errors";
+        echo '<div class="Warning end-0 position-absolute col-sm-3 px-2 py-3 text-danger bg-light d-flex justify-content-evenly align-items-center" style="z-index:9999999999999;margin-top :10vh" id="Warning"><small>UserName Or Password Was Wrong!<small> <button type="button" class="border-2 border-dark bg-transparent p-2" onClick="fadeToForget()"><i class="fa fa-close"></i></button> </div>';
     }
 }
 ?>
@@ -51,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         }
 
         #formContLogin {
-            height: 94vh;
+            height: 100vh;
             width: 100vw;
             display: flex;
             justify-content: center;
@@ -94,19 +101,24 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <?php include "./Components/Header.php" ?>
     <div id="formContLogin">
         <form method="POST" id="loginForm">
-            <center>
-                <h4 class="text-white">
-                    LOGIN
-                </h4>
-            </center>
+            <h5 class="text-white">
+                LOGIN
+            </h5>
             <input type="text" name="userName" id="userName" placeholder="Enter userName | organization name" required>
-            <input type="text" name="email" id="email" placeholder="Enter your email | organizational email" required>
             <input type="password" name="password" id="password" placeholder="Enter password" required>
             <input type="checkbox" id="showPasswordCheckbox">
             <input type="submit" name="submit" value="Login" id="submit" class="bg-success border-0 text-white">
         </form>
     </div>
-    <script src="./scripts/index.js"></script>
+    <script>
+        function fadeToForget() {
+            var warning = document.getElementById('Warning');
+            warning.classList.add('fade');
+            warning.setTimeout(() => {
+                warning.classList.add('d-none');
+            }, 1000);
+        }
+    </script>
 </body>
 
 </html>

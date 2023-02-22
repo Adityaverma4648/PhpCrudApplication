@@ -3,6 +3,7 @@ include "./config/conn.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // username
+    $user_type = mysqli_real_escape_string($conn, $_POST["loginRoles"]);
     $userNameReg = mysqli_real_escape_string($conn, $_POST["userNameReg"]);
     $emailReg = mysqli_real_escape_string($conn, $_POST["emailReg"]);
     $passwordReg = mysqli_real_escape_string($conn, $_POST["passwordReg"]);
@@ -12,7 +13,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $district = mysqli_real_escape_string($conn, $_POST['district']);
     $phoneNumber = mysqli_real_escape_string($conn, $_POST['phoneNumber']);
     $category = mysqli_real_escape_string($conn, $_POST['category']);
-
     $reg_date = date("Y-m-d H:i:s");
 
     // checking uniqueness of username
@@ -22,20 +22,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (mysqli_num_rows($res) > 0) {
         $row = mysqli_fetch_assoc($res);
         if ($emailReg == isset($row['email'])) {
-            echo "<small class='text-danger text-center'>Email Already exits*<small>";
+            echo "<script>alert('Email Already exits*')</script>";
             $conn->close();
         }
         if ($userNameReg == isset($row['userNameReg']))
-            echo "<small class='text-danger text-center'>Username Already exits*<small>";
+            echo "<script>alert('Username Already exits*')</script>";
     } else {
         $uniqueId = uniqid();
-        $query = "INSERT into `user`(uniqueId,userNameReg,emailReg,passwordReg,addressReg,city,district,state,phoneNumber,category,reg_date) VALUES('$uniqueId','$userNameReg','$emailReg','" . md5($passwordReg) . "','$addressReg','$city','$district','$state','$phoneNumber','$category','$reg_date')";
+        $query = "INSERT into `user`(uniqueId,user_type,userNameReg,emailReg,passwordReg,addressReg,city,district,state,phoneNumber,category,reg_date) VALUES('$uniqueId','$user_type','$userNameReg','$emailReg','" . md5($passwordReg) . "','$addressReg','$city','$district','$state','$phoneNumber','$category','$reg_date')";
         //   checking result
         $result = mysqli_query($conn, $query);
         if ($result) {
             header("Location:login.php");
             die();
-            echo "<small class='text-danger'>Please Login To completely authorize urself</small>";
+        } else {
+            echo "<script>'Something Went Wrong'</script>";
         }
     }
 }
@@ -72,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         #formContRegistration {
-            height: 94vh;
+            height: 100vh;
             width: 100vw;
             display: flex;
             justify-content: center;
@@ -85,8 +86,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         #formContRegistration form {
             padding: 10px 5px;
-            height: 60vh;
-            width: 35vw;
+            height: 70vh;
+            width: 45vw;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -114,12 +115,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <?php include "./Components/Header.php" ?>
     <div id="formContRegistration">
-
-
         <form method="POST" id="registraionForm" class="d-flex flex-column py-1 my-1">
-            <h2 class="text-white text-center">
-                REGISTER ORG
-            </h2>
+            <div class="container-fluid d-flex justify-content-center align-items-center py-1 text-white">
+                <div class="h5 px-1">
+                    Register As
+                </div>
+                <select name="loginRoles" id="loginRoles" class="col-sm-8 py-2 bg-transparent text-white">
+                    <option value="Doctor" class="border-1 border-bottom bottom-dark text-dark">Doctor</option>
+                    <option value="Blood Bank Organization" class="border-1 border-bottom bottom-dark text-dark">Blood Bank Organization</option>
+                    <option value="Donator" class="border-1 border-bottom bottom-dark text-dark">Blood Donator</option>
+                    <option value="Reciever" class="border-1 border-bottom bottom-dark text-dark">Blood Reciever</option>
+                    <option value="Management Memeber" class="border-1 border-bottom bottom-dark text-dark">Management Memeber</option>
+                </select>
+            </div>
             <input type="text" name="userNameReg" id="userNameReg" placeholder="Enter userName | organizational name" required="">
 
             <input type="email" name="emailReg" id="emailReg" placeholder="Enter your email | organizational email" required="">
@@ -148,8 +156,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="text" name="state" placeholder="state" required>
                 </label>
             </div>
-            <div class="col-sm-12 py-1 d-flex justify-content-center align-items-center">
-                <label for="category" class="col-sm-5 px-1 d-flex flex-column justify-content-center align-items-center text-white border-end border-white ">
+            <div class="col-sm-12 py-1 d-flex justify-content-center align-items-center" id="category">
+                <label for="category" class="col-sm-5 px-1 d-flex flex-column justify-content-center align-items-center text-white border-end border-white">
                     <small>
                         Select the category of your category
                     </small>
@@ -171,6 +179,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="submit" name="submitReg" value="Register" id="submitReg" class="bg-success border-0 text-white">
         </form>
     </div>
+
+    <!--  form alteration -->
+    <script>
+        var selectRoles = document.getElementById("loginRoles");
+
+        loginRoles.addEventListener("change", (event) => {
+            var category = document.getElementById('category');
+            if (event.target.value == "Donator") {
+                category.innerHTML = `<label for="phoneNumber" class="container-fluid d-flex flex-column justify-content-center align-items-center">
+                    <small class="text-white">
+                        Enter Phone Number
+                    </small>
+                    <input type="number" placeholder="Enter your phone Number" name="phoneNumber" class="container">
+                </label>`;
+            } else if (event.target.value == "Reciever") {
+                category.innerHTML = `<label for="phoneNumber" class="container-fluid d-flex flex-column justify-content-center align-items-center">
+                    <small class="text-white">
+                        Enter Phone Number
+                    </small>
+                    <input type="number" placeholder="Enter your phone Number" name="phoneNumber" class="container">
+                </label>`;
+            } else {
+                category.
+                innerHTML = `<label for="category" class="col-sm-5 px-1 d-flex flex-column justify-content-center align-items-center text-white border-end border-white">
+                    <small>
+                        Select the category of your category
+                    </small>
+                    <select type="category" name="category" placeholder="Enter category" class="container py-2">
+                        <option value="Government">Government</option>
+                        <option value="Private">Private</option>
+                        <option value="Charity">Charity</option>
+                    </select>
+                </label>
+                <label for="phoneNumber" class="col-sm-5 d-flex flex-column justify-content-center align-items-center">
+                    <small class="text-white">
+                        Enter Phone Number
+                    </small>
+                    <input type="number" placeholder="Enter your phone Number" name="phoneNumber" class="container">
+                </label>`;
+            }
+        })
+    </script>
 
 </body>
 

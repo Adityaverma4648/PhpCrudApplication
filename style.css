@@ -87,5 +87,8 @@
          .toggleMenu{
           display: block;
          }
+         #navLinksContainer {
+            display: none;
+         }
       } 
 /*  media query ends---- */

@@ -46,9 +46,6 @@
                     <option value="Andhra Pradesh">
                         Andhra Pradesh
                     </option>
-                    <option value="Arunachal">
-                        Arunachal
-                    </option>
                     <option value="Arunchal Pradesh">
                         Arunchal Pradesh
                     </option>
@@ -208,21 +205,22 @@
                                    <td>' . $row["phoneNumber"] . '
                                    </td>
                                    ';
-                        if ($row["userNameReg"] == $_SESSION['userName'] && $_SESSION['loggedInStatus']) {
+
+                        if ($row["userNameReg"] == isset($_SESSION['userName']) && $_SESSION['loggedInStatus']) {
                             echo '<td class="text-success text-center">Already Our Member And LoggedIn</td>';
                         } else {
                             echo '<td class="button-group">
                                    <form method="get">
                                        <a href="Requests.php?id=' . $row["id"] . '" class="text-decoration-none text-white py-1 px-1  border-0 bg-primary mx-1" style="cursor:pointer;" value="Request" >Request</a>
                                        <input type="button" class="py-1 px-1 border-0 bg-danger mx-1" style="cursor:pointer;" value="Cancel" ></input>
-                                       <input type="submit"  class="btn btn-dark text-light rounded-0 mx-1" style="cursor:pointer;" name="messagesHandler"
-                                       value="Message" ></input>
+                                       <a href="Messages.php?id=' . $row["id"] . '"  class="btn btn-dark text-light rounded-0 mx-1" style="cursor:pointer;" >Message</a>
                                        </form>
                                     </td>
                                 </tr>';
                         }
                     }
                 }
+
 
 
                 ?>
@@ -243,7 +241,7 @@
                         <input type='button' class='py-1 px-1  border-0 bg-primary mx-1 disabled' style='cursor:pointer' value='Request'>
                         </input>
                         <input type='button' class='py-1 px-1 border-0 bg-danger mx-1 disabled' style='cursor:pointer' value='Cancel'>
-                        </input><input type='button' class='btn btn-dark text-light rounded-0 mx-1 disabled' style='cursor:pointer' value='Message'>
+                        </input><input type='button' class='btn btn-dark text-light rounded-0 mx-1' style='cursor:pointer' value='Message' onclick='MessageFeatureDisabled()'>
                         </input>
                         </td>
                         </tr>";
@@ -264,7 +262,7 @@
                         <input type='button' class='py-1 px-1  border-0 bg-primary mx-1 disabled' style='cursor:pointer' value='Request'>
                         </input>
                         <input type='button' class='py-1 px-1 border-0 bg-danger mx-1 disabled' style='cursor:pointer' value='Cancel'>
-                        </input><input type='button' class='btn btn-dark text-light rounded-0 mx-1 disabled' style='cursor:pointer' value='Message'>
+                        </input><input type='button' class='btn btn-dark text-light rounded-0 mx-1' style='cursor:pointer' value='Message' onclick='MessageFeatureDisabled()'>
                         </input>
                         </td>
                         </tr>";
@@ -288,7 +286,7 @@
                         
                                             <input type='button' class='py-1 px-1  border-0 bg-primary mx-1 disabled' style='cursor:pointer' value='Request'></input>
                                             <input type='button' class='py-1 px-1 border-0 bg-danger mx-1 disabled' style='cursor:pointer' value='Cancel'></input>
-                                            <input type='button' class='btn btn-dark text-light rounded-0 mx-1 disabled' style='cursor:pointer' value='Message'></input>
+                                            <input type='button' class='btn btn-dark text-light rounded-0 mx-1' style='cursor:pointer' value='Message' onclick='MessageFeatureDisabled()'></input>
                                             </td>
                                           </tr>";
                                 }
@@ -309,7 +307,7 @@
                         <input type='button' class='py-1 px-1  border-0 bg-primary mx-1 disabled' style='cursor:pointer' value='Request'>
                         </input>
                         <input type='button' class='py-1 px-1 border-0 bg-danger mx-1 disabled' style='cursor:pointer' value='Cancel'>
-                        </input><input type='button' class='btn btn-dark text-light rounded-0 mx-1 disabled' style='cursor:pointer' value='Message'>
+                        </input><input type='button' class='btn btn-dark text-light rounded-0 mx-1' style='cursor:pointer' value='Message' onclick='MessageFeatureDisabled()'>
                         </input>
                         </td>
                         </tr>";
@@ -322,3 +320,9 @@
         </table>
     </div>
 </div>
+
+<script>
+    function MessageFeatureDisabled() {
+        alert("Message Featured Allowed Only for Member Organizations");
+    }
+</script>

@@ -166,7 +166,7 @@
         </div>
     </div>
     <div>
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped" style="max-height:100vh;overflow:scroll">
             <thead>
                 <tr>
                     <th>
@@ -197,7 +197,9 @@
                 $res = $conn->query($sql);
                 if ($res) {
                     while ($row = $res->fetch_assoc()) {
-                        echo '<tr class="table-primary" id="' . $row["id"] . '">
+                        if ($row['userNameReg'] != $_SESSION['userName']) {
+                            echo '<tr class="table-primary" id="' . $row["id"] . '">
+                        
                                    <td>' . $row["userNameReg"] . '</td>
                                    <td>' . $row["state"] . '</td>
                                    <td>' . $row["emailReg"] . '</td>
@@ -206,20 +208,19 @@
                                    </td>
                                    ';
 
-                        if ($row["userNameReg"] == isset($_SESSION['userName']) && $_SESSION['loggedInStatus']) {
-                            echo '<td class="text-success text-center">Already Our Member And LoggedIn</td>';
-                        } else {
+
                             echo '<td class="button-group">
-                                   <form method="get">
+                                   <div class="button-group d-flex">
                                        <a href="Requests.php?id=' . $row["id"] . '" class="text-decoration-none text-white py-1 px-1  border-0 bg-primary mx-1" style="cursor:pointer;" value="Request" >Request</a>
                                        <input type="button" class="py-1 px-1 border-0 bg-danger mx-1" style="cursor:pointer;" value="Cancel" ></input>
                                        <a href="Messages.php?id=' . $row["id"] . '"  class="btn btn-dark text-light rounded-0 mx-1" style="cursor:pointer;" >Message</a>
-                                       </form>
+                                       </div>
                                     </td>
                                 </tr>';
                         }
                     }
                 }
+
 
 
 
@@ -237,12 +238,14 @@
                         <td>" . $row["Email"] . "</td>
                         <td>" . $row["Category"] . "</td>
                         <td>" . $row["phoneNumber"] . "</td>
-                        <td class='button-group'>
-                        <input type='button' class='py-1 px-1  border-0 bg-primary mx-1 disabled' style='cursor:pointer' value='Request'>
+                        <td>
+                          <div class='button-group d-flex'>
+                             <input type='button' class='py-1 px-1  border-0 bg-primary mx-1 disabled' style='cursor:pointer' value='Request'>
                         </input>
                         <input type='button' class='py-1 px-1 border-0 bg-danger mx-1 disabled' style='cursor:pointer' value='Cancel'>
                         </input><input type='button' class='btn btn-dark text-light rounded-0 mx-1' style='cursor:pointer' value='Message' onclick='MessageFeatureDisabled()'>
                         </input>
+                          </div>
                         </td>
                         </tr>";
                             }
@@ -258,12 +261,14 @@
                         <td>" . $row["Email"] . "</td>
                         <td>" . $row["Category"] . "</td>
                         <td>" . $row["phoneNumber"] . "</td>
-                        <td class='button-group'>
-                        <input type='button' class='py-1 px-1  border-0 bg-primary mx-1 disabled' style='cursor:pointer' value='Request'>
+                        <td>
+                          <div class='button-group d-flex'>
+                             <input type='button' class='py-1 px-1  border-0 bg-primary mx-1 disabled' style='cursor:pointer' value='Request'>
                         </input>
                         <input type='button' class='py-1 px-1 border-0 bg-danger mx-1 disabled' style='cursor:pointer' value='Cancel'>
                         </input><input type='button' class='btn btn-dark text-light rounded-0 mx-1' style='cursor:pointer' value='Message' onclick='MessageFeatureDisabled()'>
                         </input>
+                          </div>
                         </td>
                         </tr>";
                             }
@@ -282,12 +287,15 @@
                                              <td>" . $row["Email"] . "</td>
                                              <td>" . $row["Category"] . "</td>
                                              <td>" . $row["phoneNumber"] . "</td>
-                                             <td class='button-group'>
-                        
-                                            <input type='button' class='py-1 px-1  border-0 bg-primary mx-1 disabled' style='cursor:pointer' value='Request'></input>
-                                            <input type='button' class='py-1 px-1 border-0 bg-danger mx-1 disabled' style='cursor:pointer' value='Cancel'></input>
-                                            <input type='button' class='btn btn-dark text-light rounded-0 mx-1' style='cursor:pointer' value='Message' onclick='MessageFeatureDisabled()'></input>
-                                            </td>
+                                              <td>
+                          <div class='button-group d-flex'>
+                             <input type='button' class='py-1 px-1  border-0 bg-primary mx-1 disabled' style='cursor:pointer' value='Request'>
+                        </input>
+                        <input type='button' class='py-1 px-1 border-0 bg-danger mx-1 disabled' style='cursor:pointer' value='Cancel'>
+                        </input><input type='button' class='btn btn-dark text-light rounded-0 mx-1' style='cursor:pointer' value='Message' onclick='MessageFeatureDisabled()'>
+                        </input>
+                          </div>
+                        </td>
                                           </tr>";
                                 }
                             }
@@ -303,12 +311,14 @@
                         <td>" . $row["Email"] . "</td>
                         <td>" . $row["Category"] . "</td>
                         <td>" . $row["phoneNumber"] . "</td>
-                        <td class='button-group'>
-                        <input type='button' class='py-1 px-1  border-0 bg-primary mx-1 disabled' style='cursor:pointer' value='Request'>
+                        <td>
+                          <div class='button-group d-flex'>
+                             <input type='button' class='py-1 px-1  border-0 bg-primary mx-1 disabled' style='cursor:pointer' value='Request'>
                         </input>
                         <input type='button' class='py-1 px-1 border-0 bg-danger mx-1 disabled' style='cursor:pointer' value='Cancel'>
                         </input><input type='button' class='btn btn-dark text-light rounded-0 mx-1' style='cursor:pointer' value='Message' onclick='MessageFeatureDisabled()'>
                         </input>
+                          </div>
                         </td>
                         </tr>";
                             }

@@ -9,64 +9,21 @@ if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
 $url .= $_SERVER['HTTP_HOST'];
 $url .= $_SERVER['REQUEST_URI'];
 
+$user_id = (int) filter_var($url, FILTER_SANITIZE_NUMBER_INT);
+
+$sql1 = "SELECT userNameReg from `user` WHERE id= $user_id";
+$res1 = mysqli_query($conn, $sql1);
+if ($res1) {
+    while ($row = $res1->fetch_assoc()) {
+        $user_to = $row['userNameReg'];
+    }
+}
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//     not logged in Warning starts here -------
 if (!isset($_SESSION['userName'])) {
     echo '<div class="Warning end-0 position-absolute col-sm-3 px-2 py-3 text-danger bg-light d-flex justify-content-evenly align-items-center" style="z-index:9999999999999;margin-top :10vh " id="Warning"><small>No Data To Show,You Are Not Logged In!<small> <button type="button" class="border-2 border-dark bg-transparent p-2" onClick="fadeToForget()"><i class="fa fa-close"></i></button> </div>';
 }
-
-
-if (isset($_SESSION['userName'])) {
-    $curr_user = $_SESSION['userName'];
-    $sql = "SELECT 	user_to,user_from,reqBlood,description,req_date FROM `requests`";
-    $res = mysqli_query($conn, $sql);
-    if ($res) {
-        while ($row = $res->fetch_assoc()) {
-            if ($row["user_from"] == $_SESSION["userName"]) {
-                echo "<tr>
-                            <td>" . $row['user_to'] . "</td><td>" . $row['reqBlood'] . "</td><td>" . $row['description'] . "</td><td>" . $row['req_date'] . "</td></tr>";
-            }
-        }
-    }
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (isset($_POST["requestBtn"])) {
-            $user_from = $_SESSION['userName'];
-            $user_id = (int) filter_var($url, FILTER_SANITIZE_NUMBER_INT);
-            $getName = "SELECT userNameReg FROM `user`";
-            $res1 = mysqli_query($conn, $getName);
-            if ($res1) {
-                while ($row = $res1->fetch_assoc()) {
-                    if ($row['id'] = $user_id)
-                        $user_to = $row['userNameReg'];
-                }
-            }
-
-            $reqBlood = $_POST['reqBlood'];
-            $description = $_POST['description'];
-            $req_date = date("Y-m-d H:i:s");
-            // // checking uniqueness of username
-            $sql = "SELECT * FROM requests where (user_from = '$user_from' or user_to = '$user_to');";
-            $res = mysqli_query($conn, $sql);
-            if (mysqli_num_rows($res) > 0) {
-                $row = mysqli_fetch_assoc($res);
-                if ($user_from == isset($row['user_from']) && $user_to == isset($row['user_to'])) {
-                    echo '<div class="Warning end-0 position-absolute col-sm-3 px-2 py-3 text-danger bg-light d-flex justify-content-evenly align-items-center" style="z-index:9999999999999;margin-top :10vh" id="Warning"><small>Already Requested!<small> <button type="button" class="border-2 border-dark bg-transparent p-2" onClick="fadeToForget()"><i class="fa fa-close"></i></button> </div>';
-                    $conn->close();
-                }
-            } else {
-
-                $sql = "INSERT into `requests`(user_from,user_to,reqBlood,description,req_date) VALUES ('$user_from','$user_to','$reqBlood','$description','$req_date')";
-                $res = mysqli_query($conn, $sql);
-                if ($res) {
-                    $_SESSION['reqId'] = $user_id;
-                    $_SESSION['alreadyRequested'] = true;
-                    header('Location : index.php');
-                } else {
-                    echo "error";
-                }
-            }
-        }
-    }
-}
+//       auth warrning block ends here
 ?>
 
 
@@ -122,6 +79,9 @@ if (isset($_SESSION['userName'])) {
                 <?php
                 if (isset($_SESSION['userName']))
                     echo $_SESSION['userName'];
+                else {
+                    echo "User Not Logged In";
+                }
                 ?>
             </div>
             <table class="table table-light border-dark table-bordered table-striped">
@@ -147,29 +107,17 @@ if (isset($_SESSION['userName'])) {
                 </thead>
                 <tbody>
                     <tr>
-                        <td>
-                            <?php
-                            $user_id = (int) filter_var($url, FILTER_SANITIZE_NUMBER_INT);
-                            $sql1 = "SELECT userNameReg from `user` WHERE id= $user_id";
-                            $res1 = mysqli_query($conn, $sql1);
-                            if ($res1) {
-                                while ($row = $res1->fetch_assoc()) {
-                                    echo '<div class="text-dark">' . $row['userNameReg'] . '</div>';
-                                }
+                        <?php
+                        $sql = "SELECT * from `requests`";
+                        $res = mysqli_query($conn, $sql);
+                        if ($res) {
+                            while ($row = $res->fetch_assoc()) {
+                                echo "<td>" . $row['user_to'] . "</td><td>" . $row['description'] . "</td><td>" . $row['reqBlood'] . "</td><td>" . $row['req_date'] . "</td>";
                             }
-                            ?>
-                        </td>
-                        <td>
-                            N/A
-                        </td>
-                        <td>
-                            N/A
-                        </td>
-                        <td>
-                            N/A
-                        </td>
+                        }
+                        ?>
                         <td class="d-flex justify-content-center align-items-center">
-                            <button type="button" id="getForm" class="border-0 bg-warning px-1 py-2">
+                            <button type="button" id="getForm" class="border-0 bg-warning px-1 py-2" onClick="getRequestModal">
                                 <i class="fa fa-edit"></i>
                                 Edit Request
                             </button>
@@ -177,28 +125,39 @@ if (isset($_SESSION['userName'])) {
                     </tr>
                 </tbody>
             </table>
+
+            <div class="mt-2 bg-success py-3 h5 text-white">
+                Getting Current Request Data.....
+            </div>
+
+            <div class="container mt-2 d-flex justify-content-center align-items-center">
+                <form action="" method="POST" class="containerd-flex flex-column col-sm-6 col-lg-6 bg-white" style="height:40vh;">
+                    <small class="text-center">
+                        Enter the required
+                    </small>
+                    <label for="blood_group" class="container-fluid d-flex justify-content-center align-items-center">
+                        <select name="reqBlood" id="reqBlood" class="container-fluid">
+                            <option value="A+">A+</option>
+                            <option value="A+">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB+">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                    </label>
+                    <label for="description">
+                        <input type="text" placeholder="Enter description" name="description">
+                    </label>
+                    <input type="submit" name="requestBtn" value="Request">
+                </form>
+            </div>
+
+            ?>
+
         </div>
-        <!-- <form action="" method="POST" class="container formCont d-flex flex-column">
-            <small class="text-center">
-                Enter the required
-            </small>
-            <label for="blood_group" class="container-fluid d-flex justify-content-center align-items-center">
-                <select name="reqBlood" id="reqBlood" class="container-fluid">
-                    <option value="A+">A+</option>
-                    <option value="A+">A-</option>
-                    <option value="B+">B+</option>
-                    <option value="B-">B-</option>
-                    <option value="AB+">AB+</option>
-                    <option value="AB+">AB-</option>
-                    <option value="O+">O+</option>
-                    <option value="O-">O-</option>
-                </select>
-            </label>
-            <label for="description">
-                <input type="text" placeholder="Enter description" name="description">
-            </label>
-            <input type="submit" name="requestBtn" value="Request">
-        </form> -->
+
 
     </section>
     <script>
@@ -208,6 +167,11 @@ if (isset($_SESSION['userName'])) {
             warning.setTimeout(() => {
                 warning.classList.add('d-none');
             }, 1000);
+        }
+
+
+        function getRequestModal() {
+
         }
     </script>
 </body>

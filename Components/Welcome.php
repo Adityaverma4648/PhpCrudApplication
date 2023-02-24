@@ -1,12 +1,12 @@
-<div class="container welcomeCont border-bottom border-secondary border-1 border-opacity-50 py-5">
-    <div class="bodyCont" style="z-index:50">
+<div class="container border-bottom border-secondary border-opacity-50 d-flex justify-content-center align-items-center" style="height:50vh;">
+    <div class="col-sm-6 " style="z-index:50">
         <h3>
             Welcome to the Blood Bank!
         </h3>
         <span>
             Please help the people in need with blood donations!
         </span>
-        <div class="container d-flex justify-content-center align-items-center">
+        <div class="col-sm-6  d-flex justify-content-center align-items-center">
             <button type="button" class="btn btn-outline-primary px-2 m-1">
                 <i class="fa fa-plus-square"></i>
                 Request Blood

@@ -188,6 +188,36 @@ if ($res) {
             return content;
         }
 
+        function loginActivity() {
+            var content = `<div class="container-fluid">
+                           <table>
+                              <thead>
+                                 <tr>
+                                    <td>S.No</td>
+                                    <td></td>
+                                    <td></td>
+                                 </tr> 
+                              </thead>
+                              <tbody>
+                                 <tr>
+                                                               <?php
+                                                                $sql = "SELECT * from `login`";
+                                                                $res = mysqli_query($conn, $sql);
+                                                                if ($res) {
+                                                                    while ($row = $res->fetch_assoc()) {
+                                                                        echo '<td>' . $row["id"] . '</td>';
+                                                                    }
+                                                                }
+                                                                ?>
+                                    <td></td>
+                                    <td></td>
+                                 </tr> 
+                              </tbody>
+                           </table>
+                          </div>`;
+            return content;
+        }
+
         function fetchProfileBlocks(myId) {
             var fetchBlockHere = document.getElementById('fetchBlockHere');
             var mybody = "";
@@ -201,6 +231,9 @@ if ($res) {
                 mybody = editProfile();
             } else if (myId === "changePassword") {
                 mybody = changePassword();
+            } else if (myId === "loginActivity") {
+                mybody = loginActivity();
+
             }
 
             fetchBlockHere.innerHTML = mybody;

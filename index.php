@@ -36,7 +36,6 @@ include "./config/session.php";
   <?php
   include "./Components/Welcome.php";
   include "./Components/Information.php";
-
   ?>
   <!--  header ends -->
   <!--   body starts -->

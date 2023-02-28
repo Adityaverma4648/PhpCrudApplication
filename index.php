@@ -25,9 +25,13 @@ include "./config/session.php";
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cookie&family=Poppins:wght@500;600&family=Raleway&family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
   <!--  fonts imports ends here -->
-
-  <link rel="stylesheet" href="./styles/style.css">
+  <style>
+    body::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
 </head>
 
 <body>

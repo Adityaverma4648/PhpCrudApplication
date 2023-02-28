@@ -7,88 +7,25 @@
         /* font-family: 'Raleway', sans-serif;
         font-family: 'Roboto', sans-serif; */
 }
-/* Color Theme Swatches in Hex */
-.The-Black-and-Red-1-hex {
-    background-color: #2A8C82;
-}
-
-.The-Black-and-Red-2-hex {
-    background-color: #41BFB3;
-}
-
-.The-Black-and-Red-3-hex {
-    background-color: #9BF2EA;
-}
-
-.The-Black-and-Red-4-hex {
-    background-color: #275950;
-}
-
-.The-Black-and-Red-5-hex {
-    background-color: #260101;
-}
-
  body::-webkit-scrollbar{
     display: none;
  }
-
   li{
     list-style: none;
   }
+    .myToggleBtn{
+        display: none;
+    }
 
-/*  welcome.php */
-    .welcomeCont {
-      width: 100vw;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .welcomeCont h3,span{
-        padding: 0.8rem 0px;
-    }
-    .bodyCont,.illustrationCont{
-      width: 50vw;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      /* background-color: #2A8C82; */
-    }
-    .bodyCont{
-      justify-content: right;
+@media only screen and (max-width:750px){
+    .myToggleBtn{
+       display: block;
     }
     .illustrationCont{
-            justify-content: right;
-  }
-    .button-group{
-      min-width: 100%;
-      display: flex;
-      margin: 0px 5px;
+      position: absolute;
+      opacity: 0.4;
     }
-    .button-group button{
-      padding: 10px 5px;
+    #mynavbar{
+      display: none;
     }
-/*  Login Page */
-
-.pageContainer{
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
-
-
-/*  block ends */
-      
-/*  media query---- */
-      @media only screen and (max-width : 750px) {
-         .toggleMenu{
-          display: block;
-         }
-         #navLinksContainer {
-            display: none;
-         }
-      } 
-/*  media query ends---- */

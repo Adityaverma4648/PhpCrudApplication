@@ -18,10 +18,41 @@ if ($res1) {
         $user_to = $row['userNameReg'];
     }
 }
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $user_to = $GLOBALS['user_to'];
+    $user_from = $_SESSION['userName'];
+    $description = $_POST["description"];
+    $reqBlood =  $_POST["reqBlood"];
+    $req_date = date('Y-m-d H:i:s');
+
+    if (isset($_POST['requestBtn'])) {
+
+        $query = "SELECT * FROM `requests`";
+        $result = mysqli_query($conn, $query);
+        if ($result) {
+            while ($rows = $result->fetch_assoc()) {
+
+                if ($rows['user_to'] != $user_to && $rows['user_from'] != $user_from) {
+                    $sql1 = "INSERT INTO `requests`(user_to,user_from,description,reqBlood,req_date) VALUES('$user_to','$user_from','$description','$reqBlood','$req_date') ";
+                    $res1 = mysqli_query($conn, $sql1);
+                    if ($res) {
+                        echo '<script>alert("Requested Successfully *")</script>';
+                    }
+                } else {
+                    echo '<script>alert("Request Already Exists !")</script>';
+                }
+            }
+        }
+    }
+}
+
+
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//     not logged in Warning starts here -------
+//     not logged in Warning starts here -------  No Data To Show,You Are Not Logged In!
 if (!isset($_SESSION['userName'])) {
-    echo '<div class="Warning end-0 position-absolute col-sm-3 px-2 py-3 text-danger bg-light d-flex justify-content-evenly align-items-center" style="z-index:9999999999999;margin-top :10vh " id="Warning"><small>No Data To Show,You Are Not Logged In!<small> <button type="button" class="border-2 border-dark bg-transparent p-2" onClick="fadeToForget()"><i class="fa fa-close"></i></button> </div>';
+    echo '<script>alert("No Data To Show,You Are Not Logged In!")</script>';
 }
 //       auth warrning block ends here
 ?>
@@ -45,34 +76,17 @@ if (!isset($_SESSION['userName'])) {
     <link href="https://fonts.googleapis.com/css2?family=Cookie&family=Poppins:wght@500;600&family=Raleway&family=Roboto&display=swap" rel="stylesheet">
     <!--  fonts imports ends here -->
     <!-- fontawesome icons -->
-    < src="https://kit.fontawesome.com/8dc03a4776.js" crossorigin="anonymous"></>
+    <link src="https://kit.fontawesome.com/8dc03a4776.js" crossorigin="anonymous">
+    </link>
     <!-- fontawesome icons -->
-    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./style.css">
 </head>
-<style>
-    section {
-        height: 100vh;
-        background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSir3VB0gH99D1h2C9ajSNj_QtRpr4rzFrqkbgFBuL71RKRU34uJCOPIfIV5lrPrB9KLN0&usqp=CAU');
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
-    }
-
-    .formCont {
-        padding: 1rem;
-        height: 50vh;
-        background: #c0c0aa;
-        background: -webkit-linear-gradient(to right, rgba(28, 239, 255, 0.5), rgba(192, 192, 170, 0.3));
-        background: linear-gradient(to right, rgba(28, 239, 255, 0.8), rgba(192, 192, 170, 0.5));
-        backdrop-filter: blur(0.5rem);
-    }
-</style>
 
 <body>
     <?php
-    include './Components/Header.php'; ?>
-    <section class="d-flex flex-column justify-content-center align-items-center">
-
+    include "./Components/Header.php";
+    ?>
+    <section class="d-flex flex-column justify-content-center align-items-center bg-light" style="width:100vw;height:100vh">
         <div class="container">
             <div class="container bg-info py-4">
                 The Following is the list of requests made by
@@ -86,7 +100,7 @@ if (!isset($_SESSION['userName'])) {
             </div>
             <table class="table table-light border-dark table-bordered table-striped">
                 <thead>
-                    <tr class="text-primary">
+                    <tr class="table-dark text-primary">
                         <td>
                             REQUESTED USER
                         </td>
@@ -106,56 +120,97 @@ if (!isset($_SESSION['userName'])) {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <?php
+                    <?php
+                    if (isset($_SESSION['userName'])) {
                         $sql = "SELECT * from `requests`";
                         $res = mysqli_query($conn, $sql);
                         if ($res) {
                             while ($row = $res->fetch_assoc()) {
-                                echo "<td>" . $row['user_to'] . "</td><td>" . $row['description'] . "</td><td>" . $row['reqBlood'] . "</td><td>" . $row['req_date'] . "</td>";
+                                echo "<tr class='table-active'>
+                                <td>" . $row['user_to'] . "</td>
+                                <td>" . $row['description'] . "</td>
+                                <td>" . $row['reqBlood'] . "</td>
+                                <td>" . $row['req_date'] . "</td> 
+                                <td>
+                                        <button type='button' id='getForm' class='border-0 bg-warning px-1 py-2' onClick='getRequestModal()'>
+                                                <i class='fa fa-edit'></i>
+                                                 Edit Request
+                                        </button>
+                                </td>
+                                </tr>";
                             }
                         }
-                        ?>
-                        <td class="d-flex justify-content-center align-items-center">
-                            <button type="button" id="getForm" class="border-0 bg-warning px-1 py-2" onClick="getRequestModal">
-                                <i class="fa fa-edit"></i>
-                                Edit Request
-                            </button>
-                        </td>
-                    </tr>
+                    }
+                    ?>
                 </tbody>
             </table>
 
-            <div class="mt-2 bg-success py-3 h5 text-white">
+            <div class="mt-2 px-3 bg-success py-3 h5 text-white">
                 Getting Current Request Data.....
             </div>
 
-            <div class="container mt-2 d-flex justify-content-center align-items-center">
-                <form action="" method="POST" class="containerd-flex flex-column col-sm-6 col-lg-6 bg-white" style="height:40vh;">
-                    <small class="text-center">
-                        Enter the required
-                    </small>
-                    <label for="blood_group" class="container-fluid d-flex justify-content-center align-items-center">
-                        <select name="reqBlood" id="reqBlood" class="container-fluid">
-                            <option value="A+">A+</option>
-                            <option value="A+">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B-">B-</option>
-                            <option value="AB+">AB+</option>
-                            <option value="AB+">AB-</option>
-                            <option value="O+">O+</option>
-                            <option value="O-">O-</option>
+            <div class="container mt-1 d-flex justify-content-center align-items-center py-2" style="box-shadow:10px 10px 20px rgba(0,0,0,0.2);height:45vh">
+                <form action="" method="POST" class="container d-flex flex-column col-sm-6 col-lg-6 bg-white">
+                    <div class="container d-flex flex-column">
+                        <strong class="h5 text-dark">
+                            Welcome
+                            <?php
+                            if (isset($_SESSION['userName'])) {
+                                echo $_SESSION['userName'];
+                            }
+                            ?>
+                        </strong>
+                        <span class="text-secondary">
+                            Are you trying to make a request to
+                            <?php
+                            if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
+                                $url = "https://";
+                            else
+                                $url = "http://";
+                            $url .= $_SERVER['HTTP_HOST'];
+                            $url .= $_SERVER['REQUEST_URI'];
+
+                            $user_id = (int) filter_var($url, FILTER_SANITIZE_NUMBER_INT);
+                            $sql1 = "SELECT userNameReg from `user` WHERE id= $user_id";
+                            $res1 = mysqli_query($conn, $sql1);
+                            $user_to = "";
+                            if ($res1) {
+                                while ($row = $res1->fetch_assoc()) {
+                                    $user_to = $row['userNameReg'];
+                                }
+                                echo "<strong class='text-dark'>" . $user_to . "</strong>";
+                            }
+
+                            ?>
+                            for blood sample,please fill in all required data!
+                        </span>
+                    </div>
+                    <label for="blood_group" class="container-fluid d-flex flex-column py-1  border-bottom border-secondary">
+                        <strong>
+                            Select the required blood group
+                        </strong>
+                        <select name="reqBlood" id="reqBlood" class="container-fluid py-2 " required>
+                            <option value="A+">A +ve</option>
+                            <option value="A+">A -ve</option>
+                            <option value="B+">B +ve</option>
+                            <option value="B-">B -ve</option>
+                            <option value="AB+">AB +ve</option>
+                            <option value="AB+">AB-ve</option>
+                            <option value="O+">O +ve</option>
+                            <option value="O-">O -ve </option>
                         </select>
                     </label>
-                    <label for="description">
-                        <input type="text" placeholder="Enter description" name="description">
+                    <label for="description" class="container-fluid d-flex flex-column py-3">
+                        <strong>
+                            Enter some small description
+                        </strong>
+                        <textarea type="text" placeholder="Enter description" name="description" class="py-1" style="height:10vh" required></textarea>
                     </label>
-                    <input type="submit" name="requestBtn" value="Request">
+
+                    <input type="submit" name="requestBtn" class="btn btn-success" value="Make Request">
                 </form>
+
             </div>
-
-            ?>
-
         </div>
 
 
@@ -167,11 +222,6 @@ if (!isset($_SESSION['userName'])) {
             warning.setTimeout(() => {
                 warning.classList.add('d-none');
             }, 1000);
-        }
-
-
-        function getRequestModal() {
-
         }
     </script>
 </body>

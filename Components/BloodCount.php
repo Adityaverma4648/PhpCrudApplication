@@ -1,5 +1,5 @@
 <!--  formPopUpabove  -->
-<div class="container bg-light d-flex flex-column">
+<div class="container bg-light d-flex flex-column py-4 ">
 
     <div class="bg-dark py-1 d-flex justify-content-between align-items-center">
         <form method="get" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
@@ -165,7 +165,7 @@
             ?>
         </div>
     </div>
-    <div>
+    <div class="table-responsive">
         <table class="table table-bordered table-striped" style="max-height:100vh;overflow:scroll">
             <thead>
                 <tr>

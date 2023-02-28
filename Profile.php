@@ -53,7 +53,7 @@ if ($res) {
     ?>
     <section class="mt-5 container d-flex justify-content-center align-items-center bg-dark border border-secondary">
         <div class="col-sm-2 d-flex flex-column justify-content-between align-items-center border-end border-secondary" style="height:80vh;">
-            <ul class="container-fluid d-flex flex-column justify-content-between align-items-center py-2">
+            <ul class="container-fluid d-flex flex-column justify-content-between align-items-center py-2" style="overflow:hidden">
                 <li class="container-fluid border-bottom border-secondary py-4">
                     <button type="button" class="bg-transparent border-0 py-2 text-light" onclick="fetchProfileBlocks('editProfile')">
                         Edit Profile
@@ -66,7 +66,7 @@ if ($res) {
                 </li>
                 <li class="container-fluid border-bottom border-secondary py-4">
                     <button type="button" class="bg-transparent border-0 py-2 text-light" onclick="fetchProfileBlocks('emailNotification')">
-                        Email Notifications
+                        Email Notification
                     </button>
                 </li>
                 <li class="container-fluid border-bottom border-secondary py-4">
@@ -190,28 +190,26 @@ if ($res) {
 
         function loginActivity() {
             var content = `<div class="container-fluid">
-                           <table>
+                           <table class="table table-striped table-bordered table-light">
                               <thead>
-                                 <tr>
-                                    <td>S.No</td>
-                                    <td></td>
-                                    <td></td>
-                                 </tr> 
+                                     <tr class="table-danger">
+                                        <td><strong>S.No</strong></td>
+                                        <td><strong>UserName</strong></td> 
+                                        <td><strong>Session Start</strong></td> 
+                                     </tr>
                               </thead>
                               <tbody>
-                                 <tr>
-                                                               <?php
-                                                                $sql = "SELECT * from `login`";
-                                                                $res = mysqli_query($conn, $sql);
-                                                                if ($res) {
-                                                                    while ($row = $res->fetch_assoc()) {
-                                                                        echo '<td>' . $row["id"] . '</td>';
-                                                                    }
-                                                                }
-                                                                ?>
-                                    <td></td>
-                                    <td></td>
-                                 </tr> 
+                                 <?php
+
+                                    $sql = "SELECT * from `login` ";
+                                    $res = mysqli_query($conn, $sql);
+                                    if ($res) {
+                                        while ($row = $res->fetch_assoc()) {
+                                            echo '<tr class="table-success"> <td>' . $row["id"] . '</td><td>' . $row["username"] . '</td><td>' . $row["loginDate"] . '</td></tr> ';
+                                        }
+                                    }
+                                    ?>
+                                 
                               </tbody>
                            </table>
                           </div>`;

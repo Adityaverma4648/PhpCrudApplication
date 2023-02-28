@@ -57,7 +57,7 @@ $url .= $_SERVER['REQUEST_URI'];
 <body>
     <section class="text-white">
         <div class="container messageCont bg-dark d-flex">
-            <div class="col-sm-2 col-lg-2 border-2 border-end border-secondary">
+            <div class="col-sm-4 col-lg-2 border-2 border-end border-secondary">
                 <div class="py-2 container-fluid">
                     <form action="" method="post">
                         <small class="text-center text-white">

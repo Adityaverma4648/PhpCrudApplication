@@ -35,7 +35,7 @@ if ($res) {
     <!-- fontawesome icons -->
     <script src="https://kit.fontawesome.com/8dc03a4776.js" crossorigin="anonymous"></script>
     <!-- fontawesome icons -->
-    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./style.css">
     <style>
         li button:hover {
             color: rgba(255, 255, 255, 0.7);
@@ -50,6 +50,7 @@ if ($res) {
 <body class="bg-light d-flex justify-content-center align-items-center" style="height:100vh;">
     <?php
     include "./Components/Header.php";
+    include "./Components/NavbarResponsive.php";
     ?>
     <section class="mt-5 container d-flex justify-content-center align-items-center bg-dark border border-secondary">
         <div class="col-sm-2 d-flex flex-column justify-content-between align-items-center border-end border-secondary" style="height:80vh;">
@@ -201,11 +202,13 @@ if ($res) {
                               <tbody>
                                  <?php
 
-                                    $sql = "SELECT * from `login` ";
+                                    $sql = "SELECT * from `login`";
                                     $res = mysqli_query($conn, $sql);
                                     if ($res) {
                                         while ($row = $res->fetch_assoc()) {
-                                            echo '<tr class="table-success"> <td>' . $row["id"] . '</td><td>' . $row["username"] . '</td><td>' . $row["loginDate"] . '</td></tr> ';
+                                            if ($row['username'] == $_SESSION['userName']) {
+                                                echo '<tr class="table-success"> <td>' . $row["id"] . '</td><td>' . $row["username"] . '</td><td>' . $row["loginDate"] . '</td></tr> ';
+                                            }
                                         }
                                     }
                                     ?>

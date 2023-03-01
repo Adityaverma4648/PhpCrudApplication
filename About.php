@@ -22,12 +22,13 @@ include "./config/session.php";
     <!-- fontawesome icons -->
     <script src="https://kit.fontawesome.com/8dc03a4776.js" crossorigin="anonymous"></script>
     <!-- fontawesome icons -->
-    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
     <?php
     include "./Components/Header.php";
+    include "./Components/NavbarResponsive.php";
     ?>
 </body>
 

@@ -20,15 +20,19 @@ include "./config/session.php";
   <!-- fontawesome icons -->
   <script src="https://kit.fontawesome.com/8dc03a4776.js" crossorigin="anonymous"></script>
   <!-- fontawesome icons -->
-
+  <link rel="stylesheet" href="style.css">
   <!--  google fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cookie&family=Poppins:wght@500;600&family=Raleway&family=Roboto&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+
   <!--  fonts imports ends here -->
   <style>
     body::-webkit-scrollbar {
+      display: none;
+    }
+
+    .resNavbar {
       display: none;
     }
   </style>
@@ -36,7 +40,10 @@ include "./config/session.php";
 
 <body>
   <!--  header  -->
-  <?php include "./Components/Header.php"; ?>
+  <?php
+  include "./Components/Header.php";
+  include "./Components/NavbarResponsive.php"
+  ?>
   <?php
   include "./Components/Welcome.php";
   include "./Components/Information.php";

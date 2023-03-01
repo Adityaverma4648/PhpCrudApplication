@@ -29,7 +29,7 @@ $url .= $_SERVER['REQUEST_URI'];
     <!-- fontawesome icons -->
     <script src="https://kit.fontawesome.com/8dc03a4776.js" crossorigin="anonymous"></script>
     <!-- fontawesome icons -->
-    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./style.css">
     <style>
         section {
             height: 100vh;
@@ -54,23 +54,23 @@ $url .= $_SERVER['REQUEST_URI'];
 </head>
 <?php include "./Components/Header.php"; ?>
 
-<body>
+<body class="container-fluid d-flex justify-content-center align-items-center">
     <section class="text-white">
         <div class="container messageCont bg-dark d-flex">
             <div class="col-sm-4 col-lg-2 border-2 border-end border-secondary">
                 <div class="py-2 container-fluid">
-                    <form action="" method="post">
+                    <form class="d-flex flex-column" action="" method="post">
                         <small class="text-center text-white">
                             Select Organization
                         </small>
-                        <select name="selectUser" id="selectUser">
+                        <select name="selectUser" id="selectUser" class="text-dark">
                             <?php
                             $sql = "SELECT usernameReg,emailReg FROM `user`";
                             $res = mysqli_query($conn, $sql);
 
                             if ($res) {
                                 while ($row = $res->fetch_assoc()) {
-                                    echo "<option value=" . $row['userNameReg'] . ">
+                                    echo "<option value='" . $row['userNameReg'] . "'>
                                             " . $row['userNameReg'] . "
                                     </option>";
                                 }
@@ -81,17 +81,22 @@ $url .= $_SERVER['REQUEST_URI'];
                 </div>
                 fetch all user organization...you Added
             </div>
-            <div class="col-sm-10 col-lg-2 bg-dark border-secondary d-flex flex-column justify-content-end align-items-center container-fluid">
-                <div class="container-fluid user_to_info bg-danger" style="height:75vh;width:100%;">
-
+            <div class="col-sm-12 col-lg-12 bg-dark border-secondary d-flex flex-column justify-content-end align-items-center container-fluid">
+                <div class="col-sm-12 col-lg-12 user_to_info bg-danger" style="height:75vh;width:100%;">
+                    <!--  message fetching cont -->
                 </div>
-                <div class="container d-flex justify-content-center align-items-center" style="height:5vh">
+                <div class="col-sm-12 col-lg-12 d-flex justify-content-center align-items-center" style="height:5vh">
+                    <div id="messagingHelperIcon">
 
+                        <button type="button" class="bg-transparent text-white border-0">
+                            <i class="fa fa-bars"></i>
+                        </button>
+
+                    </div>
                     <form action="" class="container-fluid" method="post">
                         <input type="text" place="Write Your Message Here" name="messageCreator" class="col-sm-10">
                         <input type="submit" value="Send" class="col-sm-1 text-dark" name="messageSender">
                     </form>
-
                 </div>
             </div>
         </div>

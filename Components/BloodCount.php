@@ -168,7 +168,7 @@
     <div class="table-responsive">
         <table class="table table-bordered table-striped" style="max-height:100vh;overflow:scroll">
             <thead>
-                <tr>
+                <tr class="table-success">
                     <th>
                         Available Blood Banks
                     </th>
@@ -196,9 +196,10 @@
 
                 $res = $conn->query($sql);
                 if ($res) {
-                    while ($row = $res->fetch_assoc()) {
-                        if ($row['userNameReg'] != $_SESSION['userName']) {
-                            echo '<tr class="table-primary" id="' . $row["id"] . '">
+                    if (isset($_SESSION['userName'])) {
+                        while ($row = $res->fetch_assoc()) {
+                            if ($row['userNameReg'] != $_SESSION['userName']) {
+                                echo '<tr class="table-primary" id="' . $row["id"] . '">
                         
                                    <td>' . $row["userNameReg"] . '</td>
                                    <td>' . $row["state"] . '</td>
@@ -209,15 +210,19 @@
                                    ';
 
 
-                            echo '<td class="button-group">
+                                echo '<td class="button-group">
                                    <div class="button-group d-flex">
                                        <a href="Requests.php?id=' . $row["id"] . '" class="text-decoration-none text-white py-1 px-1  border-0 bg-primary mx-1" style="cursor:pointer;" value="Request" >Request</a>
-                                       <input type="button" class="py-1 px-1 border-0 bg-danger mx-1" style="cursor:pointer;" value="Cancel" ></input>
                                        <a href="Messages.php?id=' . $row["id"] . '"  class="btn btn-dark text-light rounded-0 mx-1" style="cursor:pointer;" >Message</a>
                                        </div>
                                     </td>
                                 </tr>';
+                            }
                         }
+                    } else {
+                        echo "<div class='bg-info py-4 attentionGrabberClass'>
+                                      Please Login to use Features like messaging and requesting directly to the member organizations !! 
+                                  </div>";
                     }
                 }
 
@@ -242,7 +247,6 @@
                           <div class='button-group d-flex'>
                              <input type='button' class='py-1 px-1  border-0 bg-primary mx-1 disabled' style='cursor:pointer' value='Request'>
                         </input>
-                        <input type='button' class='py-1 px-1 border-0 bg-danger mx-1 disabled' style='cursor:pointer' value='Cancel'>
                         </input><input type='button' class='btn btn-dark text-light rounded-0 mx-1' style='cursor:pointer' value='Message' onclick='MessageFeatureDisabled()'>
                         </input>
                           </div>
@@ -263,9 +267,8 @@
                         <td>" . $row["phoneNumber"] . "</td>
                         <td>
                           <div class='button-group d-flex'>
-                             <input type='button' class='py-1 px-1  border-0 bg-primary mx-1 disabled' style='cursor:pointer' value='Request'>
+                             <input type='button' class='py-1 px-1  border-0 bg-primary mx-1 disabled' style='cursor:pointer' value='Request' onclick='requestBtnClicked()'>
                         </input>
-                        <input type='button' class='py-1 px-1 border-0 bg-danger mx-1 disabled' style='cursor:pointer' value='Cancel'>
                         </input><input type='button' class='btn btn-dark text-light rounded-0 mx-1' style='cursor:pointer' value='Message' onclick='MessageFeatureDisabled()'>
                         </input>
                           </div>
@@ -289,9 +292,8 @@
                                              <td>" . $row["phoneNumber"] . "</td>
                                               <td>
                           <div class='button-group d-flex'>
-                             <input type='button' class='py-1 px-1  border-0 bg-primary mx-1 disabled' style='cursor:pointer' value='Request'>
+                             <input type='button' class='py-1 px-1  border-0 bg-primary mx-1 disabled' style='cursor:pointer' value='Request' onclick='requestBtnClicked()'>
                         </input>
-                        <input type='button' class='py-1 px-1 border-0 bg-danger mx-1 disabled' style='cursor:pointer' value='Cancel'>
                         </input><input type='button' class='btn btn-dark text-light rounded-0 mx-1' style='cursor:pointer' value='Message' onclick='MessageFeatureDisabled()'>
                         </input>
                           </div>
@@ -313,9 +315,9 @@
                         <td>" . $row["phoneNumber"] . "</td>
                         <td>
                           <div class='button-group d-flex'>
-                             <input type='button' class='py-1 px-1  border-0 bg-primary mx-1 disabled' style='cursor:pointer' value='Request'>
+                             <input type='button' class='py-1 px-1  border-0 bg-primary mx-1 disabled' style='cursor:pointer' value='Request' onclick='requestBtnClicked()'>
                         </input>
-                        <input type='button' class='py-1 px-1 border-0 bg-danger mx-1 disabled' style='cursor:pointer' value='Cancel'>
+                       
                         </input><input type='button' class='btn btn-dark text-light rounded-0 mx-1' style='cursor:pointer' value='Message' onclick='MessageFeatureDisabled()'>
                         </input>
                           </div>
@@ -334,5 +336,10 @@
 <script>
     function MessageFeatureDisabled() {
         alert("Message Featured Allowed Only for Member Organizations");
+    }
+
+    function requestBtnClicked() {
+        alert("Request Featured Allowed Only for Member Organizations");
+
     }
 </script>

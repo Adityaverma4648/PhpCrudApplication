@@ -76,17 +76,21 @@ if (!isset($_SESSION['userName'])) {
     <link href="https://fonts.googleapis.com/css2?family=Cookie&family=Poppins:wght@500;600&family=Raleway&family=Roboto&display=swap" rel="stylesheet">
     <!--  fonts imports ends here -->
     <!-- fontawesome icons -->
-    <link src="https://kit.fontawesome.com/8dc03a4776.js" crossorigin="anonymous">
-    </link>
+    <script src="https://kit.fontawesome.com/8dc03a4776.js" crossorigin="anonymous"></script>
     <!-- fontawesome icons -->
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <?php
     include "./Components/Header.php";
+    include "./Components/NavbarResponsive.php";
+
     ?>
-    <section class="d-flex flex-column justify-content-center align-items-center bg-light" style="width:100vw;height:100vh">
+
+    <!--  myEditform -->
+
+    <section class="d-flex flex-column justify-content-center align-items-center bg-light" style="width:100vw;height:100vh" id="reqCont">
         <div class="container">
             <div class="container bg-info py-4">
                 The Following is the list of requests made by
@@ -131,10 +135,12 @@ if (!isset($_SESSION['userName'])) {
                                 <td>" . $row['description'] . "</td>
                                 <td>" . $row['reqBlood'] . "</td>
                                 <td>" . $row['req_date'] . "</td> 
-                                <td>
-                                        <button type='button' id='getForm' class='border-0 bg-warning px-1 py-2' onClick='getRequestModal()'>
-                                                <i class='fa fa-edit'></i>
-                                                 Edit Request
+                                <td class='button-group'>
+                                        <a href='editRequests.php?" . $row['id'] . "' id='getForm' class='p-3 bg-warning rounded-5 text-decoration-none text-dark text-center' onClick='getRequestModal(" . $row['id'] . ")' data-bs-toggle='tooltip' data-bs-placement='bottom' title='Edit Requests!' >
+                                                <i class='fa fa-edit '></i>
+                                        </a>
+                                        <button type='button' id='getForm' class='border-0 bg-danger rounded-5' onClick='deleteEntry()' data-bs-toggle='tooltip' data-bs-placement='bottom' title='Delete Requests!'>
+                                                <i class='fa fa-trash p-3'></i>
                                         </button>
                                 </td>
                                 </tr>";
@@ -227,3 +233,9 @@ if (!isset($_SESSION['userName'])) {
 </body>
 
 </html>
+<script>
+    function getRequestModal(id) {
+        var modal = document.createElement('div');
+        modal.innerHTML = "hello";
+    }
+</script>

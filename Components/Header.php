@@ -1,9 +1,10 @@
-<!-- <link rel="stylesheet" href="../styles/style.css"> -->
 <header class="container-fluid bg-dark header d-flex flex-column py-2 position-fixed top-0" style="z-index:999999" id="header">
   <!--  navbar  -->
   <nav class="NAVBAR container d-flex justify-content-center align-items-center">
     <div class="col-lg-1 col-sm-1 h3 text-white d-flex justify-content-center align-items-center">
-      LOGO
+      <a href="../../PhpCrudApplication//index.php" class="text-decoration-none text-white">
+        LOGO
+      </a>
     </div>
     <div class="col-sm-6 col-lg-6 d-flex flex-wrap justify-content-end align-items-center" style="height:100%" id="mynavbar">
       <li style="list-style: none;">
@@ -69,6 +70,7 @@
 <script>
   function myResponsiveNavbar() {
     var mynavbar = document.getElementById('mynavbar');
-    mynavbar.classList.toggle('invisible');
+    var resNavbar = document.getElementById('resNavbar');
+    resNavbar.classList.toggle('d-none');
   }
 </script>

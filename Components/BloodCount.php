@@ -220,7 +220,7 @@
                             }
                         }
                     } else {
-                        echo "<div class='bg-info py-4 attentionGrabberClass'>
+                        echo "<div class='bg-info py-4 attentionGrabberClass text-center'>
                                       Please Login to use Features like messaging and requesting directly to the member organizations !! 
                                   </div>";
                     }

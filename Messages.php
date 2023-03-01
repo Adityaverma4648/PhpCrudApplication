@@ -8,6 +8,10 @@ if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
 }
 $url .= $_SERVER['HTTP_HOST'];
 $url .= $_SERVER['REQUEST_URI'];
+$user_id = (int) filter_var($url, FILTER_SANITIZE_NUMBER_INT);
+if ($user_id) {
+    echo "avi singles chat h ";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

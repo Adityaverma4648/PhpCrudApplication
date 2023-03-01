@@ -1,3 +1,4 @@
+/*  Removing some default properties + default font changed -------------------------------------------------------------------------------------------------------------------------------------------- */
 *{
     margin: 0;
     padding: 0%;
@@ -7,29 +8,43 @@
         /* font-family: 'Raleway', sans-serif;
         font-family: 'Roboto', sans-serif; */
 }
+
+/*  Genral styling----------------------------------------------------------------------------------------------------*/
  body::-webkit-scrollbar{
     display: none;
  }
 li{
     list-style: none;
   }
+/*  block ends here --------------------------------------------------------------------------------------------------------------------*/
+
+
+
+
+/*  header-Navbar------------------------------------------------------------------------------------------------------- */
 .myToggleBtn{
         display: none;
 }
-#resNavbar{
-  display: none;
-  transition: all 1s ease-out;
-}
-li a{
+li a {
   color: rgb(255, 139, 197);
   transition: all 0.4s ease-in-out;
   cursor: pointer;
 }
-li a:hover{
+
+li a:hover {
   color: rgb(255, 139, 197);
   transition: all 0.4s ease-in-out;
   border-bottom: 1px solid rgb(255, 139, 197);
 }
+
+/*  block ends  -------------------------------------------------------------------------------------------------------------------*/
+
+/*  responsiveNavbar -------------------------------------------------------------------------------------------------------*/
+#resNavbar{
+  display: none;
+  transition: all 1s ease-out;
+}
+
 .resNavbarCustLi a{
   transition: all 1s ease-in-out;
   color: rgb(255, 139, 197);
@@ -39,7 +54,9 @@ li a:hover{
    background-color: rgb(114, 114, 114);
 }
 
-/*  animations  */
+/*  offcanvas block ends here -------------------------------------------------------------------------------------------------------*/
+
+/*  animations  -------------------------------------------------------------------------------------------------------*/
 
     .attentionGrabberClass{
       animation: flashy 1s infinite ease-in-out;
@@ -70,8 +87,70 @@ li a:hover{
 
 
 
-/*  animation ends */
+/*  animation ends -------------------------------------------------------------------------------------------------------*/
 
+
+
+
+/*    bloodGroupCount.php -------------------------------------------------------------------------------------------------------*/
+     .attentionGrabberClass{
+          background: linear-gradient(45deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.4)),url("./assets/Illustration.png");
+            backdrop-filter: blur(1rem);
+     }
+
+/*  block ends -------------------------------------------------------------------------------------------------------*/
+
+
+/*  login.php  ---------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+
+#formContLogin {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('https://img.freepik.com/free-vector/abstract-colorful-shapes-background_23-2148769631.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#loginForm {
+  padding: 10px 5px;
+  height: 40vh;
+  width: 35vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #012340;
+}
+
+#guestLoginForm {
+  width: 35vw;
+  height: 15vh;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.4));
+  backdrop-filter: blur(1rem);
+}
+
+#loginForm input {
+  width: 98%;
+  margin: 3px 0px;
+  padding: 0.5rem 8px;
+  border-radius: 2px;
+}
+
+.text-white {
+  color: #fff;
+}
+
+.bg-success {
+  background-color: green;
+}
+
+
+/*  block ends here ---------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 
 @media only screen and (max-width:750px){

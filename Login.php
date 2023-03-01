@@ -33,9 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['guestLogin'])) {
-        $userName = 'Guest123';
-        $password = 'GuestGuest';
-        echo "<scrip>alert('inside block')</scrip>";
+        $userName = 'Guest1';
+        $password = 'guestGuest';
         $query = "SELECT * FROM `user` WHERE usernameReg = '$userName' AND passwordReg = '" . md5($password) . "'";
         $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 
@@ -53,10 +52,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 echo "<script>alert('Guest Login is Non-functional at this moment')</script>";
             }
+        } else {
+            echo "<script>alert('Guest DoesNot exists')</script>";
         }
     }
 }
+
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -93,16 +97,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </h5>
             <input type="text" name="userName" id="userName" placeholder="Enter userName | organization name" required>
             <input type="password" name="password" id="password" placeholder="Enter password" required>
-            <input type="checkbox" id="showPasswordCheckbox">
+            <div class="container d-flex justify-content-end align-items-center px-3">
+                <button type="button" class="btn bg-transparent py-2 border-0">
+                    <i class="fa fa-eye text-white"></i>
+                </button>
+            </div>
             <input type="submit" name="submit" value="Login" id="submit" class="bg-success border-0 text-white">
+
+            <div class="my-2 py-1 ">
+                <a href="./Register.php" class="text-danger">
+                    <small>
+                        Do not have an Account yet..?
+                    </small>
+                </a>
+            </div>
 
         </form>
         <form class="p-2 d-flex flex-column justify-content-center align-items-center" method="post" id="guestLoginForm">
 
-            <h5 class="container py-2 border-bottom border-secondary text-light">
+            <h5 class="container py-2 border-bottom border-secondary d-flex justify-content-end align-items-center">
                 Login as Guest
             </h5>
-            <small class="container px-2 text-secondary mb-1">
+            <small class="container px-2 mb-1 d-flex justify-content-end align-items-center">
                 We respect your valuable time :)
             </small>
             <input type="submit" class="container bg-flashy btn btn-info rounded-0" name="guestLogin" value="Login As A Guest"></input>

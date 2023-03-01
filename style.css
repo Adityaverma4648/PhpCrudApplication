@@ -16,6 +16,12 @@
 li{
     list-style: none;
   }
+
+  .bg-flashy{
+      background: linear-gradient(45deg,rgb(255, 0, 64),rgb(214, 126, 255) ,rgb(171, 79, 214),rgb(76, 192, 228));
+      border:none;
+      color : white;
+  }
 /*  block ends here --------------------------------------------------------------------------------------------------------------------*/
 
 
@@ -43,6 +49,9 @@ li a:hover {
 #resNavbar{
   display: none;
   transition: all 1s ease-out;
+}
+.resNavbarLink {
+   width: 100%;
 }
 
 .resNavbarCustLi a{
@@ -110,7 +119,7 @@ li a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('https://img.freepik.com/free-vector/abstract-colorful-shapes-background_23-2148769631.jpg');
+  background:  linear-gradient(45deg ,rgba(43, 5, 255, 0.1),rgba(0,0,0,0.2)),url('https://img.freepik.com/free-vector/abstract-colorful-shapes-background_23-2148769631.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -153,6 +162,75 @@ li a:hover {
 /*  block ends here ---------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 
+
+
+
+
+
+/*  registration form --------------------------------------------------------------------------------*/
+
+
+                    #formContRegistration {
+                      height: 100vh;
+                      width: 100vw;
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                      background: linear-gradient(45deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2)),url('https://cdn.wallpapersafari.com/6/89/vWyE2K.jpg');
+                      background-repeat: no-repeat;
+                      background-position: center;
+                      background-size: cover;
+                    }
+          
+                    #formContRegistration form {
+                      padding: 10px 5px;
+                      height: 70vh;
+                      width: 45vw;
+                      display: flex;
+                      flex-direction: column;
+                      justify-content: center;
+                      align-items: center;
+                      background-color: #012340;
+                    }
+          
+                    #formContRegistration input {
+                      width: 98%;
+                      margin: 3px 0px;
+                      padding: 0.5rem 2px;
+                      border-radius: 2px;
+                    }
+          
+                    .getterButtons {
+                      padding: 5px 0px;
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                      border-right: 2px solid blue;
+                    }
+
+
+
+/*  block ends here --------------------------------------------------------------------------------*/
+
+
+
+/*  Requests.php ----------------------------------------------------------------------------------------------------------------*/
+
+.ErrorPageIllustrationCont{
+         height: 100%;
+         width : 100%;
+         overflow:hidden;
+}
+.ErrorPageIllustrationCont img{
+     height: 90%;
+     width: auto;
+}
+
+/*  block ends------------------------------------------------------------------------------------------------ */
+
+
+
+
 @media only screen and (max-width:750px){
     .myToggleBtn{
        display: block;
@@ -166,5 +244,11 @@ li a:hover {
     }
     #reqCont{
         height: 120vh;
+    }
+    #guestLoginForm,#loginForm{
+           width: 80vw;
+    }
+    #formContRegistration form{
+        width: 80vw;
     }
 }

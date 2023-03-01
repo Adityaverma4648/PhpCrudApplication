@@ -1,21 +1,29 @@
 <?php
 include "./config/conn.php";
 include "./config/session.php";
-if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
-    $url = "https://";
-} else {
-    $url = "http://";
+
+function urlfetcher()
+{
+    if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
+        $url = "https://";
+    } else {
+        $url = "http://";
+    }
+    $url .= $_SERVER['HTTP_HOST'];
+    $url .= $_SERVER['REQUEST_URI'];
+
+    $user_id = (int) filter_var($url, FILTER_SANITIZE_NUMBER_INT);
+    return $user_id;
 }
-$url .= $_SERVER['HTTP_HOST'];
-$url .= $_SERVER['REQUEST_URI'];
 
-$user_id = (int) filter_var($url, FILTER_SANITIZE_NUMBER_INT);
 
+$user_to = "";
+$user_id = urlfetcher();
 $sql1 = "SELECT userNameReg from `user` WHERE id= $user_id";
 $res1 = mysqli_query($conn, $sql1);
 if ($res1) {
     while ($row = $res1->fetch_assoc()) {
-        $user_to = $row['userNameReg'];
+        $GLOBALS['user_to'] = $row['userNameReg'];
     }
 }
 
@@ -37,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($rows['user_to'] != $user_to && $rows['user_from'] != $user_from) {
                     $sql1 = "INSERT INTO `requests`(user_to,user_from,description,reqBlood,req_date) VALUES('$user_to','$user_from','$description','$reqBlood','$req_date') ";
                     $res1 = mysqli_query($conn, $sql1);
-                    if ($res) {
+                    if ($res1) {
                         echo '<script>alert("Requested Successfully *")</script>';
                     }
                 } else {
@@ -47,14 +55,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
-
-
-// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//     not logged in Warning starts here -------  No Data To Show,You Are Not Logged In!
-if (!isset($_SESSION['userName'])) {
-    echo '<script>alert("No Data To Show,You Are Not Logged In!")</script>';
-}
-//       auth warrning block ends here
 ?>
 
 
@@ -93,11 +93,12 @@ if (!isset($_SESSION['userName'])) {
     <section class="d-flex flex-column justify-content-center align-items-center bg-light" style="width:100vw;height:100vh" id="reqCont">
         <div class="container">
             <div class="container bg-info py-4">
-                The Following is the list of requests made by
+
                 <?php
-                if (isset($_SESSION['userName']))
+                if (isset($_SESSION['userName'])) {
+                    echo 'The Following is the list of requests made by';
                     echo $_SESSION['userName'];
-                else {
+                } else {
                     echo "User Not Logged In";
                 }
                 ?>
@@ -130,7 +131,10 @@ if (!isset($_SESSION['userName'])) {
                         $res = mysqli_query($conn, $sql);
                         if ($res) {
                             while ($row = $res->fetch_assoc()) {
-                                echo "<tr class='table-active'>
+
+                                if ($row['user_from'] == $_SESSION['userName']) {
+
+                                    echo "<tr class='table-active'>
                                 <td>" . $row['user_to'] . "</td>
                                 <td>" . $row['description'] . "</td>
                                 <td>" . $row['reqBlood'] . "</td>
@@ -144,8 +148,11 @@ if (!isset($_SESSION['userName'])) {
                                         </button>
                                 </td>
                                 </tr>";
+                                }
                             }
                         }
+                    } else {
+                        echo '<tr class="table-danger"><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>';
                     }
                     ?>
                 </tbody>
@@ -156,38 +163,18 @@ if (!isset($_SESSION['userName'])) {
             </div>
 
             <div class="container mt-1 d-flex justify-content-center align-items-center py-2" style="box-shadow:10px 10px 20px rgba(0,0,0,0.2);height:45vh">
-                <form action="" method="POST" class="container d-flex flex-column col-sm-6 col-lg-6 bg-white">
+                <?php
+                $user_id = urlfetcher();
+                if (isset($_SESSION['userName'])) {
+                    if (isset($user_id) && $user_id != 0) {
+                        echo '<form action="" method="POST" class="container d-flex flex-column col-sm-6 col-lg-6 bg-white">
                     <div class="container d-flex flex-column">
                         <strong class="h5 text-dark">
-                            Welcome
-                            <?php
-                            if (isset($_SESSION['userName'])) {
-                                echo $_SESSION['userName'];
-                            }
-                            ?>
+                            Welcome ' .  $_SESSION['userName']   .   '
                         </strong>
                         <span class="text-secondary">
                             Are you trying to make a request to
-                            <?php
-                            if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
-                                $url = "https://";
-                            else
-                                $url = "http://";
-                            $url .= $_SERVER['HTTP_HOST'];
-                            $url .= $_SERVER['REQUEST_URI'];
-
-                            $user_id = (int) filter_var($url, FILTER_SANITIZE_NUMBER_INT);
-                            $sql1 = "SELECT userNameReg from `user` WHERE id= $user_id";
-                            $res1 = mysqli_query($conn, $sql1);
-                            $user_to = "";
-                            if ($res1) {
-                                while ($row = $res1->fetch_assoc()) {
-                                    $user_to = $row['userNameReg'];
-                                }
-                                echo "<strong class='text-dark'>" . $user_to . "</strong>";
-                            }
-
-                            ?>
+                            ' . $user_to . '
                             for blood sample,please fill in all required data!
                         </span>
                     </div>
@@ -214,8 +201,14 @@ if (!isset($_SESSION['userName'])) {
                     </label>
 
                     <input type="submit" name="requestBtn" class="btn btn-success" value="Make Request">
-                </form>
-
+                </form>';
+                    } else if ($user_id == 0) {
+                        echo "gatcha illustration";
+                    }
+                } else {
+                    echo '<div class="container d-flex justify-content-center align-items-center ErrorPageIllustrationCont"><img src="./assets/loginDenied404.jpg" alt="User Not Logged In" class="col-sm-10 col-lg-8" ></div>';
+                }
+                ?>
             </div>
         </div>
 
@@ -233,9 +226,9 @@ if (!isset($_SESSION['userName'])) {
 </body>
 
 </html>
-<script>
+<!-- <script>
     function getRequestModal(id) {
         var modal = document.createElement('div');
         modal.innerHTML = "hello";
     }
-</script>
+</script> -->

@@ -62,58 +62,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- fontawesome icons -->
     <script src="https://kit.fontawesome.com/8dc03a4776.js" crossorigin="anonymous"></script>
     <!-- fontawesome icons -->
-    <link rel="stylesheet" href="./styles/style.css">
-    <style>
-        .text-white {
-            color: #fff;
-        }
+    <link rel="stylesheet" href="style.css">
 
-        .bg-success {
-            background-color: green;
-        }
-
-        #formContRegistration {
-            height: 100vh;
-            width: 100vw;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-image: url('https://cdn.wallpapersafari.com/6/89/vWyE2K.jpg');
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: cover;
-        }
-
-        #formContRegistration form {
-            padding: 10px 5px;
-            height: 70vh;
-            width: 45vw;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: #012340;
-        }
-
-        #formContRegistration input {
-            width: 98%;
-            margin: 3px 0px;
-            padding: 0.5rem 2px;
-            border-radius: 2px;
-        }
-
-        .getterButtons {
-            padding: 5px 0px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-right: 2px solid blue;
-        }
-    </style>
 </head>
 
 <body>
-    <?php include "./Components/Header.php" ?>
+    <?php
+    include "./Components/Header.php";
+    include "./Components/NavbarResponsive.php";
+    ?>
     <div id="formContRegistration">
         <form method="POST" id="registraionForm" class="d-flex flex-column py-1 my-1">
             <div class="container-fluid d-flex justify-content-center align-items-center py-1 text-white">

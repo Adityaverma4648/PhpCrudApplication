@@ -1,17 +1,21 @@
 <?php
 include './config/conn.php';
 include './config/session.php';
-if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
-    $url = "https://";
-} else {
-    $url = "http://";
+
+function urlFetcher()
+{
+
+    if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
+        $url = "https://";
+    } else {
+        $url = "http://";
+    }
+    $url .= $_SERVER['HTTP_HOST'];
+    $url .= $_SERVER['REQUEST_URI'];
+    $user_id = (int) filter_var($url, FILTER_SANITIZE_NUMBER_INT);
+    return $user_id;
 }
-$url .= $_SERVER['HTTP_HOST'];
-$url .= $_SERVER['REQUEST_URI'];
-$user_id = (int) filter_var($url, FILTER_SANITIZE_NUMBER_INT);
-if ($user_id) {
-    echo "avi singles chat h ";
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,10 +60,14 @@ if ($user_id) {
         }
     </style>
 </head>
-<?php include "./Components/Header.php"; ?>
+<?php
+include "./Components/Header.php";
+include "./Components/NavbarResponsive.php";
+?>
 
-<body class="container-fluid d-flex justify-content-center align-items-center">
-    <section class="text-white">
+<body class="container-fluid d-flex justify-content-center align-items-center" style="height:100vh;width:100vw">
+
+    <section class="text-white d-flex justify-content-center align-items-center">
         <div class="container messageCont bg-dark d-flex">
             <div class="col-sm-4 col-lg-2 border-2 border-end border-secondary">
                 <div class="py-2 container-fluid">

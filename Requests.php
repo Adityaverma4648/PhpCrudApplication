@@ -78,14 +78,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- fontawesome icons -->
     <script src="https://kit.fontawesome.com/8dc03a4776.js" crossorigin="anonymous"></script>
     <!-- fontawesome icons -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
     <?php
     include "./Components/Header.php";
     include "./Components/NavbarResponsive.php";
-
     ?>
 
     <!--  myEditform -->
@@ -99,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo 'The Following is the list of requests made by';
                     echo $_SESSION['userName'];
                 } else {
-                    echo "User Not Logged In";
+                    echo "<center class='attentionGrabberClass bg-transparent border-0'>User Not Logged In</center>";
                 }
                 ?>
             </div>
@@ -158,8 +157,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </tbody>
             </table>
 
-            <div class="mt-2 px-3 bg-success py-3 h5 text-white">
-                Getting Current Request Data.....
+            <div class="mt-2 px-3 bg-success py-3 h5 text-white d-flex">
+                Getting Current Request Data
+                <div class='d-flex justify-content-center align-items-center ms-2 '>
+                    <div class="spinner-grow spinner-grow-sm"></div>
+                    <div class="spinner-grow spinner-grow-sm"></div>
+                    <div class="spinner-grow spinner-grow-sm"></div>
+                </div>
             </div>
 
             <div class="container mt-1 d-flex justify-content-center align-items-center py-2" style="box-shadow:10px 10px 20px rgba(0,0,0,0.2);height:45vh">
@@ -203,7 +207,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="submit" name="requestBtn" class="btn btn-success" value="Make Request">
                 </form>';
                     } else if ($user_id == 0) {
-                        echo "gatcha illustration";
+                        echo "<div class='text-secondary h5' >
+                                 No Request Made Yet!
+                             </div>";
                     }
                 } else {
                     echo '<div class="container d-flex justify-content-center align-items-center ErrorPageIllustrationCont"><img src="./assets/loginDenied404.jpg" alt="User Not Logged In" class="col-sm-10 col-lg-8" ></div>';

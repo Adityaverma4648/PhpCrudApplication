@@ -13,6 +13,20 @@ if ($res) {
     }
 }
 
+
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    if (isset($POST['savingUpdation'])) {
+        $userNameUpdation = $_POST['userNameUpdation'];
+        $userEmailUpdation = $_POST['userEmailUpdation'];
+
+        $current_user = $_SESSION['userName'];
+        $sql = "UPDATE `user` SET userNameReg = $userNameUpdation , emailReg $userEmailUpdation WHERE userNameReg = $current_user";
+        $res = mysqli_query($conn, $sql) or die("conn error");
+        if ($res) {
+        }
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -100,7 +114,7 @@ if ($res) {
     <script>
         function editProfile() {
             var content = `<div class="fetchedBlock container text-white">
-                            <form method = "POST" >
+                            <form method = "post" >
                                  <div>
                                      <?php
                                         echo $_SESSION["userName"];

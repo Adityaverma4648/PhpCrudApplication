@@ -24,10 +24,22 @@
       </li>
     </div>
     <?php
-    if (isset($_SESSION['userName'])) {
+    if (isset($_SESSION['loggedInStatus'])) {
+
+      
+        $sql = "SELECT * FROM `user` WHERE uniqueId = '".$_SESSION['uniqueId']."' ";
+        $res = mysqli_query($conn,$sql);
+        if($res){
+             while($row=$res->fetch_assoc()){
+               $currentUserName = $row['userNameReg']; 
+             }
+        }
+     
+    
+
       echo '<div class="col-lg-3 col-sm-3 d-flex justify-content-center align-items-center><div class="dropdown">
                       <button type="button" class="btn btn-outline-info dropdown-toggle rounded-0 " data-bs-toggle="dropdown">
-                            ' . $_SESSION['userName'][0] . '
+                            ' . $currentUserName . '
                        </button>
                        <ul class="dropdown-menu bg-dark">
                             <li><a class="dropdown-item text-info border-bottom border-info" href="Profile.php">

@@ -4,25 +4,25 @@
             <i class="fa fa-close"></i>
         </button>
     </div>
-    <div class="col-sm-12 d-flex flex-column justify-content-center align-items-center">
-        <div class="container-fluid py-3 border-bottom border-secondary bg-opacity-50 resNavbarCustLi">
+    <ul class="container-fluid d-flex flex-column justify-content-center align-items-center">
+        <li class="container-fluid py-3 border-bottom border-secondary bg-opacity-50 ">
             <a href="../../PhpCrudApplication/index.php
-              " class="text-decoration-none bg-danger resNavbarLink">
+              " class="container-fluid text-decoration-none bg-danger">
                 Home
             </a>
-        </div>
-        <div class="container-fluid py-3 border-bottom border-secondary bg-opacity-50 resNavbarCustLi">
-            <a href="../../PhpCrudApplication/About.php" class="text-decoration-none bg-danger resNavbarLink">
+        </li>
+        <li class="container-fluid py-3 border-bottom border-secondary bg-opacity-50 ">
+            <a href="../../PhpCrudApplication/About.php" class="container-fluid text-decoration-none bg-danger">
                 About
             </a>
-        </div>
-        <div class="container-fluid py-3 border-bottom border-secondary bg-opacity-50 resNavbarCustLi">
+        </li>
+        <li class="container-fluid py-3 border-bottom border-secondary bg-opacity-50 ">
             <a href="../../PhpCrudApplication/Requests.php
-              " class="text-decoration-none bg-danger resNavbarLink">
+              " class="container-fluid text-decoration-none bg-danger">
                 Requests
             </a>
-        </div>
-    </div>
+        </li>
+    </ul>
 </div>
 
 <script>

@@ -235,7 +235,10 @@ li a:hover {
  .loginActivity::-webkit-scrollbar{
      display: none;
  }
-
+  
+ .resNavbar{
+    display: none;
+ }
 
 @media only screen and (max-width:750px){
     .myToggleBtn{
@@ -256,5 +259,8 @@ li a:hover {
     }
     #formContRegistration form{
         width: 80vw;
+    }
+    .profileButtonNames{
+      display: none;
     }
 }

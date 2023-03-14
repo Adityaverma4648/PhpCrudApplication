@@ -1,6 +1,18 @@
 <?php
 include "./config/conn.php";
 include "./config/session.php";
+
+if(isset($_SESSION['loggedInStatus'])){
+   $sql = "SELECT * FROM `user` WHERE userNameReg = '".$_SESSION['userName']."' ";
+   $res = mysqli_query($conn,$sql);
+   if($res){
+        while($row=$res->fetch_assoc()){
+          $_SESSION['uniqueId'] = $row['uniqueId']; 
+        }
+   }
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +65,6 @@ include "./config/session.php";
 
   <?php
   include "./Components/BloodCount.php";
-
   ?>
   <!-- body block ends -->
   <script type="module" src="./scripts/index.js">

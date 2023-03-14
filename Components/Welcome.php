@@ -7,10 +7,10 @@
             Please help the people in need with blood donations!
         </span>
         <div class="col-sm-12 d-flex justify-content-center align-items-center ">
-            <button type="button" class="btn btn-primary rounded-0 px-2 m-1">
+            <a href="#BloodCount" class="text-decoration-none text-white btn btn-primary rounded-0 px-2 m-1">
                 <i class="fa fa-plus-square"></i>
                 Request Blood
-            </button>
+            </a>
             <button type="button" class="btn btn-success rounded-0 px-2 m-1">
                 <i class="fa fa-phone"></i>
                 Make a call

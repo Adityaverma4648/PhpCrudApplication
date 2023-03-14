@@ -16,6 +16,10 @@ function urlFetcher()
     return $user_id;
 }
 
+
+
+    //  all user fetcher----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,6 +40,9 @@ function urlFetcher()
     <!--  fonts imports ends here -->
     <!-- fontawesome icons -->
     <script src="https://kit.fontawesome.com/8dc03a4776.js" crossorigin="anonymous"></script>
+
+    <script src="jquery-3.6.3.min.js"></script>
+
     <!-- fontawesome icons -->
     <link rel="stylesheet" href="./style.css">
     <style>
@@ -60,59 +67,132 @@ function urlFetcher()
         }
     </style>
 </head>
+
+<body class="Messages container-fluid d-flex justify-content-center align-items-center">
 <?php
 include "./Components/Header.php";
 include "./Components/NavbarResponsive.php";
 ?>
 
-<body class="container-fluid d-flex justify-content-center align-items-center" style="height:100vh;width:100vw">
-
-    <section class="text-white d-flex justify-content-center align-items-center">
+    <section class="container-fluid text-white d-flex justify-content-center align-items-center">
         <div class="container messageCont bg-dark d-flex">
             <div class="col-sm-4 col-lg-2 border-2 border-end border-secondary">
+
+            <!--  user Selector -->
                 <div class="py-2 container-fluid">
                     <form class="d-flex flex-column" action="" method="post">
                         <small class="text-center text-white">
-                            Select Organization
+                            Choose Members To Chat Directly...
                         </small>
-                        <select name="selectUser" id="selectUser" class="text-dark">
-                            <?php
-                            $sql = "SELECT usernameReg,emailReg FROM `user`";
-                            $res = mysqli_query($conn, $sql);
-
-                            if ($res) {
-                                while ($row = $res->fetch_assoc()) {
-                                    echo "<option value='" . $row['userNameReg'] . "'>
-                                            " . $row['userNameReg'] . "
-                                    </option>";
-                                }
-                            }
-                            ?>
+                        <select name="selectUser" id="selectUser" class="px-1 border-0 rounded-5 py-2 text-dark" onchange="fetchDirectMessageMethod(event)" >
+                           <?php
+                               
+                           $sql = "SELECT usernameReg,emailReg FROM `user`";
+                           $res = mysqli_query($conn, $sql);
+                           $emparray = array();
+                           if ($res) {
+                               while ($row = $res->fetch_assoc()) {
+                                    if($row['usernameReg'] != $_SESSION['userName'] ){
+                                        $emparray[]  = $row;
+                                    }
+                               }
+                           }
+                           echo '<script>
+                                    var allUser = '.json_encode($emparray).';
+                                    var selectUser = document.getElementById("selectUser");
+                                    var content = allUser.map((d)=>{
+                                      return `<option value="${d.usernameReg}"> ${d.usernameReg} </option>` 
+                                   })
+                                   selectUser.innerHTML = content;
+                                </script>';
+                           ?>
                         </select>
                     </form>
+                </div>
+                <!--  recent users -->
+                <div class="container-fluid py-2" id="allConversedUser" >
+                     
                 </div>
                 fetch all user organization...you Added
             </div>
             <div class="col-sm-12 col-lg-12 bg-dark border-secondary d-flex flex-column justify-content-end align-items-center container-fluid">
-                <div class="col-sm-12 col-lg-12 user_to_info bg-danger" style="height:75vh;width:100%;">
-                    <!--  message fetching cont -->
+                <div class="col-sm-12 col-lg-12 user_to_info" style="height:74vh;width:100%;">
+                <div class="container-fluid py-2 d-flex flex-row justify-content-center align-items-center border-bottom border-secondary border-opacity-50" style="height:
+                10%" >
+                      <div class="col-sm-3" >
+                          <img src="#" alt="profile">
+                      </div>
+                      <div class="col-sm-6 d-flex flex-column justify-content-end align-items-center">
+                          <div class="container-fluid d-flex text-end Name">
+                              Name
+                          </div>
+                          <div class="container-fluid d-flex text-end email">
+                              <small class="text-secondary">
+                                   Email 
+                              </small>
+                          </div>
+                      </div>
+                      <div class="col-sm-2 ">
+                          <button class="btn border-0 bg-transparent"  >
+                              <i class="fa fa-sliders text-white" style="font-size:23px" ></i>
+                          </button>
+                      </div>
                 </div>
-                <div class="col-sm-12 col-lg-12 d-flex justify-content-center align-items-center" style="height:5vh">
-                    <div id="messagingHelperIcon">
+                 <div class="bg-success p-2 d-flex flex-column align-items-center justify-content-center" >
+                    <!--  messages -->
 
-                        <button type="button" class="bg-transparent text-white border-0">
-                            <i class="fa fa-bars"></i>
+                    <?php
+                                $user_to_id = urlFetcher();
+                                $sql2 = "SELECT * FROM `user` WHERE id = $user_to_id ";
+                                $res2 = mysqli_query($conn,$sql2);
+                                $user_to = array();
+                                if($res2){
+                                      while($row = $res2->fetch_assoc()){
+                                            $user_to = $row;
+                                      }
+                                }    
+                          $sql  = 'SELECT * from `messages`';
+                          $res  = mysqli_query($conn,$sql);
+
+                          if($res){
+                             while($row = $res->fetch_assoc()){
+                                   echo $row;
+                             }
+                          }else{
+                              echo "cannot get any data";
+                          }
+                    ?>
+
+                 </div>    
+                <!--  message fetching cont -->
+                </div>
+                <div class="container-fluid d-flex flex-row justify-content-center align-items-center" style="height:10%">
+                    <div id="messagingHelperIcon" class="d-flex flex-row justify-content-center align-items-center">
+                        <button type="button" class="bg-transparent text-white border-0 mx-1 p-2">
+                            <i class="fa fa-thumb-tack" style="font-size:23px" ></i>
                         </button>
-
+                        <button type="button" class="bg-transparent text-white border-0 mx-1 p-2">
+                            <i class="fa fa-microphone" style="font-size:23px" ></i>
+                        </button>
                     </div>
-                    <form action="" class="container-fluid" method="post">
-                        <input type="text" place="Write Your Message Here" name="messageCreator" class="col-sm-10">
+                    <form action="" class="container" method="post">
+                        <input type="text" place="Write Your Message Here" name="messageCreator" class="border-0 col-sm-10 rounded-5 px-2 py-1">
                         <input type="submit" value="Send" class="col-sm-1 text-dark" name="messageSender">
                     </form>
                 </div>
             </div>
         </div>
     </section>
+
+    <script>
+        var selectedUser = '';
+         function fetchDirectMessageMethod(event){
+            var data = JSON.stringify(event.target.value);
+             return data; 
+        } 
+        selectedUser = fetchDirectMessageMethod(event);
+         
+    </script>
 </body>
 
 </html>

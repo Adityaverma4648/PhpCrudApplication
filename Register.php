@@ -134,6 +134,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="text" name="addressReg" placeholder="Enter Address" required>
 
             <input type="submit" name="submitReg" value="Register" id="submitReg" class="bg-success border-0 text-white">
+
+            <div class="container-fluid text-center py-2">
+                   <a href="./Login.php" class="text-danger" >
+                        <small >
+                        Already have an Account ?
+                       </small>
+                   </a>
+            </div>
         </form>
     </div>
 

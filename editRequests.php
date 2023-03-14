@@ -1,6 +1,40 @@
 <?php
    include "./config/conn.php";
    include "./config/session.php";
+
+   function urlFetcher()
+{
+    if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
+        $url = "https://";
+    } else {
+        $url = "http://";
+    }
+    $url .= $_SERVER['HTTP_HOST'];
+    $url .= $_SERVER['REQUEST_URI'];
+    $user_id = (int) filter_var($url, FILTER_SANITIZE_NUMBER_INT);
+    return $user_id;
+}
+     $user_id = urlFetcher();
+     $sql = "SELECT * from `user`";
+     $res = mysqli_query($conn,$sql);
+     if($res){
+         while($row = $res->fetch_assoc()){
+            if($row['id'] == $user_id){
+              $user_to = $row['userNameReg'];
+              echo '<script>
+                         alert("'.$user_to.'")
+                    </script>';
+            }
+         }
+     }else{
+          echo"<div class='text-danger' >
+                 No User Found
+              </div>";
+     }
+
+//    $requestUpdation = $_POST['requestUpdation'];
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,15 +80,35 @@
         include './Components/Header.php';
         include './Components/NavbarResponsive.php';
      ?>
-    <form action="" class='container d-flex justify-content-center align-items-center bg-dark' id="editRequestForm" >
-        <label for="descriptionUpdate">
-            <textarea type="text" name="descriptionUpdate" placeholder="please Update Description here">
-            </textarea>
+    <form action="" method="post" class='container d-flex justify-content-center align-items-center bg-dark text-white' id="editRequestForm" >
+        <h5>
+            Update your Request to 
+        </h5>
+        <label for="descriptionUpdate" class="container-fluid" >
+            <small class="">
+                Choose Blood Group for Updation
+            </small>
+            <select class="container py-2 px-2" required>
+                 <option Value="A+">A +ve</option>
+                 <option Value="A-">A -ve</option>
+                 <option Value="B+">B +ve</option>
+                 <option Value="B-">B -ve</option>
+                 <option Value="O+">O +ve</option>
+                 <option Value="O-">O -ve</option>
+                 <option Value="AB+">AB +ve</option>
+                 <option Value="AB-">AB -ve</option>
+            </select>
         </label>
-        <label for="descriptionUpdate">
-            <textarea type="text" name="descriptionUpdate" placeholder="please Update Description here">
-            </textarea>
+        <label for="descriptionUpdate" class="container-fluid mt-1">
+            <small class="">
+                Write your new description here
+            </small>
+            <input type="text" class="container py-2" name="descriptionUpdate" placeholder="please Update Description here" required>
+            </input>
         </label>
+        <div class="container-fluid d-flex justify-content-end align-items-center mt-1">
+              <input type="submit" class="py-2 col-sm-2" name="requestUpdation" value="Update">
+        </div>
 
     </form>
 </body>

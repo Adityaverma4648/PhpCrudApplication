@@ -27,7 +27,7 @@
     if (isset($_SESSION['userName'])) {
       echo '<div class="col-lg-3 col-sm-3 d-flex justify-content-center align-items-center><div class="dropdown">
                       <button type="button" class="btn btn-outline-info dropdown-toggle rounded-0 " data-bs-toggle="dropdown">
-                            ' . $_SESSION['userName'] . '
+                            ' . $_SESSION['userName'][0] . '
                        </button>
                        <ul class="dropdown-menu bg-dark">
                             <li><a class="dropdown-item text-info border-bottom border-info" href="Profile.php">

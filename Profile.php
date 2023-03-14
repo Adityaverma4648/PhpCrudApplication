@@ -14,18 +14,7 @@ if ($res) {
 }
 
 
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    if (isset($POST['savingUpdation'])) {
-        $userNameUpdation = $_POST['userNameUpdation'];
-        $userEmailUpdation = $_POST['userEmailUpdation'];
 
-        $current_user = $_SESSION['userName'];
-        $sql = "UPDATE `user` SET userNameReg = $userNameUpdation , emailReg $userEmailUpdation WHERE userNameReg = $current_user";
-        $res = mysqli_query($conn, $sql) or die("conn error");
-        if ($res) {
-        }
-    }
-}
 
 ?>
 
@@ -109,13 +98,35 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             </div>
         </div>
         <div class=" col-sm-10 d-flex flex-column justify-content-end" id="fetchBlockHere">
+        <?php
+           if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            if (isset($_POST['savingUpdation'])) {
+                $userNameUpdation = $_POST['userNameUpdation'];
+                $userEmailUpdation = $_POST['userEmailUpdation'];
+                $profilePicture = $_POST['profilePicture'];
+                $current_user = $_SESSION['userName'];
+                $sql = "UPDATE `user` SET userNameReg = $userNameUpdation , emailReg =  $userEmailUpdation, profilePicture = $profilePicture WHERE userNameReg = $current_user";
+                $res = mysqli_query($conn, $sql);
+                if ($res) {
+                    echo "<script>
+                            alert('SuccessFully Updated');
+                          </script>";
+                }else{
+                    echo "error";
+                }
+            }
+        }
+        ?>
         </div>
+       
+
     </section>
+   
     <script>
         function editProfile() {
             var content = `<div class="fetchedBlock container text-white">
                             <form method = "post" >
-                                 <div>
+                                 <div class="text-info h5 font-weight-bold mb-2" >
                                      <?php
                                         echo $_SESSION["userName"];
                                         ?>
@@ -124,11 +135,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                       <h5 class="text-danger">
                                          Name
                                       </h5>
-                                     <input class="py-2 px-1" name="userNameUpdation" placeholder="<?php echo $userName ?>"></input>
+                                     <input type="text" class="py-2 px-1" name="userNameUpdation" placeholder="<?php echo $userName ?>" required></input>
                                      <small>
                                           Help people discover your account by using the name you're known by: either your full name, nickname, or business name.
-                                          <br>
-                                          You can only change your name twice within 14 days.
                                      </small>
 
                                  </div>
@@ -136,15 +145,23 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                       <h5 class="text-danger">
                                          Email
                                       </h5>
-                                     <input class="py-2 px-1" name="userEmailUpdation" placeholder="<?php echo $userEmail ?>"></input>
+                                     <input type="email" class="py-2 px-1" name="userEmailUpdation" placeholder="<?php echo $userEmail ?>" required></input>
                                      <small>
                                           Help people discover your account by using the name you're known by: either your full name, nickname, or business name.
-                                          <br>
-                                          You can only change your name twice within 14 days.
                                      </small>
-
                                  </div>
-                                 <input class="my-1 bg-success px-1 py-2 border-0 text-white" type="submit" value="Save Changes" name="savingUpdation"></input>
+                                 <div class="d-flex flex-column">
+                                      <h5 class="text-danger">
+                                         Profile Picture
+                                      </h5>
+                                     <input type="text" class="py-2 px-1" name="profilePicture" placeholder="Eg: https://myPic.com"></input>
+                                     <small>
+                                          Add Some Avatar Makes It Easier For People To Identify You! 
+                                     </small>
+                                 </div>
+                                 <div class="container d-flex justify-content-end align-items-center">
+                                 <input class="my-1 bg-success px-1 py-2 border-0 text-white" type="submit" value="Save Changes" name="savingUpdation"></input> 
+                                 </div>
                             </form>     
                            </div>`;
             return content;
@@ -152,7 +169,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         function changePassword() {
             var content = `<div class="fetchedBlock container text-white">
-                            <form method = "POST" >
+                            <form method = "post" >
                                  <div>
                                      <?php
                                         echo $_SESSION["userName"];
@@ -164,9 +181,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                          Old Password
                                       </h5>
                                       <div class="container-fluid">
-                                         <input class="py-2 px-1 col-sm-11" name="userNameUpdation" placeholder="<?php echo "Previous Password : ";
+                                         <input class="py-2 px-1 col-sm-11" name="oldPassword" placeholder="<?php echo "Previous Password : ";
                                                                                                                     echo md5($passwordReg); ?>"></input>
-                                         <button type="button" class="border-0 px-2 py-2">
+                                         <button type="button" class="border-0 px-2 py-2" onclick="passwordToggle(event)">
                                              <i class="fa fa-eye"></i>
                                          </button>
 
@@ -177,8 +194,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                          New Password
                                       </h5>
                                      <div class="container-fluid">
-                                         <input class="py-2 px-1 col-sm-11" name="userNameUpdation" placeholder="<?php echo "New Password : "; ?>"></input>
-                                         <button type="button" class="border-0 px-2 py-2">
+                                         <input class="py-2 px-1 col-sm-11" name="newPassword" placeholder="<?php echo "New Password : "; ?>"></input>
+                                         <button type="button" class="border-0 px-2 py-2" onclick="passwordToggle(event)">
                                              <i class="fa fa-eye"></i>
                                          </button>
                                       </div>
@@ -187,14 +204,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                          Confirm New Password
                                       </h5>
                                      <div class="container-fluid">
-                                         <input class="py-2 px-1 col-sm-11" name="userNameUpdation" placeholder="<?php echo "Confirm New Password :"; ?>"></input>
-                                         <button type="button" class="border-0 px-2 py-2">
+                                         <input class="py-2 px-1 col-sm-11" name="confirmNewPassword" placeholder="<?php echo "Confirm New Password :"; ?>"></input>
+                                         <button type="button" class="border-0 px-2 py-2" onclick="passwordToggle(event)">
                                              <i class="fa fa-eye"></i>
                                          </button>
-
                                       </div>
                                  </div>
-                                 <div class="py-2 col-sm-2 d-flex justify-content-center align-items-center">
+                                 <div class="container py-2 d-flex justify-content-end align-items-center">
                                  <input class="my-1 bg-success px-1 py-2 border-0 text-white" type="submit" value="Save Changes" name="changePasswordBtn"></input>                                 
                                  </div>
 
@@ -204,7 +220,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         }
 
         function loginActivity() {
-            var content = `<div class="container-fluid">
+            var content = `<div class="container-fluid table-responsive loginActivity" style="over-flow : scroll;height:80vh;">
                            <table class="table table-striped table-bordered table-light">
                               <thead>
                                      <tr class="table-danger">
@@ -215,7 +231,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                               </thead>
                               <tbody>
                                  <?php
-
                                     $sql = "SELECT * from `login`";
                                     $res = mysqli_query($conn, $sql);
                                     if ($res) {
@@ -242,42 +257,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 mybody = editProfile();
             } else if (myId === "") {
                 mybody = editProfile();
-            } else if (myId === undefined) {
-                mybody = editProfile();
             } else if (myId === "changePassword") {
                 mybody = changePassword();
             } else if (myId === "loginActivity") {
                 mybody = loginActivity();
-
             }
 
             fetchBlockHere.innerHTML = mybody;
         }
         fetchProfileBlocks("");
+
+        function passwordToggle(event){
+            event.target.innerHTML = "";
+            var content = `<i class="fa fa-heart"></i>`;
+            event.target.innerHTML = content;
+        }
     </script>
-    <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $userNameUpdation = $_POST['userNameUpdation'];
-        $userEmailUpdation = $_POST['userEmailUpdation'];
-        if (isset($savingUpdationEditProfile)) {
-            if ($userNameUpdation && $userEmailUpdation) {
-
-                $sql = "UPDATE `user` SET userNameReg = $userNameUpdation,$userEmailUpdation";
-                $res = mysqli_query($conn, $sql);
-                if ($res)
-                    echo "<script>alert('Updated')</script>";
-                else
-                    echo "CouldNot Update !";
-            }
-        }
-        if (isset($changePasswordBtn)) {
-            $previousPassword = $passwordReg;
-        }
-    }
-
-
-    ?>
-
 </body>
 
 </html>

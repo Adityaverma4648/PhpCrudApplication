@@ -166,7 +166,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             </div>
 
-            <div class="container mt-1 d-flex justify-content-center align-items-center py-2" style="box-shadow:10px 10px 20px rgba(0,0,0,0.2);height:45vh">
+            <div class="container mt-1 d-flex justify-content-center align-items-center py-2" style="box-shadow:10px 10px 20px rgba(0,0,0,0.2),-5px -5px 20px rgba(0,0,128,0.3);height:45vh">
                 <?php
                 $user_id = urlfetcher();
                 if (isset($_SESSION['userName'])) {
@@ -208,7 +208,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </form>';
                     } else if ($user_id == 0) {
                         echo "<div class='text-secondary h5' >
-                                 No Request Made Yet!
+                                 No One Selected To Make A Request Yet!
                              </div>";
                     }
                 } else {

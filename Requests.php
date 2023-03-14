@@ -16,20 +16,18 @@ function urlfetcher()
     return $user_id;
 }
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-$user_to = "";
+
 $user_id = urlfetcher();
-$sql1 = "SELECT userNameReg from `user` WHERE id= $user_id";
+$sql1 = "SELECT userNameReg from `user` WHERE id= ".$user_id."";
 $res1 = mysqli_query($conn, $sql1);
 if ($res1) {
     while ($row = $res1->fetch_assoc()) {
-        $GLOBALS['user_to'] = $row['userNameReg'];
+        $user_to = $row['userNameReg'];
     }
 }
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    $user_to = $GLOBALS['user_to'];
+    $user_to = $user_to;
     $user_from = $_SESSION['userName'];
     $description = $_POST["description"];
     $reqBlood =  $_POST["reqBlood"];
@@ -37,24 +35,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (isset($_POST['requestBtn'])) {
 
-        $query = "SELECT * FROM `requests`";
+        $query = "SELECT * FROM `requests` WHERE (user_to = '$user_to' or user_from = '$user_from')";
         $result = mysqli_query($conn, $query);
-        if ($result) {
-            while ($rows = $result->fetch_assoc()) {
-
-                if ($rows['user_to'] != $user_to && $rows['user_from'] != $user_from) {
+        if (mysqli_num_rows($result) > 0) {
+            // $rows = mysqli_fetch_assoc($res);
+                echo '<script>alert("Requested Already Exists *")</script>';
+        }
+        else{   
                     $sql1 = "INSERT INTO `requests`(user_to,user_from,description,reqBlood,req_date) VALUES('$user_to','$user_from','$description','$reqBlood','$req_date') ";
-                    $res1 = mysqli_query($conn, $sql1);
-                    if ($res1) {
-                        echo '<script>alert("Requested Successfully *")</script>';
+                        $res1 = mysqli_query($conn, $sql1);
+                        if ($res1) {
+                            echo '<script>alert("Requested Successfully *")</script>';
                     }
-                } else {
-                    echo '<script>alert("Request Already Exists !")</script>';
                 }
             }
         }
-    }
-}
+
 ?>
 
 
@@ -92,16 +88,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <section class="d-flex flex-column justify-content-center align-items-center bg-light" style="width:100vw;height:100vh" id="reqCont">
         <div class="container">
             <div class="container bg-info py-4">
-
                 <?php
                 if (isset($_SESSION['userName'])) {
-                    echo 'The Following is the list of requests made by';
-                    echo $_SESSION['userName'];
+                    echo 'The Following is the list of requests made by ';
+                    echo "<strong>".$_SESSION['userName']."</strong>";
                 } else {
                     echo "<center class='attentionGrabberClass bg-transparent border-0'>User Not Logged In</center>";
                 }
                 ?>
             </div>
+            <div class="table-responsive" >
             <table class="table table-light border-dark table-bordered table-striped">
                 <thead>
                     <tr class="table-dark text-primary">
@@ -123,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </td>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody  >
                     <?php
                     if (isset($_SESSION['userName'])) {
                         $sql = "SELECT * from `requests`";
@@ -133,18 +129,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                 if ($row['user_from'] == $_SESSION['userName']) {
 
-                                    echo "<tr class='table-active'>
+                                    echo "<tr class='table-active' style='over-flow:scroll'>
                                 <td>" . $row['user_to'] . "</td>
                                 <td>" . $row['description'] . "</td>
                                 <td>" . $row['reqBlood'] . "</td>
                                 <td>" . $row['req_date'] . "</td> 
-                                <td class='button-group'>
-                                        <a href='editRequests.php?" . $row['id'] . "' id='getForm' class='p-3 bg-warning rounded-5 text-decoration-none text-dark text-center' onClick='getRequestModal(" . $row['id'] . ")' data-bs-toggle='tooltip' data-bs-placement='bottom' title='Edit Requests!' >
+                                <td class='button-group d-flex justify-content-center align-items-center'>
+                                        <a href='editRequests.php?" . $row['id'] . "' id='getForm' class='p-3 rounded-5 text-decoration-none text-dark text-center' data-bs-toggle='tooltip' data-bs-placement='bottom' title='Edit Requests!' >
                                                 <i class='fa fa-edit '></i>
                                         </a>
-                                        <button type='button' id='getForm' class='border-0 bg-danger rounded-5' onClick='deleteEntry()' data-bs-toggle='tooltip' data-bs-placement='bottom' title='Delete Requests!'>
-                                                <i class='fa fa-trash p-3'></i>
-                                        </button>
+                                        <a href='deleteRequests.php?" . $row['id'] . "' class='p-3  rounded-5 text-decoration-none text-danger text-center' data-bs-toggle='tooltip' data-bs-placement='bottom' title='Delete Requests!' >
+                                                <i class='fa fa-trash '></i>
+                                        </a>
                                 </td>
                                 </tr>";
                                 }
@@ -156,6 +152,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     ?>
                 </tbody>
             </table>
+            </div>
 
             <div class="mt-2 px-3 bg-success py-3 h5 text-white d-flex">
                 Getting Current Request Data
@@ -178,7 +175,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </strong>
                         <span class="text-secondary">
                             Are you trying to make a request to
-                            ' . $user_to . '
+                                
                             for blood sample,please fill in all required data!
                         </span>
                     </div>
@@ -201,14 +198,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <strong>
                             Enter some small description
                         </strong>
-                        <textarea type="text" placeholder="Enter description" name="description" class="py-1" style="height:10vh" required></textarea>
+                        <textarea type="text" placeholder="Enter description" name="description" class="px-2 py-1" style="height:10vh" required></textarea>
                     </label>
 
                     <input type="submit" name="requestBtn" class="btn btn-success" value="Make Request">
                 </form>';
                     } else if ($user_id == 0) {
-                        echo "<div class='text-secondary h5' >
+                        echo "<div class='text-secondary d-flex flex-column h5' >
                                  No One Selected To Make A Request Yet!
+                                 <small class='text-danger text-center my-2' style='font-size:15px'>Head back to Home Page to make a request! **</small>
                              </div>";
                     }
                 } else {

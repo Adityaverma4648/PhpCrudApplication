@@ -2,37 +2,44 @@
    include "./config/conn.php";
    include "./config/session.php";
 
-   function urlFetcher()
-{
-    if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
-        $url = "https://";
-    } else {
-        $url = "http://";
-    }
-    $url .= $_SERVER['HTTP_HOST'];
-    $url .= $_SERVER['REQUEST_URI'];
-    $user_id = (int) filter_var($url, FILTER_SANITIZE_NUMBER_INT);
-    return $user_id;
-}
-     $user_id = urlFetcher();
-     $sql = "SELECT * from `user`";
-     $res = mysqli_query($conn,$sql);
-     if($res){
-         while($row = $res->fetch_assoc()){
-            if($row['id'] == $user_id){
-              $user_to = $row['userNameReg'];
-              echo '<script>
-                         alert("'.$user_to.'")
-                    </script>';
+//    function urlFetcher()
+// {
+//     if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
+//         $url = "https://";
+//     } else {
+//         $url = "http://";
+//     }
+//     $url .= $_SERVER['HTTP_HOST'];
+//     $url .= $_SERVER['REQUEST_URI'];
+//     $user_id = (int) filter_var($url, FILTER_SANITIZE_NUMBER_INT);
+//     return $user_id;
+// }    
+     if($_SERVER['REQUEST_METHOD']=="POST"){
+         if(isset($_POST['requestUpdation'])){   
+            
+            function urlFetcher()
+            {
+                if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
+                    $url = "https://";
+                } else {
+                    $url = "http://";
+                }
+                $url .= $_SERVER['HTTP_HOST'];
+                $url .= $_SERVER['REQUEST_URI'];
+                $user_id = (int) filter_var($url, FILTER_SANITIZE_NUMBER_INT);
+                return $user_id;
+            } 
+            $_id = urlFetcher();
+            echo "<script>alert('".$_id."')</script>";
+            $reqBlood = $_POST['reqBlood'];
+            $description = $_POST['description'];
+            $sql = 'UPDATE `requests` SET reqBlood = "'.$reqBlood.'" ,description = "'.$description.'" WHERE id = '.$_id.'';
+            $res = mysqli_query($conn,$sql);
+            if($res){
+               echo "<script>alert('Updation Successfull')</script>";
             }
          }
-     }else{
-          echo"<div class='text-danger' >
-                 No User Found
-              </div>";
      }
-
-//    $requestUpdation = $_POST['requestUpdation'];
 
 
 ?>
@@ -84,11 +91,11 @@
         <h5>
             Update your Request to 
         </h5>
-        <label for="descriptionUpdate" class="container-fluid" >
+        <label for="description" class="container-fluid" >
             <small class="">
                 Choose Blood Group for Updation
             </small>
-            <select class="container py-2 px-2" required>
+            <select class="container py-2 px-2" name="reqBlood" required>
                  <option Value="A+">A +ve</option>
                  <option Value="A-">A -ve</option>
                  <option Value="B+">B +ve</option>
@@ -99,11 +106,11 @@
                  <option Value="AB-">AB -ve</option>
             </select>
         </label>
-        <label for="descriptionUpdate" class="container-fluid mt-1">
+        <label for="description" class="container-fluid mt-1">
             <small class="">
                 Write your new description here
             </small>
-            <input type="text" class="container py-2" name="descriptionUpdate" placeholder="please Update Description here" required>
+            <input type="text" class="container py-2" name="description" placeholder="please Update Description here" required>
             </input>
         </label>
         <div class="container-fluid d-flex justify-content-end align-items-center mt-1">

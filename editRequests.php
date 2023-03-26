@@ -1,19 +1,7 @@
 <?php
    include "./config/conn.php";
    include "./config/session.php";
-
-//    function urlFetcher()
-// {
-//     if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
-//         $url = "https://";
-//     } else {
-//         $url = "http://";
-//     }
-//     $url .= $_SERVER['HTTP_HOST'];
-//     $url .= $_SERVER['REQUEST_URI'];
-//     $user_id = (int) filter_var($url, FILTER_SANITIZE_NUMBER_INT);
-//     return $user_id;
-// }    
+   
      if($_SERVER['REQUEST_METHOD']=="POST"){
          if(isset($_POST['requestUpdation'])){   
             
@@ -30,13 +18,16 @@
                 return $user_id;
             } 
             $_id = urlFetcher();
-            echo "<script>alert('".$_id."')</script>";
+            echo "<script>alert('.$_id.')</script>";
             $reqBlood = $_POST['reqBlood'];
             $description = $_POST['description'];
             $sql = 'UPDATE `requests` SET reqBlood = "'.$reqBlood.'" ,description = "'.$description.'" WHERE id = '.$_id.'';
             $res = mysqli_query($conn,$sql);
             if($res){
                echo "<script>alert('Updation Successfull')</script>";
+               header("Location  :  requests.php");
+            }else{
+                echo "<script>alert('res was damaged')</script>";
             }
          }
      }
@@ -87,7 +78,7 @@
         include './Components/Header.php';
         include './Components/NavbarResponsive.php';
      ?>
-    <form action="" method="post" class='container d-flex justify-content-center align-items-center bg-dark text-white' id="editRequestForm" >
+    <form method="post" class='container d-flex justify-content-center align-items-center bg-dark text-white' id="editRequestForm" >
         <h5>
             Update your Request to 
         </h5>

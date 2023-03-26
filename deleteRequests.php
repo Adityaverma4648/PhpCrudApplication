@@ -56,12 +56,12 @@
     include "./Components/Header.php";
  ?>
 <body class="container-fluid d-flex justify-content-center align-items-center" style="height:100vh;">
-    <form method="post" class="d-flex justify-content-center align-items-center border border-dark p-3">
+    <form method="post" class="d-flex justify-content-center align-items-center border border-dark p-3 bg-dark">
      <label for="DeleteConfirmation" class="container d-flex flex-column text-danger justify-content-center align-items-center" >
         <small>
             Are You confirm you want to delete this requests!
         </small>
-        <input type="submit" class="text-danger col-sm-12 my-4 py-2 px-2" value="Delete" style="font-weight:600" name="DeleteConfirmation" >
+        <input type="submit" class="bg-danger text-white border-0 col-sm-12 my-4 py-2 px-2" value="Delete" style="font-weight:600" name="DeleteConfirmation" >
           <small>
             Deletion is permanent and cannot be unDone!
           </small>

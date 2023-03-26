@@ -55,6 +55,11 @@ function userNameFetcher($conn){
 
         .fetchedBlock {
             height: 60vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
     </style>
 </head>
@@ -65,7 +70,7 @@ function userNameFetcher($conn){
     include "./Components/NavbarResponsive.php";
     ?>
     <section class="mt-5 container d-flex justify-content-center align-items-center bg-dark border border-secondary">
-        <div class="col-sm-2 d-flex flex-column justify-content-between align-items-center border-end border-secondary" style="height:80vh;">
+        <div class="col-sm-3 d-flex flex-column justify-content-between align-items-center border-end border-secondary" style="height:80vh;">
             <ul class="container-fluid d-flex flex-column justify-content-between align-items-center py-2" style="overflow:hidden">
                 <li class="container-fluid border-bottom border-secondary py-4">
                     <button type="button" class="bg-transparent border-0 py-2 text-light" onclick="fetchProfileBlocks('editProfile')">
@@ -119,7 +124,7 @@ function userNameFetcher($conn){
 
             </ul>
         </div>
-        <div class=" col-sm-10 d-flex flex-column justify-content-end" id="fetchBlockHere">
+        <div class=" col-sm-9 d-flex flex-column justify-content-end" id="fetchBlockHere">
         <?php
            if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if (isset($_POST['savingUpdation'])) {
@@ -157,7 +162,7 @@ function userNameFetcher($conn){
                                       <h5 class="text-danger">
                                          Name
                                       </h5>
-                                     <input type="text" class="py-2 px-1" name="userNameUpdation" placeholder="Chnage UserName" required></input>
+                                     <input type="text" class="py-2 px-1" name="userNameUpdation" placeholder="Change UserName" required></input>
                                      <small>
                                           Help people discover your account by using the name you're known by: either your full name, nickname, or business name.
                                      </small>
@@ -190,8 +195,8 @@ function userNameFetcher($conn){
         }
 
         function changePassword() {
-            var content = `<div class="fetchedBlock container text-white">
-                            <form method = "post" >
+            var content = `<div class="fetchedBlock container-fluid text-white"  >
+                            <form class="container-fluid"  method = "post" >
                                  <div class="h5 text-info my-2" >
                                      <?php
                                         echo userNameFetcher($conn);
@@ -241,8 +246,8 @@ function userNameFetcher($conn){
         }
 
         function loginActivity() {
-            var content = `<div class="container-fluid table-responsive loginActivity p-1" style="over-flow : scroll;height:80vh;">
-                           <table class="table table-striped table-bordered table-light">
+            var content = `<div class="fetchedBlock" style="over-flow : scroll;height:80vh;">
+                           <table class="table table-striped table-bordered table-light" style="width:90%">
                               <thead>
                                      <tr class="table-danger">
                                         <td><strong>UserName</strong></td> 
@@ -269,12 +274,16 @@ function userNameFetcher($conn){
         }
 
         function privacySecurity(){
-            var content = `<div class='d-flex justify-content-center align-items-center'><?php include'./Components/underConstruction.php' ?></div>`;
+            var content = `<div class='fetchedBlock d-flex justify-content-center align-items-center'><?php include'./Components/underConstruction.php' ?></div>`;
             return content;
         }
      
         function emailNotification(){
-            var content = `<div class='d-flex justify-content-center align-items-center'><?php include'./Components/underConstruction.php' ?></div>`;
+            var content = `<div class='fetchedBlock d-flex justify-content-center align-items-center'><?php include'./Components/underConstruction.php' ?></div>`;
+            return content;
+        }
+        function help(){
+            var content = `<div class='fetchedBlock d-flex justify-content-center align-items-center'><?php include'./Components/underConstruction.php' ?></div>`;
             return content;
         }
          
@@ -295,6 +304,8 @@ function userNameFetcher($conn){
                 mybody = privacySecurity();
             } else if (myId === "emailNotification") {
                 mybody = emailNotification();
+            } else if (myId === "help") {
+                mybody = help();
             }
 
             fetchBlockHere.innerHTML = mybody;
